@@ -612,6 +612,7 @@
         window.addEventListener('resize', handleSmartResize);
         let lastDrawnFrame = -1;
 
+        // --- MOTOR DE SCROLL RECALIBRADO (Tempos Curtos de Transição, Longos de Permanência) ---
         function updateStepOpacity(element, fraction, inStart, inEnd, outStart, outEnd) {
             let opacity = 0, ty = 80, blur = 15, scale = 0.95;
             
@@ -623,7 +624,8 @@
                 let easeP = 1 - Math.pow(1 - p, 4); 
                 opacity = p; 
                 ty = 80 * (1 - easeP);
-                blur = 15 * (1 - p);
+                // Acelera o sumiço do Blur para garantir legibilidade antecipada
+                blur = 15 * Math.pow((1 - p), 2);
                 scale = 0.95 + (0.05 * easeP);
             } 
             else if (fraction >= inEnd && fraction <= outStart) {
@@ -636,7 +638,7 @@
                 let easeP = p * p * p * p; 
                 opacity = 1 - p; 
                 ty = -20 - (60 * easeP); 
-                blur = 15 * p;
+                blur = 15 * Math.pow(p, 2);
                 scale = 1 + (0.05 * easeP);
             } 
             else { 
@@ -669,9 +671,15 @@
             canvas.style.transform = `translateZ(0) scale(${bgScale.toFixed(3)})`;
 
             if (document.body.classList.contains('loaded')) {
-                updateStepOpacity(step1, fraction, -0.10, 0.05, 0.20, 0.35);
-                updateStepOpacity(step2, fraction, 0.25, 0.40, 0.60, 0.75);
-                updateStepOpacity(step3, fraction, 0.65, 0.80, 0.95, 1.05);
+                // Tempos ajustados: Transições curtas (5%) e Permanência longa (25%+)
+                // step1: Entra instantaneamente, fica até 28%, sai rápido aos 33%
+                updateStepOpacity(step1, fraction, -0.10, 0.02, 0.28, 0.33);
+                
+                // step2: Entra rápido (33% a 38%), fica sólido (38% a 62%), sai rápido (62% a 67%)
+                updateStepOpacity(step2, fraction, 0.33, 0.38, 0.62, 0.67);
+                
+                // step3: Entra rápido (67% a 72%), fica sólido até o fim
+                updateStepOpacity(step3, fraction, 0.67, 0.72, 0.98, 1.05);
             }
             requestAnimationFrame(renderFluidLoop);
         }
