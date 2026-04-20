@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archetype | Cinematic Architectural Design</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style type="text/tailwindcss">
+        @theme {
+            --color-bronze-400: #c9a77c;
+            --color-bronze-500: #b08d57;
+            --color-bronze-600: #8b6e40;
+            --color-dark-800: #1a1a1a;
+            --color-dark-900: #0a0a0a;
+            --color-dark-950: #050505;
+            --color-sand: #e6d5c3;
+            
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-color: var(--color-dark-950);
+            color: var(--color-sand);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .editorial-border {
+            border: 1px solid rgba(176, 141, 87, 0.15);
+        }
+
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050505; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2a2a2a; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #b08d57; 
+        }
+
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body style="overflow:hidden;" class="font-sans">
+
+    <!-- LOADING SCREEN (MANDATORY) -->
+    <div id="loader" style="position:fixed;inset:0;background:linear-gradient(135deg,#0a0a0a,#1a1a1a);z-index:9999;display:flex;flex-direction:column;justify-content:center;align-items:center;transition:opacity 0.8s ease-out,visibility 0.8s;">
+        <div class="mb-6">
+            <i data-lucide="landmark" class="w-12 h-12 text-bronze-500 stroke-1"></i>
+        </div>
+        <h2 class="text-2xl font-serif text-sand mb-4 tracking-[0.3em] uppercase">Archetype</h2>
+        <div style="width:14rem;height:1px;background:rgba(230,213,195,0.1);overflow:hidden;position:relative;">
+            <div id="progress-bar" style="height:100%;background:#b08d57;transition:width 100ms ease-out;width:0%;position:absolute;left:0;top:0;"></div>
+        </div>
+        <p id="loading-text" class="text-bronze-500/70 mt-4 text-[10px] font-sans tracking-[0.2em] uppercase">Calculating Perspective 0%</p>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-6 px-8 flex justify-between items-center bg-transparent mix-blend-difference text-white">
+        <a href="#" class="font-serif text-xl tracking-[0.2em] uppercase">Archetype</a>
+        <div class="hidden md:flex gap-10 text-xs tracking-widest uppercase font-medium">
+            <a href="#philosophy" class="hover:text-bronze-400 transition-colors">Philosophy</a>
+            <a href="#works" class="hover:text-bronze-400 transition-colors">Selected Works</a>
+            <a href="#contact" class="hover:text-bronze-400 transition-colors">Contact</a>
+        </div>
+        <button class="md:hidden text-white">
+            <i data-lucide="menu" class="w-6 h-6 stroke-1"></i>
+        </button>
+    </nav>
+
+    <!-- SCROLL ANIMATION HERO SECTION (MANDATORY STRUCTURE) -->
+    <section id="scroll-hero" style="height:400vh;position:relative;" class="bg-dark-950">
+        <div style="position:sticky;top:0;height:100vh;width:100%;overflow:hidden;">
+            <!-- Canvas for Frame Animation -->
+            <canvas id="hero-canvas" style="position:absolute;inset:0;width:100%;height:100%;"></canvas>
+            
+            <!-- Overlay Gradient for mood and text readability -->
+            <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(5,5,5,1) 0%, transparent 30%, transparent 70%, rgba(5,5,5,0.4) 100%);z-index:1;"></div>
+            <div style="position:absolute;inset:0;background:radial-gradient(circle at center, transparent 40%, rgba(0,0,0,0.5) 100%);z-index:1;pointer-events:none;"></div>
+
+            <!-- Animated Text Content OVER Canvas -->
+            <div id="hero-text-container-1" style="position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;pointer-events:none;">
+                <p class="text-bronze-500 uppercase tracking-[0.4em] text-xs mb-6 font-medium">Immersive Architecture</p>
+                <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl text-white tracking-tight leading-none px-4">
+                    Symmetry <span class="text-bronze-500/80 italic">&</span> Light
+                </h1>
+            </div>
+
+            <div id="hero-text-container-2" style="position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;pointer-events:none;opacity:0;">
+                <h2 class="font-serif text-4xl md:text-6xl text-white italic px-4 max-w-4xl leading-tight drop-shadow-lg">
+                    Discovering depth in<br>minimal environments.
+                </h2>
+            </div>
+            
+            <!-- Scroll Indicator -->
+            <div id="scroll-indicator" class="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 opacity-100 transition-opacity duration-500">
+                <span class="text-[9px] tracking-[0.3em] uppercase text-sand/60">Scroll</span>
+                <div class="w-[1px] h-12 bg-white/20 overflow-hidden">
+                    <div class="w-full h-1/2 bg-bronze-500 animate-[translateY_2s_ease-in-out_infinite]"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content Sections -->
+    <main class="relative z-10 bg-dark-950">
+        
+        <!-- Philosophy Section -->
+        <section id="philosophy" class="py-32 md:py-48 px-8 md:px-16 max-w-screen-2xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8 items-center">
+                <div class="lg:col-span-5 fade-in-element">
+                    <p class="text-bronze-500 uppercase tracking-[0.3em] text-xs mb-8">The Philosophy</p>
+                    <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl text-white leading-tight mb-8">
+                        Architecture as a cinematic experience.
+                    </h2>
+                    <a href="#" class="inline-flex items-center gap-4 text-xs uppercase tracking-widest text-sand hover:text-bronze-400 transition-colors group">
+                        Read our manifesto
+                        <span class="w-8 h-[1px] bg-bronze-500 group-hover:w-12 transition-all duration-300"></span>
+                    </a>
+                </div>
+                <div class="lg:col-span-1"></div>
+                <div class="lg:col-span-6 text-sand/70 font-light leading-relaxed space-y-6 fade-in-element" style="transition-delay: 200ms;">
+                    <p class="text-lg">
+                        We believe that space should not merely contain life, but elevate it. By manipulating warm tones, soft shadows, and rigorous symmetrical geometry, we craft environments that feel like a continuous tracking shot through a masterpiece.
+                    </p>
+                    <p>
+                        Our approach strips away the non-essential, leaving only the profound impact of perspective and leading lines. The resulting spaces are dark, moody, yet infinitely inviting—an editorial interpretation of modern luxury living.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Aesthetic Pillars -->
+        <section class="py-24 border-y border-white/5 bg-dark-900">
+            <div class="max-w-screen-2xl mx-auto px-8 md:px-16">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-8 divide-y md:divide-y-0 md:divide-x divide-white/10">
+                    <div class="flex flex-col items-center text-center md:px-8 fade-in-element">
+                        <i data-lucide="sun-dim" class="w-10 h-10 text-bronze-500 mb-6 stroke-1"></i>
+                        <h3 class="font-serif text-xl text-white mb-4">Warm Golden Lighting</h3>
+                        <p class="text-sm text-sand/60 font-light leading-relaxed">Carefully calibrated illumination that brings rich textures to life, creating dramatic yet soft contrasts.</p>
+                    </div>
+                    <div class="flex flex-col items-center text-center md:px-8 py-16 md:py-0 fade-in-element" style="transition-delay: 150ms;">
+                        <i data-lucide="focus" class="w-10 h-10 text-bronze-500 mb-6 stroke-1"></i>
+                        <h3 class="font-serif text-xl text-white mb-4">Symmetrical Perspective</h3>
+                        <p class="text-sm text-sand/60 font-light leading-relaxed">Mathematical precision in structural layout guides the eye and creates a profound sense of architectural harmony.</p>
+                    </div>
+                    <div class="flex flex-col items-center text-center md:px-8 pt-16 md:pt-0 fade-in-element" style="transition-delay: 300ms;">
+                        <i data-lucide="minimize" class="w-10 h-10 text-bronze-500 mb-6 stroke-1"></i>
+                        <h3 class="font-serif text-xl text-white mb-4">Minimal Environment</h3>
+                        <p class="text-sm text-sand/60 font-light leading-relaxed">Embracing empty space as a structural element. No clutter, allowing the architecture itself to speak.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Selected Works (Editorial Grid) -->
+        <section id="works" class="py-32 md:py-48 px-8 md:px-16 max-w-screen-2xl mx-auto">
+            <div class="flex justify-between items-end mb-16 fade-in-element">
+                <h2 class="font-serif text-4xl md:text-5xl text-white">Selected<br><span class="italic text-bronze-500">Works</span></h2>
+                <a href="#" class="hidden md:inline-block text-xs uppercase tracking-widest hover:text-bronze-400 transition-colors border-b border-bronze-500/30 pb-1">View Archives</a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">
+                <!-- Project 1 -->
+                <div class="group cursor-pointer fade-in-element">
+                    <div class="overflow-hidden mb-6 editorial-border relative aspect-[4/5] bg-dark-800">
+                        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Mansion Interior" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 opacity-80 group-hover:opacity-100 grayscale-[30%] group-hover:grayscale-0" loading="lazy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-950 via-transparent to-transparent opacity-60"></div>
+                    </div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="font-serif text-2xl text-white mb-2 group-hover:text-bronze-400 transition-colors">The Monolith</h3>
+                            <p class="text-xs text-sand/50 tracking-widest uppercase">Private Residence</p>
+                        </div>
+                        <span class="text-bronze-500 text-sm font-serif italic">01</span>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="group cursor-pointer md:mt-32 fade-in-element">
+                    <div class="overflow-hidden mb-6 editorial-border relative aspect-[3/4] bg-dark-800">
+                        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Modern Architecture" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 opacity-80 group-hover:opacity-100 grayscale-[30%] group-hover:grayscale-0" loading="lazy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-950 via-transparent to-transparent opacity-60"></div>
+                    </div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="font-serif text-2xl text-white mb-2 group-hover:text-bronze-400 transition-colors">Echo Chamber</h3>
+                            <p class="text-xs text-sand/50 tracking-widest uppercase">Cultural Space</p>
+                        </div>
+                        <span class="text-bronze-500 text-sm font-serif italic">02</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-16 text-center md:hidden">
+                <a href="#" class="inline-block text-xs uppercase tracking-widest text-bronze-500 border border-bronze-500/30 px-8 py-4 hover:bg-bronze-500 hover:text-dark-950 transition-colors">View All Projects</a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-[#020202] pt-32 pb-12 px-8 md:px-16 border-t border-white/5 relative z-10">
+        <div class="max-w-screen-2xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-24">
+                <div class="lg:col-span-2">
+                    <h2 class="font-serif text-3xl md:text-4xl text-white mb-8">Discuss a commission.</h2>
+                    <a href="mailto:studio@archetype.design" class="text-xl md:text-2xl text-bronze-500 hover:text-white transition-colors border-b border-bronze-500/30 pb-2 inline-block">studio@archetype.design</a>
+                </div>
+                
+                <div>
+                    <h4 class="text-xs uppercase tracking-widest text-sand/50 mb-6">Studios</h4>
+                    <ul class="space-y-4 text-sm font-light">
+                        <li>London</li>
+                        <li>New York</li>
+                        <li>Milan</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-xs uppercase tracking-widest text-sand/50 mb-6">Social</h4>
+                    <ul class="space-y-4 text-sm font-light">
+                        <li><a href="#" class="hover:text-bronze-400 transition-colors">Instagram</a></li>
+                        <li><a href="#" class="hover:text-bronze-400 transition-colors">Pinterest</a></li>
+                        <li><a href="#" class="hover:text-bronze-400 transition-colors">LinkedIn</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/10 text-xs text-sand/40 uppercase tracking-widest">
+                <p>&copy; 2024 Archetype Architecture.</p>
+                <p class="mt-4 md:mt-0">Design & Perspective</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Init Lucide Icons
+        function initLucide(){
+            if(window.lucide){
+                lucide.createIcons();
+            } else {
+                setTimeout(initLucide, 200);
+            }
+        }
+        initLucide();
+
+        // Simple Intersection Observer for fade-in elements
+        document.addEventListener("DOMContentLoaded", () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        entry.target.classList.remove('translate-y-5', 'opacity-0');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-in-element').forEach((el) => {
+                el.classList.add('opacity-0', 'translate-y-5', 'transition-all', 'duration-1000', 'ease-out');
+                observer.observe(el);
+            });
+        });
+
+        // ==========================================
+        // SCROLL ANIMATION IMPLEMENTATION (MANDATORY)
+        // ==========================================
+        
+        const frameCount = 100;
+        const images = [];
+        let loadedImages = 0;
+        const baseUrl = "https://buildix-user-images.s3.us-east-2.amazonaws.com/scroll-animations/temp-1776702035770/535276bb-bb30-483d-964b-d42caab7f650/frame_";
+        
+        const loaderEl = document.getElementById('loader');
+        const progressBar = document.getElementById('progress-bar');
+        const loadingText = document.getElementById('loading-text');
+        
+        const canvas = document.getElementById('hero-canvas');
+        const context = canvas.getContext('2d', { alpha: false }); // Optimize performance
+        
+        // Animated text elements
+        const textContainer1 = document.getElementById('hero-text-container-1');
+        const textContainer2 = document.getElementById('hero-text-container-2');
+        const scrollIndicator = document.getElementById('scroll-indicator');
+
+        // 1. Preload frames
+        for (let i = 1; i <= frameCount; i++) {
+            const img = new Image();
+            img.crossOrigin = "anonymous";
+            
+            // Format number to 0001
+            const frameNumber = String(i).padStart(4, '0');
+            img.src = `${baseUrl}${frameNumber}.jpg`;
+            
+            img.onload = () => {
+                loadedImages++;
+                
+                // Calculate and update progress
+                const percent = Math.floor((loadedImages / frameCount) * 100);
+                progressBar.style.width = `${percent}%`;
+                loadingText.innerText = `Calculating Perspective ${percent}%`;
+                
+                // Draw very first frame immediately if it's the first one loaded to avoid black flash
+                if (loadedImages === 1 && i === 1) {
+                    resizeCanvas();
+                    drawCover(img);
+                }
+
+                // When ALL frames loaded
+                if (loadedImages === frameCount) {
+                    setTimeout(() => {
+                        loaderEl.style.opacity = '0';
+                        loaderEl.style.visibility = 'hidden';
+                        document.body.style.overflowY = 'auto'; // Enable scrolling
+                        
+                        // Ensure first frame is drawn perfectly on load completion
+                        resizeCanvas();
+                        drawCover(images[0]);
+                    }, 500); // Small delay for aesthetic purposes
+                }
+            };
+            
+            img.onerror = () => {
+                console.error(`Failed to load frame ${i}`);
+                loadedImages++; // increment anyway to not block the site
+                if (loadedImages === frameCount) {
+                    loaderEl.style.opacity = '0';
+                    loaderEl.style.visibility = 'hidden';
+                    document.body.style.overflowY = 'auto';
+                }
+            }
+            
+            images.push(img);
+        }
+
+        // 2. Canvas resize handler
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            // Redraw current frame based on scroll position
+            const heroEl = document.getElementById("scroll-hero");
+            const maxScroll = heroEl.offsetHeight - window.innerHeight;
+            let fraction = window.scrollY / maxScroll;
+            fraction = Math.max(0, Math.min(1, fraction));
+            
+            let frameIndex = Math.floor(fraction * (frameCount - 1));
+            // Failsafe in case resize happens before images load fully
+            if(images[frameIndex] && images[frameIndex].complete) {
+                 drawCover(images[frameIndex]);
+            }
+        }
+        
+        window.addEventListener('resize', resizeCanvas);
+
+        // 3. Draw function with COVER sizing
+        function drawCover(img) {
+            if (!img || !img.width) return;
+            
+            const canvasRatio = canvas.width / canvas.height;
+            const imgRatio = img.width / img.height;
+            
+            let renderWidth, renderHeight, offsetX = 0, offsetY = 0;
+
+            if (canvasRatio > imgRatio) {
+                // Canvas is wider than image aspect ratio
+                renderWidth = canvas.width;
+                renderHeight = img.height * (canvas.width / img.width);
+                offsetY = (canvas.height - renderHeight) / 2;
+            } else {
+                // Image is wider than canvas aspect ratio
+                renderHeight = canvas.height;
+                renderWidth = img.width * (canvas.height / img.height);
+                offsetX = (canvas.width - renderWidth) / 2;
+            }
+
+            // Clear canvas not strictly necessary if image covers it entirely without alpha, 
+            // but good practice if sizes might float slightly
+            context.fillRect(0, 0, canvas.width, canvas.height); 
+            context.drawImage(img, offsetX, offsetY, renderWidth, renderHeight);
+        }
+
+        // 4 & 5. Scroll handler + Text Animation (CRITICAL)
+        let ticking = false;
+
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    handleScrollAnimation();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        function handleScrollAnimation() {
+            const heroEl = document.getElementById("scroll-hero");
+            
+            // Calculate scroll fraction relative to hero section
+            const maxScroll = heroEl.offsetHeight - window.innerHeight;
+            let fraction = window.scrollY / maxScroll;
+            
+            // Clamp fraction between 0 and 1
+            fraction = Math.max(0, Math.min(1, fraction));
+
+            // Determine current frame index
+            const frameIndex = Math.min(frameCount - 1, Math.floor(fraction * (frameCount - 1)));
+            
+            // Draw frame
+            if(images[frameIndex] && images[frameIndex].complete) {
+                drawCover(images[frameIndex]);
+            }
+
+            // --- TEXT ANIMATION LOGIC ---
+            
+            // Hide scroll indicator early
+            if (fraction > 0.05) {
+                scrollIndicator.style.opacity = '0';
+            } else {
+                scrollIndicator.style.opacity = '1';
+            }
+
+            // Text 1: "Symmetry & Light"
+            // Fades out and translates up quickly (0.0 to 0.25)
+            if (fraction <= 0.3) {
+                let text1Op = 1 - (fraction / 0.25);
+                text1Op = Math.max(0, text1Op);
+                
+                // Scale up slightly to match the forward motion of the video
+                let text1Scale = 1 + (fraction * 1.5); 
+                let text1Y = fraction * -150; // Move up
+                
+                textContainer1.style.opacity = text1Op;
+                textContainer1.style.transform = `translateY(${text1Y}px) scale(${text1Scale})`;
+                textContainer1.style.visibility = text1Op > 0 ? 'visible' : 'hidden';
+            } else {
+                textContainer1.style.opacity = 0;
+                textContainer1.style.visibility = 'hidden';
+            }
+
+            // Text 2: "Discovering depth..."
+            // Fades in middle (0.4 to 0.6), holds, fades out end (0.8 to 1.0)
+            if (fraction > 0.3) {
+                let text2Op = 0;
+                let text2Scale = 0.9;
+                let text2Y = 50; // Start slightly lower
+
+                if (fraction > 0.35 && fraction <= 0.6) {
+                    // Fading in
+                    const localProgress = (fraction - 0.35) / 0.25;
+                    text2Op = localProgress;
+                    text2Scale = 0.9 + (localProgress * 0.1); // Scale up to 1
+                    text2Y = 50 * (1 - localProgress); // Move to 0
+                } 
+                else if (fraction > 0.6 && fraction <= 0.75) {
+                    // Holding full opacity, slight continuous scale
+                    text2Op = 1;
+                    const holdProgress = (fraction - 0.6) / 0.15;
+                    text2Scale = 1 + (holdProgress * 0.05); // Scale slightly past 1
+                    text2Y = 0;
+                }
+                else if (fraction > 0.75) {
+                    // Fading out
+                    const fadeOutProgress = (fraction - 0.75) / 0.25;
+                    text2Op = 1 - fadeOutProgress;
+                    text2Scale = 1.05 + (fadeOutProgress * 0.1);
+                    text2Y = -(fadeOutProgress * 100); // Move up while fading out
+                }
+
+                textContainer2.style.opacity = Math.max(0, Math.min(1, text2Op));
+                textContainer2.style.transform = `translateY(${text2Y}px) scale(${text2Scale})`;
+                textContainer2.style.visibility = text2Op > 0 ? 'visible' : 'hidden';
+            } else {
+                textContainer2.style.opacity = 0;
+                textContainer2.style.visibility = 'hidden';
+            }
+        }
+    </script>
+
+<!-- Buildix Badge -->
+<a href="https://buildix.app" target="_blank" rel="noopener noreferrer"
+   style="position:fixed;bottom:16px;right:16px;z-index:9999;display:flex;align-items:center;gap:6px;padding:6px 12px;background:rgba(24,24,27,0.9);backdrop-filter:blur(4px);border-radius:9999px;font-size:12px;color:#a1a1aa;text-decoration:none;border:1px solid rgba(63,63,70,0.5);font-family:system-ui,-apple-system,sans-serif;transition:color 0.2s;"
+   onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#a1a1aa'">
+  <svg width="14" height="14" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bx-deep" cx="50%" cy="50%" r="50%" fx="30%" fy="30%">
+      <stop offset="0%" stop-color="#4a1a88"/>
+      <stop offset="40%" stop-color="#200d50"/>
+      <stop offset="100%" stop-color="#02010a"/>
+    </radialGradient>
+    <radialGradient id="bx-neb1" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ff33dd" stop-opacity="0.8"/>
+      <stop offset="70%" stop-color="#330044" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="bx-neb2" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#55ffff" stop-opacity="0.7"/>
+      <stop offset="70%" stop-color="#003366" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="bx-clip"><circle cx="256" cy="256" r="200"/></clipPath>
+  </defs>
+  <g>
+    <circle cx="256" cy="256" r="202" fill="none" stroke="#aa88ff" stroke-width="3" opacity="0.5"/>
+    <g clip-path="url(#bx-clip)">
+      <rect width="512" height="512" fill="url(#bx-deep)"/>
+      <circle cx="180" cy="180" r="300" fill="url(#bx-neb1)" opacity="0.7"/>
+      <circle cx="350" cy="350" r="280" fill="url(#bx-neb2)" opacity="0.6"/>
+      <g fill="#fff">
+        <circle cx="200" cy="150" r="2" opacity="0.9"/>
+        <circle cx="100" cy="300" r="1.5" opacity="0.7"/>
+        <circle cx="350" cy="100" r="1.8" opacity="0.8"/>
+        <circle cx="400" cy="300" r="1.2" opacity="0.6"/>
+        <circle cx="256" cy="256" r="2" opacity="0.8"/>
+      </g>
+    </g>
+    <circle cx="256" cy="256" r="200" fill="none" stroke="#6d58a6" stroke-width="1.5" opacity="0.3"/>
+  </g>
+</svg>
+  Made in Buildix
+</a>
+<!-- End Buildix Badge -->
+
+</body>
+</html>
