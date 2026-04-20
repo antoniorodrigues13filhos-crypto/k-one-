@@ -34,7 +34,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Cinematic Texture Overlay (Convertido para Base64 para evitar Erro 403) */
+        /* Cinematic Texture Overlay */
         .noise-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -105,19 +105,16 @@
         body.menu-open { overflow: hidden; }
         ::selection { background: var(--color-brand-orange); color: white; }
 
-        /* Chat Scrollbar Styling */
+        /* Chat Scrollbar & Typing Indicator */
         .chat-scroll::-webkit-scrollbar { width: 4px; }
         .chat-scroll::-webkit-scrollbar-track { background: transparent; }
         .chat-scroll::-webkit-scrollbar-thumb { background: var(--color-brand-gold); border-radius: 4px; opacity: 0.5; }
 
-        /* Typing Indicator Animation */
         .typing-indicator span {
             display: inline-block;
-            width: 5px;
-            height: 5px;
+            width: 5px; height: 5px;
             background-color: var(--color-brand-light-gray);
-            border-radius: 50%;
-            margin: 0 2px;
+            border-radius: 50%; margin: 0 2px;
             animation: bounce 1.4s infinite ease-in-out both;
         }
         .typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
@@ -125,6 +122,24 @@
         @keyframes bounce {
             0%, 80%, 100% { transform: scale(0); }
             40% { transform: scale(1); }
+        }
+
+        /* Classes Controladoras do Chat Window (Mobile First -> Bottom Sheet) */
+        #chat-window {
+            transform: translateY(120%);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        @media (min-width: 768px) {
+            #chat-window {
+                transform: translateY(2rem) scale(0.95);
+            }
+        }
+        #chat-window.chat-open {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+            pointer-events: auto;
         }
     </style>
 </head>
@@ -429,8 +444,8 @@
         <img src="midia w/3d-icon-social-media-app.png" alt="WhatsApp Atendimento" class="relative w-12 h-12 md:w-16 md:h-16 object-contain filter drop-shadow-[0_10px_20px_rgba(37,211,102,0.3)]">
     </button>
 
-    <div id="chat-window" class="fixed bottom-0 left-0 w-full h-[85dvh] rounded-t-2xl md:bottom-24 md:right-8 md:left-auto md:w-[380px] md:h-[520px] md:rounded-2xl bg-brand-dark/95 backdrop-blur-2xl border border-brand-gold/30 shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-[100] transform translate-y-10 scale-95 opacity-0 pointer-events-none transition-all duration-300 flex flex-col origin-bottom">
-        <div class="p-4 border-b border-brand-gold/20 flex items-center justify-between bg-brand-black/50 rounded-t-2xl">
+    <div id="chat-window" class="fixed inset-x-0 bottom-0 w-full h-[85dvh] rounded-t-2xl md:inset-auto md:bottom-28 md:right-10 md:w-[380px] md:h-[520px] md:rounded-2xl bg-brand-dark/95 backdrop-blur-2xl border border-brand-gold/30 shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-[9999] flex flex-col">
+        <div class="p-4 border-b border-brand-gold/20 flex items-center justify-between bg-brand-black/50 rounded-t-2xl md:rounded-t-2xl">
             <div class="flex items-center gap-3">
                 <div class="relative w-10 h-10">
                     <div class="w-full h-full rounded-full border-2 border-brand-orange overflow-hidden bg-brand-black flex items-center justify-center">
@@ -443,8 +458,8 @@
                     <span class="text-[9px] font-sans text-brand-light-gray uppercase tracking-widest">Online agora</span>
                 </div>
             </div>
-            <button id="close-chat-btn" class="text-brand-light-gray hover:text-brand-orange transition-colors focus:outline-none p-2 -mr-2">
-                <i data-lucide="chevron-down" class="w-5 h-5 md:hidden"></i>
+            <button id="close-chat-btn" class="text-brand-light-gray hover:text-brand-orange transition-colors focus:outline-none p-2 -mr-2 cursor-pointer">
+                <i data-lucide="chevron-down" class="w-6 h-6 md:hidden"></i>
                 <i data-lucide="x" class="w-5 h-5 hidden md:block"></i>
             </button>
         </div>
@@ -455,7 +470,7 @@
         <div class="p-3 md:p-4 border-t border-brand-gold/20 bg-brand-black/50 md:rounded-b-2xl pb-safe">
             <form id="chat-form" class="flex items-center gap-2">
                 <input type="text" id="chat-input" placeholder="Digite sua mensagem..." class="flex-1 bg-brand-dark border border-brand-gold/20 text-white text-sm rounded-full px-4 py-3 focus:outline-none focus:border-brand-orange transition-colors placeholder-brand-light-gray/50 font-sans" autocomplete="off">
-                <button type="submit" class="w-10 h-10 rounded-full bg-brand-orange text-white flex items-center justify-center hover:bg-brand-orange-dark transition-colors focus:outline-none shadow-[0_0_10px_rgba(255,90,31,0.3)] shrink-0">
+                <button type="submit" class="w-10 h-10 rounded-full bg-brand-orange text-white flex items-center justify-center hover:bg-brand-orange-dark transition-colors focus:outline-none shadow-[0_0_10px_rgba(255,90,31,0.3)] shrink-0 cursor-pointer">
                     <i data-lucide="send" class="w-4 h-4 ml-0.5"></i>
                 </button>
             </form>
@@ -584,18 +599,37 @@
         window.addEventListener('resize', handleSmartResize);
         let lastDrawnFrame = -1;
 
+        // Função de Atualização com Tempo Descolado (Parallax & Inércia no Texto)
         function updateStepOpacity(element, fraction, inStart, inEnd, outStart, outEnd) {
-            let opacity = 0, ty = 40, blur = 10;
-            if (fraction <= inStart) { opacity = 0; }
+            let opacity = 0, ty = 80, blur = 10;
+            
+            if (fraction <= inStart) { 
+                opacity = 0; ty = 80; 
+            }
             else if (fraction > inStart && fraction < inEnd) {
                 let p = (fraction - inStart) / (inEnd - inStart);
-                opacity = p; ty = 40 * (1 - p); blur = 10 * (1 - p);
-            } else if (fraction >= inEnd && fraction <= outStart) {
-                opacity = 1; ty = 0; blur = 0;
-            } else if (fraction > outStart && fraction < outEnd) {
+                let easeP = 1 - Math.pow(1 - p, 3); // easeOutCubic
+                opacity = p; 
+                ty = 80 * (1 - easeP) + 20 * easeP; // Vem de 80px até 20px
+                blur = 10 * (1 - p);
+            } 
+            else if (fraction >= inEnd && fraction <= outStart) {
+                opacity = 1; 
+                blur = 0;
+                // Efeito Parallax: continua flutuando levemente enquanto está visível
+                let p = (fraction - inEnd) / (outStart - inEnd);
+                ty = 20 - (40 * p); // Desliza de 20px para -20px
+            } 
+            else if (fraction > outStart && fraction < outEnd) {
                 let p = (fraction - outStart) / (outEnd - outStart);
-                opacity = 1 - p; ty = -40 * p; blur = 10 * p;
-            } else { opacity = 0; }
+                let easeP = p * p * p; // easeInCubic
+                opacity = 1 - p; 
+                ty = -20 - (60 * easeP); // Desce de -20px para -80px
+                blur = 10 * p;
+            } 
+            else { 
+                opacity = 0; ty = -80; 
+            }
 
             if (window.innerWidth <= 768) blur = 0;
             element.style.opacity = opacity.toFixed(3);
@@ -618,9 +652,10 @@
             }
 
             if (document.body.classList.contains('loaded')) {
-                updateStepOpacity(step1, fraction, -1, 0, 0.15, 0.25);
-                updateStepOpacity(step2, fraction, 0.25, 0.35, 0.55, 0.65);
-                updateStepOpacity(step3, fraction, 0.65, 0.75, 0.95, 1.05);
+                // Tempos mais largos para os textos fixarem por mais tempo na tela
+                updateStepOpacity(step1, fraction, -0.10, 0.05, 0.20, 0.35);
+                updateStepOpacity(step2, fraction, 0.25, 0.40, 0.60, 0.75);
+                updateStepOpacity(step3, fraction, 0.65, 0.80, 0.95, 1.05);
             }
             requestAnimationFrame(renderFluidLoop);
         }
@@ -673,16 +708,11 @@
         }
 
         function toggleChat() {
-            const isClosed = chatWindow.classList.contains('opacity-0');
-            if (isClosed) {
-                // Abre o Chat
-                chatWindow.classList.remove('translate-y-10', 'scale-95', 'opacity-0', 'pointer-events-none');
-                chatWindow.classList.add('translate-y-0', 'scale-100', 'opacity-100', 'pointer-events-auto');
-                
-                // Impede rolagem do fundo no mobile ao focar no input
-                if (window.innerWidth <= 768) {
-                    document.body.style.overflow = 'hidden';
-                }
+            chatWindow.classList.toggle('chat-open');
+            
+            if (chatWindow.classList.contains('chat-open')) {
+                // Previne rolagem do fundo no mobile ao abrir o chat
+                if (window.innerWidth <= 768) document.body.style.overflow = 'hidden';
                 
                 if (!chatStarted) {
                     const typingId = showTypingIndicator();
@@ -694,10 +724,8 @@
                 }
                 setTimeout(() => chatInput.focus(), 300);
             } else {
-                // Fecha o Chat
-                chatWindow.classList.remove('translate-y-0', 'scale-100', 'opacity-100', 'pointer-events-auto');
-                chatWindow.classList.add('translate-y-10', 'scale-95', 'opacity-0', 'pointer-events-none');
                 document.body.style.overflow = '';
+                chatInput.blur();
             }
         }
 
