@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>K-ONE | Assessoria de Imprensa e Relacionamento com a Mídia</title>
+    <title>K-ONE | Assessoria de Imprensa Estratégica</title>
     
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     
@@ -87,7 +87,7 @@
             transition: all 0.4s ease;
         }
         .glass-card:hover {
-            border-color: rgba(255, 90, 31, 0.5); /* Borda laranja no hover para incentivar clique */
+            border-color: rgba(255, 90, 31, 0.5); /* Borda laranja no hover */
             transform: translateY(-5px);
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
@@ -221,21 +221,48 @@
                     </div>
                 </div>
 
-                <div id="step-3" class="scroll-step absolute inset-0 flex flex-col items-center justify-center px-4 md:px-12 w-full max-w-5xl mx-auto opacity-0 pointer-events-none pt-20">
-                    <div class="glass-card p-8 md:p-16 rounded-lg text-center border-l-4 border-l-brand-orange w-full">
-                        <h2 class="text-4xl sm:text-5xl md:text-6xl font-heading font-bold text-white mb-6 leading-tight tracking-tight">
-                            Sua Marca no <br/> 
-                            <span class="text-brand-orange italic">Pódio da Mídia.</span>
+                <div id="step-3" class="scroll-step absolute inset-0 flex flex-col items-center justify-center px-4 md:px-12 w-full max-w-4xl mx-auto opacity-0 pointer-events-none pt-20">
+                    <div class="glass-card p-8 md:p-16 rounded-sm text-center border-t-4 border-t-brand-orange w-full relative overflow-hidden">
+                        
+                        <div class="absolute -top-24 left-1/2 transform -translate-x-1/2 w-48 h-48 bg-brand-orange/20 blur-[80px] rounded-full pointer-events-none"></div>
+
+                        <div class="w-16 h-16 mx-auto bg-brand-black border border-brand-gold/30 rounded-full flex items-center justify-center mb-8 relative z-10 shadow-[0_0_20px_rgba(212,192,106,0.15)]">
+                            <i data-lucide="award" class="w-8 h-8 text-brand-gold"></i>
+                        </div>
+
+                        <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-white mb-6 leading-tight tracking-tight relative z-10">
+                            Autoridade não se compra. <br/>
+                            <span class="text-brand-orange italic">Se constrói.</span>
                         </h2>
-                        <p class="text-sm md:text-lg text-brand-light-gray max-w-2xl mx-auto font-light leading-relaxed mb-10 text-balance">
-                            Do corporativo ao asfalto: suporte de mídia em etapas da <strong class="text-white">Stock Car</strong> com pilotos de elite e assessoria completa em grandes eventos.
+
+                        <p class="text-base md:text-xl text-brand-light-gray max-w-2xl mx-auto font-light leading-relaxed mb-10 text-balance relative z-10">
+                            Da estratégia à exposição, posicionamos sua marca nos lugares que <strong class="text-white">realmente importam.</strong>
                         </p>
-                        <a href="#contato" class="glow-cta group relative px-8 py-4 md:px-12 md:py-5 bg-brand-orange text-white text-[10px] md:text-sm font-heading font-bold tracking-widest uppercase overflow-hidden inline-flex items-center gap-3 rounded-sm pointer-events-auto">
+
+                        <div class="flex flex-wrap justify-center items-center gap-4 md:gap-8 mb-10 relative z-10">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="target" class="w-4 h-4 md:w-5 md:h-5 text-brand-gold"></i>
+                                <span class="text-xs md:text-sm font-sans font-medium tracking-widest uppercase text-brand-light-gray">Estratégia</span>
+                            </div>
+                            <div class="hidden sm:block w-1 h-1 bg-brand-gold/50 rounded-full"></div>
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="zap" class="w-4 h-4 md:w-5 md:h-5 text-brand-gold"></i>
+                                <span class="text-xs md:text-sm font-sans font-medium tracking-widest uppercase text-brand-light-gray">Exposição</span>
+                            </div>
+                            <div class="hidden sm:block w-1 h-1 bg-brand-gold/50 rounded-full"></div>
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="trending-up" class="w-4 h-4 md:w-5 md:h-5 text-brand-gold"></i>
+                                <span class="text-xs md:text-sm font-sans font-medium tracking-widest uppercase text-brand-light-gray">Resultados</span>
+                            </div>
+                        </div>
+
+                        <a href="#contato" class="glow-cta group relative px-8 py-4 md:px-12 md:py-5 bg-brand-orange text-white text-[10px] md:text-sm font-heading font-bold tracking-widest uppercase overflow-hidden inline-flex items-center gap-3 rounded-sm pointer-events-auto relative z-10">
                             <span class="absolute inset-0 bg-brand-orange-dark transform -translate-x-full transition-transform duration-500 ease-out group-hover:translate-x-0"></span>
                             <span class="relative z-10 flex items-center gap-2 md:gap-3">Agendar Reunião Estratégica <i data-lucide="arrow-right" class="w-4 h-4 md:w-5 md:h-5"></i></span>
                         </a>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
@@ -305,7 +332,7 @@
                         <i data-lucide="shield" class="w-6 h-6 text-brand-orange"></i>
                     </div>
                     <h3 class="text-xl font-heading font-bold text-white mb-3">Imagem & Liderança</h3>
-                    <p class="text-sm text-brand-light-gray font-light leading-relaxed">Trabalhamos sua reputação de forma mensurável. De executivos C-Level a atletas da Stock Car, transformamos você em autoridade.</p>
+                    <p class="text-sm text-brand-light-gray font-light leading-relaxed">Trabalhamos sua reputação de forma mensurável. De executivos C-Level a atletas, transformamos você em autoridade.</p>
                 </div>
             </div>
         </div>
