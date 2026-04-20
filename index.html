@@ -9,7 +9,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     
     <script src="https://unpkg.com/lucide@latest"></script>
 
@@ -23,8 +23,9 @@
             --color-brand-orange-dark: #e04e1b;
             --color-brand-gold: #D4C06A;
             
-            --font-sans: 'Plus Jakarta Sans', sans-serif;
-            --font-serif: 'Cormorant Garamond', serif;
+            /* Tipografia Apple/Tesla Tech */
+            --font-sans: 'Inter', sans-serif;
+            --font-serif: 'Outfit', sans-serif; /* Usamos Outfit para os títulos */
         }
 
         body {
@@ -178,9 +179,9 @@
                 </div>
 
                 <div id="step-2" class="scroll-step absolute inset-0 flex flex-col items-center justify-center px-6 md:px-12 w-full max-w-7xl mx-auto opacity-0 pointer-events-none">
-                    <h2 class="text-3xl md:text-5xl font-serif text-white mb-12 text-center leading-tight">
+                    <h2 class="text-3xl md:text-5xl font-serif font-bold text-white mb-12 text-center leading-tight">
                         Nossa Metodologia <br/>
-                        <span class="italic text-brand-gold font-light">O que nós entregamos.</span>
+                        <span class="text-brand-gold font-light">O que nós entregamos.</span>
                     </h2>
                     
                     <div class="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
@@ -217,9 +218,9 @@
                         </div>
                     </div>
                     
-                    <h2 class="text-5xl md:text-7xl font-serif text-white mb-8 leading-[1.05] tracking-tight text-center">
+                    <h2 class="text-5xl md:text-7xl font-serif font-bold text-white mb-8 leading-[1.05] tracking-tight text-center">
                         Sua Marca no Topo do <br/> 
-                        <span class="text-brand-orange italic font-bold">Pódio da Informação.</span>
+                        <span class="text-brand-orange">Pódio da Informação.</span>
                     </h2>
                     
                     <p class="text-lg md:text-xl text-brand-light-gray max-w-3xl font-light leading-relaxed mb-12 text-center">
@@ -241,9 +242,9 @@
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 relative">
                 <div class="lg:col-span-5 flex flex-col justify-start relative z-10 lg:pr-12 lg:editorial-border-r">
                     <span class="text-xs font-sans text-brand-gold font-bold tracking-[0.2em] uppercase mb-8 block">O Cenário Atual</span>
-                    <h2 class="text-4xl md:text-5xl font-serif leading-tight mb-8">
+                    <h2 class="text-4xl md:text-5xl font-serif font-bold leading-tight mb-8">
                         Preso em um leilão <br>
-                        <span class="italic text-brand-light-gray font-light">interminável</span> de tráfego pago?
+                        <span class="text-brand-light-gray font-light">interminável</span> de tráfego pago?
                     </h2>
                 </div>
                 <div class="lg:col-span-7 flex flex-col justify-center">
@@ -252,7 +253,7 @@
                             Enquanto a maioria das marcas drena seus orçamentos tentando comprar espaço na tela dos consumidores, as verdadeiras autoridades ditam as regras do jogo. Elas não interrompem; <strong class="text-white font-medium">elas são procuradas.</strong>
                         </p>
                         <div class="pl-8 border-l-2 border-brand-gold my-12">
-                            <p class="text-3xl font-serif text-white italic leading-snug">
+                            <p class="text-3xl font-serif text-white font-medium leading-snug">
                                 "Publicidade é o que você paga. Relações Públicas é o que você planta, colhe e pelo qual é respeitado."
                             </p>
                         </div>
@@ -332,7 +333,6 @@
         const context = canvas.getContext("2d", { alpha: false });
         const heroEl = document.getElementById("scroll-hero");
         
-        // Elementos das 3 Fases do Scroll
         const step1 = document.getElementById("step-1");
         const step2 = document.getElementById("step-2");
         const step3 = document.getElementById("step-3");
@@ -367,36 +367,31 @@
 
         let lastDrawnFrame = -1;
 
-        // Função universal para animar a entrada e saída das fases do texto
         function updateStepOpacity(element, fraction, inStart, inEnd, outStart, outEnd) {
             let opacity = 0;
-            let translateY = 40; // Começa um pouco abaixo
+            let translateY = 40; 
             let blur = 10;
 
             if (fraction <= inStart) {
                 opacity = 0; translateY = 40; blur = 10;
             } else if (fraction > inStart && fraction < inEnd) {
-                // Fade IN
                 let p = (fraction - inStart) / (inEnd - inStart);
                 opacity = p; translateY = 40 * (1 - p); blur = 10 * (1 - p);
             } else if (fraction >= inEnd && fraction <= outStart) {
-                // Totalmente visível
                 opacity = 1; translateY = 0; blur = 0;
             } else if (fraction > outStart && fraction < outEnd) {
-                // Fade OUT (Sobe e some)
                 let p = (fraction - outStart) / (outEnd - outStart);
                 opacity = 1 - p; translateY = -40 * p; blur = 10 * p;
             } else if (fraction >= outEnd) {
                 opacity = 0; translateY = -40; blur = 10;
             }
 
-            // Otimização Mobile: Remove o Blur para não travar o celular
             if (window.innerWidth <= 768) blur = 0;
 
             element.style.opacity = opacity.toFixed(3);
             element.style.filter = blur > 0 ? `blur(${blur.toFixed(1)}px)` : 'none';
             element.style.transform = `translate3d(0, ${translateY.toFixed(1)}px, 0)`;
-            element.style.pointerEvents = opacity > 0.5 ? 'auto' : 'none'; // Impede clique em botões invisíveis
+            element.style.pointerEvents = opacity > 0.5 ? 'auto' : 'none'; 
         }
 
         function renderFluidLoop() {
@@ -412,21 +407,14 @@
 
             const frameIndex = Math.min(frameCount - 1, Math.floor(currentScrollFraction * (frameCount - 1)));
             
-            // Renderiza Imagem (se mudou)
             if (frameIndex !== lastDrawnFrame && images[frameIndex]) {
                 drawCover(images[frameIndex]);
                 lastDrawnFrame = frameIndex;
             }
 
-            // Gerencia os 3 Atos da História apenas se a tela de loading sumiu
             if (document.body.classList.contains('loaded')) {
-                // Fase 1: Entra no load (0.0), sai aos 20% do scroll
                 updateStepOpacity(step1, currentScrollFraction, -1, 0, 0.15, 0.25);
-                
-                // Fase 2: Entra aos 25%, sai aos 60%
                 updateStepOpacity(step2, currentScrollFraction, 0.25, 0.35, 0.55, 0.65);
-                
-                // Fase 3: Entra aos 65%, Fica até o fim do Hero
                 updateStepOpacity(step3, currentScrollFraction, 0.65, 0.75, 0.95, 1.05);
             }
 
