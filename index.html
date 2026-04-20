@@ -484,7 +484,7 @@
         }
         initLucide();
 
-        // --- Navegação Inteligente (Hide on Scroll) ---
+        // --- Navegação Inteligente ---
         let lastScrollTop = 0;
         const mainNav = document.getElementById('main-nav');
         window.addEventListener('scroll', () => {
@@ -612,40 +612,37 @@
         window.addEventListener('resize', handleSmartResize);
         let lastDrawnFrame = -1;
 
-        // --- MOTOR DE SCROLL RECALIBRADO (Tempos Curtos de Transição, Longos de Permanência) ---
+        // --- MOTOR DE SCROLL RECALIBRADO (Cinematic Focus Pull) ---
         function updateStepOpacity(element, fraction, inStart, inEnd, outStart, outEnd) {
-            let opacity = 0, ty = 80, blur = 15, scale = 0.95;
+            let opacity = 0, blur = 20, scale = 1.1, ty = 0;
             
             if (fraction <= inStart) { 
-                opacity = 0; ty = 80; scale = 0.95; blur = 15;
+                opacity = 0; blur = 20; scale = 1.05; ty = 10;
             }
             else if (fraction > inStart && fraction < inEnd) {
                 let p = (fraction - inStart) / (inEnd - inStart);
-                let easeP = 1 - Math.pow(1 - p, 4); 
+                let easeP = 1 - Math.pow(1 - p, 3); // Cubic ease out
                 opacity = p; 
-                ty = 80 * (1 - easeP);
-                // Acelera o sumiço do Blur para garantir legibilidade antecipada
-                blur = 15 * Math.pow((1 - p), 2);
-                scale = 0.95 + (0.05 * easeP);
+                blur = 20 * (1 - easeP);
+                scale = 1.05 - (0.05 * easeP);
+                ty = 10 * (1 - easeP); // Deslocamento sutil em vez de viagem longa
             } 
             else if (fraction >= inEnd && fraction <= outStart) {
-                opacity = 1; blur = 0; scale = 1;
-                let p = (fraction - inEnd) / (outStart - inEnd);
-                ty = 0 - (20 * p); 
+                opacity = 1; blur = 0; scale = 1; ty = 0;
             } 
             else if (fraction > outStart && fraction < outEnd) {
                 let p = (fraction - outStart) / (outEnd - outStart);
-                let easeP = p * p * p * p; 
+                let easeP = p * p; // Quad ease in
                 opacity = 1 - p; 
-                ty = -20 - (60 * easeP); 
-                blur = 15 * Math.pow(p, 2);
-                scale = 1 + (0.05 * easeP);
+                blur = 20 * easeP;
+                scale = 1 - (0.05 * easeP);
+                ty = -10 * easeP;
             } 
             else { 
-                opacity = 0; ty = -80; scale = 1.05; blur = 15;
+                opacity = 0; blur = 20; scale = 0.95; ty = -10;
             }
 
-            if (window.innerWidth <= 768) blur = blur > 0 ? blur * 0.6 : 0;
+            if (window.innerWidth <= 768) blur = blur > 0 ? blur * 0.5 : 0;
             element.style.opacity = opacity.toFixed(3);
             element.style.filter = blur > 0 ? `blur(${blur.toFixed(2)}px)` : 'none';
             element.style.transform = `translate3d(0, ${ty.toFixed(2)}px, 0) scale(${scale.toFixed(3)})`;
@@ -671,15 +668,11 @@
             canvas.style.transform = `translateZ(0) scale(${bgScale.toFixed(3)})`;
 
             if (document.body.classList.contains('loaded')) {
-                // Tempos ajustados: Transições curtas (5%) e Permanência longa (25%+)
-                // step1: Entra instantaneamente, fica até 28%, sai rápido aos 33%
-                updateStepOpacity(step1, fraction, -0.10, 0.02, 0.28, 0.33);
-                
-                // step2: Entra rápido (33% a 38%), fica sólido (38% a 62%), sai rápido (62% a 67%)
-                updateStepOpacity(step2, fraction, 0.33, 0.38, 0.62, 0.67);
-                
-                // step3: Entra rápido (67% a 72%), fica sólido até o fim
-                updateStepOpacity(step3, fraction, 0.67, 0.72, 0.98, 1.05);
+                // Tempos extremamente generosos para evitar quebra no meio da rolagem
+                // Foca em 15% do trajeto, segura por 20%, desfoca em 10%
+                updateStepOpacity(step1, fraction, -0.05, 0.10, 0.25, 0.35);
+                updateStepOpacity(step2, fraction, 0.30, 0.45, 0.60, 0.70);
+                updateStepOpacity(step3, fraction, 0.65, 0.80, 0.95, 1.05);
             }
             requestAnimationFrame(renderFluidLoop);
         }
