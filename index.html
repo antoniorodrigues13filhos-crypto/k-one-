@@ -15,7 +15,6 @@
 
     <style type="text/tailwindcss">
         @theme {
-            /* Premium Editorial Palette */
             --color-brand-black: #0a0d10;
             --color-brand-dark: #13181d;
             --color-brand-light-gray: #A7ADB2;
@@ -23,9 +22,8 @@
             --color-brand-orange-dark: #e04e1b;
             --color-brand-gold: #D4C06A;
             
-            /* Tipografia Apple/Tesla Tech */
             --font-sans: 'Inter', sans-serif;
-            --font-serif: 'Outfit', sans-serif; /* Usamos Outfit para os títulos */
+            --font-serif: 'Outfit', sans-serif;
         }
 
         body {
@@ -35,77 +33,81 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Apple/Tesla Hardware Acceleration */
-        #hero-canvas {
-            will-change: transform;
-            transform: translateZ(0);
-        }
-        
-        .scroll-step {
-            will-change: transform, opacity, filter;
-            transform: translateZ(0);
+        /* 1. Cinematic Texture (Noise) Overlay */
+        .noise-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://grainy-gradients.vercel.app/noise.svg');
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 9999;
         }
 
-        /* Premium Editorial Borders */
+        /* 2. Scroll Reveal Utility Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            filter: blur(5px);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0);
+        }
+
+        /* Hero Performance Tweaks */
+        #hero-canvas { will-change: transform; transform: translateZ(0); }
+        .scroll-step { will-change: transform, opacity, filter; transform: translateZ(0); }
+
+        /* Premium Borders */
         .editorial-border { border: 1px solid rgba(212, 192, 106, 0.15); }
         .editorial-border-b { border-bottom: 1px solid rgba(212, 192, 106, 0.15); }
-        .editorial-border-r { border-right: 1px solid rgba(212, 192, 106, 0.15); }
         .editorial-border-t { border-top: 1px solid rgba(212, 192, 106, 0.15); }
 
-        /* Cinematic Blur Reveal Text Animation (Apenas On Load) */
+        /* Initial Cinematic Load */
         .reveal-element {
-            opacity: 0;
-            filter: blur(12px);
-            transform: translateY(30px) scale(0.95);
+            opacity: 0; filter: blur(12px); transform: translateY(30px) scale(0.95);
         }
-
         body.loaded .reveal-element {
             animation: cinematicReveal 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
-
-        @keyframes cinematicReveal {
-            to {
-                opacity: 1;
-                filter: blur(0);
-                transform: translateY(0) scale(1);
-            }
-        }
+        @keyframes cinematicReveal { to { opacity: 1; filter: blur(0); transform: translateY(0) scale(1); } }
 
         .delay-1 { animation-delay: 0.1s; }
         .delay-2 { animation-delay: 0.3s; }
         .delay-3 { animation-delay: 0.5s; }
         .delay-4 { animation-delay: 0.7s; }
 
-        /* Extreme Glass Effect for Cards */
+        /* Extreme Glass */
         .glass-card {
-            background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            background: rgba(255, 255, 255, 0.01);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s ease;
         }
-
         .glass-card:hover {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.04);
             border: 1px solid rgba(212, 192, 106, 0.3);
-            transform: translateY(-5px);
+            transform: translateY(-8px);
         }
 
         .glow-cta {
-            box-shadow: 0 0 20px rgba(255, 90, 31, 0);
-            transition: all 0.4s ease;
+            box-shadow: 0 0 0 rgba(255, 90, 31, 0);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .glow-cta:hover {
-            box-shadow: 0 0 30px rgba(255, 90, 31, 0.4);
+            box-shadow: 0 10px 40px rgba(255, 90, 31, 0.3);
+            transform: scale(1.03);
         }
 
-        ::selection {
-            background: var(--color-brand-orange);
-            color: white;
-        }
+        ::selection { background: var(--color-brand-orange); color: white; }
     </style>
 </head>
 <body style="overflow:hidden;" class="antialiased font-sans text-white bg-brand-black">
+
+    <div class="noise-overlay"></div>
 
     <div id="loader" style="position:fixed;inset:0;background:linear-gradient(135deg,#13181d,#0a0d10);z-index:9999;display:flex;flex-direction:column;justify-content:center;align-items:center;transition:opacity 0.8s ease-out,visibility 0.8s;">
         <div class="mb-6 relative">
@@ -144,120 +146,112 @@
     <section id="scroll-hero" style="height:400vh;position:relative;">
         <div style="position:sticky;top:0;height:100vh;width:100%;overflow:hidden;">
             <canvas id="hero-canvas" style="position:absolute;inset:0;width:100%;height:100%;"></canvas>
-            
             <div style="position:absolute;inset:0;background:linear-gradient(to top, #0a0d10 10%, rgba(10,13,16,0.85) 50%, rgba(10,13,16,0.4) 100%);z-index:1;"></div>
             
-            <div class="absolute inset-8 border border-brand-gold/10 z-[2] pointer-events-none hidden md:block">
-                <div class="absolute top-0 left-0 w-6 h-6 border-t border-l border-brand-gold -mt-[1px] -ml-[1px]"></div>
-                <div class="absolute top-0 right-0 w-6 h-6 border-t border-r border-brand-gold -mt-[1px] -mr-[1px]"></div>
-                <div class="absolute bottom-0 left-0 w-6 h-6 border-b border-l border-brand-gold -mb-[1px] -ml-[1px]"></div>
-                <div class="absolute bottom-0 right-0 w-6 h-6 border-b border-r border-brand-gold -mb-[1px] -mr-[1px]"></div>
-            </div>
-            
             <div id="hero-content-group" style="position:absolute;inset:0;z-index:2;">
-                
                 <div id="step-1" class="scroll-step absolute inset-0 flex flex-col items-center justify-center px-6 md:px-12 w-full max-w-6xl mx-auto">
                     <div class="reveal-element delay-1 flex items-center gap-4 mb-6">
                         <div class="w-12 h-[1px] bg-brand-gold"></div>
-                        <p class="text-brand-gold uppercase tracking-[0.3em] md:tracking-[0.4em] text-xs font-bold font-mono">Assessoria de Imprensa</p>
+                        <p class="text-brand-gold uppercase tracking-[0.4em] text-xs font-bold font-mono">Assessoria de Imprensa</p>
                         <div class="w-12 h-[1px] bg-brand-gold"></div>
                     </div>
-                    
                     <h1 class="reveal-element delay-2 text-5xl md:text-7xl lg:text-8xl font-serif text-white mb-8 leading-[1.05] tracking-tight text-center">
-                        Transformamos a Sua História em <br class="hidden md:block"/>
+                        Sua História em <br class="hidden md:block"/>
                         <span class="text-white relative font-bold inline-block">Manchetes Exclusivas.<span class="absolute bottom-2 left-0 w-full h-2 md:h-3 bg-brand-orange -z-10 opacity-80"></span></span>
                     </h1>
-                    
-                    <p class="reveal-element delay-3 text-lg md:text-xl text-brand-light-gray max-w-3xl font-light leading-relaxed mb-12 text-center">
-                        Conquiste credibilidade orgânica na grande mídia nacional com ações estratégicas de alto impacto, gestão de imagem e clipagem inteligente.
+                    <p class="reveal-element delay-3 text-lg md:text-xl text-brand-light-gray max-w-3xl font-light leading-relaxed mb-12 text-center text-balance">
+                        Conquiste credibilidade orgânica na grande mídia nacional com ações de alto impacto e gestão de imagem de elite.
                     </p>
-
                     <div class="reveal-element delay-4 flex items-center gap-2 text-xs text-brand-light-gray font-mono tracking-widest uppercase">
                         <i data-lucide="mouse" class="w-5 h-5 animate-bounce text-brand-gold"></i>
-                        <span>Role para conhecer os pilares</span>
+                        <span>Scroll para explorar</span>
                     </div>
                 </div>
 
                 <div id="step-2" class="scroll-step absolute inset-0 flex flex-col items-center justify-center px-6 md:px-12 w-full max-w-7xl mx-auto opacity-0 pointer-events-none">
-                    <h2 class="text-3xl md:text-5xl font-serif font-bold text-white mb-12 text-center leading-tight">
-                        Nossa Metodologia <br/>
-                        <span class="text-brand-gold font-light">O que nós entregamos.</span>
-                    </h2>
-                    
+                    <h2 class="text-3xl md:text-5xl font-serif font-bold text-white mb-12 text-center">Nossa Metodologia</h2>
                     <div class="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
-                        <div class="glass-card p-8 rounded-xl border border-white/5 hover:border-brand-gold/40 transition-colors">
+                        <div class="glass-card p-8 rounded-xl border border-white/5">
                             <i data-lucide="file-text" class="w-8 h-8 text-brand-gold mb-4"></i>
                             <h3 class="text-xl font-serif font-bold text-white mb-3">Pautas Exclusivas</h3>
-                            <p class="text-sm text-brand-light-gray leading-relaxed">Mapeamos as histórias que a grande imprensa realmente quer contar sobre você ou seu evento.</p>
+                            <p class="text-sm text-brand-light-gray leading-relaxed">Mapeamos histórias que a grande imprensa realmente quer contar sobre você.</p>
                         </div>
-                        
-                        <div class="glass-card p-8 rounded-xl border border-white/5 hover:border-brand-gold/40 transition-colors">
+                        <div class="glass-card p-8 rounded-xl border border-white/5">
                             <i data-lucide="globe" class="w-8 h-8 text-brand-gold mb-4"></i>
                             <h3 class="text-xl font-serif font-bold text-white mb-3">Visibilidade Nacional</h3>
-                            <p class="text-sm text-brand-light-gray leading-relaxed">Presença orgânica focada em editorias de esportes, comportamento e variedades.</p>
+                            <p class="text-sm text-brand-light-gray leading-relaxed">Presença orgânica focada em editorias de esportes, comportamento e negócios.</p>
                         </div>
-                        
-                        <div class="glass-card p-8 rounded-xl border border-white/5 hover:border-brand-gold/40 transition-colors hidden sm:block">
+                        <div class="glass-card p-8 rounded-xl border border-white/5">
                             <i data-lucide="mic" class="w-8 h-8 text-brand-gold mb-4"></i>
                             <h3 class="text-xl font-serif font-bold text-white mb-3">Gestão de Imagem</h3>
-                            <p class="text-sm text-brand-light-gray leading-relaxed">Media training e desenvolvimento de palestras dinâmicas para o seu público e mercado.</p>
+                            <p class="text-sm text-brand-light-gray leading-relaxed">Media training e desenvolvimento de palestras dinâmicas para o mercado.</p>
                         </div>
-                        
-                        <div class="glass-card p-8 rounded-xl border border-white/5 hover:border-brand-gold/40 transition-colors hidden sm:block">
+                        <div class="glass-card p-8 rounded-xl border border-white/5">
                             <i data-lucide="bar-chart-2" class="w-8 h-8 text-brand-gold mb-4"></i>
-                            <h3 class="text-xl font-serif font-bold text-white mb-3">Clipagem Inteligente</h3>
-                            <p class="text-sm text-brand-light-gray leading-relaxed">Relatórios detalhados e monitoramento ativo de todo o material publicado na mídia.</p>
+                            <h3 class="text-xl font-serif font-bold text-white mb-3">Clipagem Ativa</h3>
+                            <p class="text-sm text-brand-light-gray leading-relaxed">Monitoramento completo de todo o material publicado na mídia.</p>
                         </div>
                     </div>
                 </div>
 
                 <div id="step-3" class="scroll-step absolute inset-0 flex flex-col items-center justify-center px-6 md:px-12 w-full max-w-5xl mx-auto opacity-0 pointer-events-none">
-                    <div class="inline-block border border-brand-gold/30 p-2 mb-8 bg-brand-black/50 backdrop-blur-md">
-                        <div class="bg-brand-gold text-brand-black px-6 py-2 text-sm font-bold tracking-widest uppercase font-mono">
-                            Do Corporativo às Pistas
-                        </div>
-                    </div>
-                    
                     <h2 class="text-5xl md:text-7xl font-serif font-bold text-white mb-8 leading-[1.05] tracking-tight text-center">
-                        Sua Marca no Topo do <br/> 
-                        <span class="text-brand-orange">Pódio da Informação.</span>
+                        Sua Marca no <br/> 
+                        <span class="text-brand-orange italic">Pódio da Mídia.</span>
                     </h2>
-                    
                     <p class="text-lg md:text-xl text-brand-light-gray max-w-3xl font-light leading-relaxed mb-12 text-center">
-                        Acompanhamos você em todas as etapas. Do suporte de mídia nas etapas do Campeonato de <strong class="text-white font-medium">Stock Car</strong> (junto aos pilotos de elite Ricardo Maurício, Max Wilson e Daniel Serra) até eventos institucionais nas maiores universidades do país.
+                        Suporte de mídia em etapas da <strong class="text-white">Stock Car</strong> com pilotos de elite e ações institucionais nas maiores universidades do país.
                     </p>
-                    
-                    <a href="#contato" class="glow-cta group relative px-10 py-5 bg-brand-orange text-white text-sm font-bold tracking-widest uppercase overflow-hidden inline-flex items-center gap-3 rounded-sm transition-all hover:scale-105">
+                    <a href="#contato" class="glow-cta group relative px-10 py-5 bg-brand-orange text-white text-sm font-bold tracking-widest uppercase overflow-hidden inline-flex items-center gap-3 rounded-sm">
                         <span class="absolute inset-0 bg-brand-orange-dark transform -translate-x-full transition-transform duration-500 ease-out group-hover:translate-x-0"></span>
-                        <span class="relative z-10 flex items-center gap-3">Agendar Reunião Estratégica <i data-lucide="arrow-right" class="w-5 h-5"></i></span>
+                        <span class="relative z-10 flex items-center gap-3">Agendar Consultoria <i data-lucide="arrow-right" class="w-5 h-5"></i></span>
                     </a>
                 </div>
-
             </div>
         </div>
     </section>
 
     <section id="metodo" class="bg-brand-black text-white py-32 relative editorial-border-b">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 relative">
-                <div class="lg:col-span-5 flex flex-col justify-start relative z-10 lg:pr-12 lg:editorial-border-r">
-                    <span class="text-xs font-sans text-brand-gold font-bold tracking-[0.2em] uppercase mb-8 block">O Cenário Atual</span>
-                    <h2 class="text-4xl md:text-5xl font-serif font-bold leading-tight mb-8">
-                        Preso em um leilão <br>
-                        <span class="text-brand-light-gray font-light">interminável</span> de tráfego pago?
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 reveal">
+                <div class="lg:col-span-5 flex flex-col justify-start lg:pr-12 lg:editorial-border-r">
+                    <span class="text-xs font-sans text-brand-gold font-bold tracking-[0.2em] uppercase mb-8 block">O Cenário</span>
+                    <h2 class="text-4xl md:text-5xl font-serif font-bold leading-tight">
+                        Cansado do leilão <br>
+                        <span class="text-brand-light-gray font-light">infinito</span> do tráfego pago?
                     </h2>
                 </div>
                 <div class="lg:col-span-7 flex flex-col justify-center">
-                    <div class="prose prose-invert prose-lg max-w-none">
-                        <p class="text-xl text-brand-light-gray font-light leading-relaxed mb-6">
-                            Enquanto a maioria das marcas drena seus orçamentos tentando comprar espaço na tela dos consumidores, as verdadeiras autoridades ditam as regras do jogo. Elas não interrompem; <strong class="text-white font-medium">elas são procuradas.</strong>
+                    <p class="text-xl text-brand-light-gray font-light leading-relaxed mb-6">
+                        Enquanto outros compram cliques, autoridades conquistam respeito. Elas não interrompem; <strong class="text-white font-medium">elas são convidadas.</strong>
+                    </p>
+                    <div class="pl-8 border-l-2 border-brand-gold my-8">
+                        <p class="text-3xl font-serif text-white font-medium leading-snug">
+                            "Publicidade é o que você paga. Relações Públicas é o que você planta e colhe."
                         </p>
-                        <div class="pl-8 border-l-2 border-brand-gold my-12">
-                            <p class="text-3xl font-serif text-white font-medium leading-snug">
-                                "Publicidade é o que você paga. Relações Públicas é o que você planta, colhe e pelo qual é respeitado."
-                            </p>
-                        </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="servicos" class="py-32 bg-brand-dark relative reveal">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="glass-card p-10 rounded-2xl">
+                    <i data-lucide="radio" class="w-10 h-10 text-brand-gold mb-8"></i>
+                    <h3 class="text-3xl font-serif text-white mb-4">Mídia Nacional</h3>
+                    <p class="text-brand-light-gray font-light">Inserção estratégica nos maiores veículos de comunicação do país.</p>
+                </div>
+                <div class="glass-card p-10 rounded-2xl">
+                    <i data-lucide="crosshair" class="w-10 h-10 text-brand-gold mb-8"></i>
+                    <h3 class="text-3xl font-serif text-white mb-4">Elite Sports</h3>
+                    <p class="text-brand-light-gray font-light">Acompanhamento completo em circuitos de alto rendimento como Stock Car.</p>
+                </div>
+                <div class="glass-card p-10 rounded-2xl">
+                    <i data-lucide="shield-check" class="w-10 h-10 text-brand-gold mb-8"></i>
+                    <h3 class="text-3xl font-serif text-white mb-4">Reputação</h3>
+                    <p class="text-brand-light-gray font-light">Blindagem midiática e construção de legado institucional.</p>
                 </div>
             </div>
         </div>
@@ -267,14 +261,14 @@
         <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
             <div class="flex items-center gap-2">
                 <i data-lucide="pen-tool" class="w-4 h-4 text-brand-gold"></i>
-                <span class="text-lg font-serif tracking-wider font-bold text-white">K-ONE</span>
+                <span class="text-lg font-serif tracking-wider font-bold text-white uppercase">K-ONE</span>
             </div>
             <div class="flex gap-4">
                 <a href="#" class="text-brand-light-gray/70 hover:text-brand-gold transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
                 </a>
                 <a href="#" class="text-brand-light-gray/70 hover:text-brand-gold transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
                 </a>
             </div>
         </div>
@@ -282,26 +276,32 @@
 
     <script>
         function initLucide(){
-            if(window.lucide){
-                lucide.createIcons();
-            } else {
-                setTimeout(initLucide, 50); 
-            }
+            if(window.lucide){ lucide.createIcons(); } 
+            else { setTimeout(initLucide, 50); }
         }
         initLucide();
 
+        // 1. Scroll Reveal Logic (Intersection Observer)
+        const observerOptions = { threshold: 0.15 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // 2. Motion Hero Engine
         let targetScrollY = window.scrollY;
         let smoothedScrollY = window.scrollY;
-
-        window.addEventListener('scroll', () => {
-            targetScrollY = window.scrollY;
-        }, { passive: true });
+        window.addEventListener('scroll', () => { targetScrollY = window.scrollY; }, { passive: true });
 
         const frameCount = 128; 
         const images = [];
         let loadedCount = 0;
         const baseUrl = "ezgif-frame-"; 
-        
         const loaderEl = document.getElementById('loader');
         const progressBar = document.getElementById('progress-bar');
 
@@ -309,14 +309,10 @@
             const img = new Image();
             const frameNumber = i.toString().padStart(3, '0');
             img.src = `${baseUrl}${frameNumber}.jpg`;
-            
             img.onload = () => {
                 loadedCount++;
-                const percent = Math.floor((loadedCount / frameCount) * 100);
-                progressBar.style.width = `${percent}%`;
-                
+                progressBar.style.width = `${Math.floor((loadedCount / frameCount) * 100)}%`;
                 if (loadedCount === 1) setupCanvas();
-
                 if (loadedCount === frameCount) {
                     setTimeout(() => {
                         loaderEl.style.opacity = '0';
@@ -332,7 +328,6 @@
         const canvas = document.getElementById("hero-canvas");
         const context = canvas.getContext("2d", { alpha: false });
         const heroEl = document.getElementById("scroll-hero");
-        
         const step1 = document.getElementById("step-1");
         const step2 = document.getElementById("step-2");
         const step3 = document.getElementById("step-3");
@@ -340,72 +335,52 @@
         function setupCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            lastDrawnFrame = -1; 
         }
 
         function drawCover(img) {
             if (!img || !img.complete) return;
             const canvasRatio = canvas.width / canvas.height;
             const imgRatio = img.width / img.height;
-            let renderWidth, renderHeight, offsetX = 0, offsetY = 0;
-
+            let rw, rh, ox = 0, oy = 0;
             if (canvasRatio > imgRatio) {
-                renderWidth = canvas.width;
-                renderHeight = img.height * (canvas.width / img.width);
-                offsetY = (canvas.height - renderHeight) / 2;
+                rw = canvas.width; rh = img.height * (canvas.width / img.width); oy = (canvas.height - rh) / 2;
             } else {
-                renderHeight = canvas.height;
-                renderWidth = img.width * (canvas.height / img.height);
-                offsetX = (canvas.width - renderWidth) / 2;
+                rh = canvas.height; rw = img.width * (canvas.height / img.height); ox = (canvas.width - rw) / 2;
             }
             context.fillStyle = "#0a0d10";
             context.fillRect(0, 0, canvas.width, canvas.height);
-            context.drawImage(img, offsetX, offsetY, renderWidth, renderHeight);
+            context.drawImage(img, ox, oy, rw, rh);
         }
 
         window.addEventListener('resize', setupCanvas);
-
         let lastDrawnFrame = -1;
 
         function updateStepOpacity(element, fraction, inStart, inEnd, outStart, outEnd) {
-            let opacity = 0;
-            let translateY = 40; 
-            let blur = 10;
-
-            if (fraction <= inStart) {
-                opacity = 0; translateY = 40; blur = 10;
-            } else if (fraction > inStart && fraction < inEnd) {
+            let opacity = 0, ty = 40, blur = 10;
+            if (fraction <= inStart) { opacity = 0; }
+            else if (fraction > inStart && fraction < inEnd) {
                 let p = (fraction - inStart) / (inEnd - inStart);
-                opacity = p; translateY = 40 * (1 - p); blur = 10 * (1 - p);
+                opacity = p; ty = 40 * (1 - p); blur = 10 * (1 - p);
             } else if (fraction >= inEnd && fraction <= outStart) {
-                opacity = 1; translateY = 0; blur = 0;
+                opacity = 1; ty = 0; blur = 0;
             } else if (fraction > outStart && fraction < outEnd) {
                 let p = (fraction - outStart) / (outEnd - outStart);
-                opacity = 1 - p; translateY = -40 * p; blur = 10 * p;
-            } else if (fraction >= outEnd) {
-                opacity = 0; translateY = -40; blur = 10;
-            }
+                opacity = 1 - p; ty = -40 * p; blur = 10 * p;
+            } else { opacity = 0; }
 
             if (window.innerWidth <= 768) blur = 0;
-
             element.style.opacity = opacity.toFixed(3);
             element.style.filter = blur > 0 ? `blur(${blur.toFixed(1)}px)` : 'none';
-            element.style.transform = `translate3d(0, ${translateY.toFixed(1)}px, 0)`;
+            element.style.transform = `translate3d(0, ${ty.toFixed(1)}px, 0)`;
             element.style.pointerEvents = opacity > 0.5 ? 'auto' : 'none'; 
         }
 
         function renderFluidLoop() {
-            if (loadedCount === 0) {
-                requestAnimationFrame(renderFluidLoop);
-                return;
-            }
-
+            if (loadedCount === 0) { requestAnimationFrame(renderFluidLoop); return; }
             smoothedScrollY += (targetScrollY - smoothedScrollY) * 0.08;
-
             const maxScroll = heroEl.offsetHeight - window.innerHeight;
-            const currentScrollFraction = Math.max(0, Math.min(1, smoothedScrollY / maxScroll));
-
-            const frameIndex = Math.min(frameCount - 1, Math.floor(currentScrollFraction * (frameCount - 1)));
+            const fraction = Math.max(0, Math.min(1, smoothedScrollY / maxScroll));
+            const frameIndex = Math.min(frameCount - 1, Math.floor(fraction * (frameCount - 1)));
             
             if (frameIndex !== lastDrawnFrame && images[frameIndex]) {
                 drawCover(images[frameIndex]);
@@ -413,14 +388,12 @@
             }
 
             if (document.body.classList.contains('loaded')) {
-                updateStepOpacity(step1, currentScrollFraction, -1, 0, 0.15, 0.25);
-                updateStepOpacity(step2, currentScrollFraction, 0.25, 0.35, 0.55, 0.65);
-                updateStepOpacity(step3, currentScrollFraction, 0.65, 0.75, 0.95, 1.05);
+                updateStepOpacity(step1, fraction, -1, 0, 0.15, 0.25);
+                updateStepOpacity(step2, fraction, 0.25, 0.35, 0.55, 0.65);
+                updateStepOpacity(step3, fraction, 0.65, 0.75, 0.95, 1.05);
             }
-
             requestAnimationFrame(renderFluidLoop);
         }
-
         requestAnimationFrame(renderFluidLoop);
     </script>
 </body>
