@@ -143,9 +143,13 @@
         }
     </style>
 </head>
-<body class="antialiased font-sans text-white bg-brand-black overflow-x-hidden">
+<body class="antialiased font-sans text-white bg-brand-black overflow-x-hidden cursor-auto md:cursor-none">
 
     <div class="noise-overlay"></div>
+
+    <div id="cursor-follower" class="hidden md:flex fixed top-0 left-0 w-8 h-8 pointer-events-none z-[9998] items-center justify-center mix-blend-screen" style="opacity: 0; will-change: transform;">
+        <div id="cursor-dot" class="w-1.5 h-1.5 bg-brand-orange rounded-full shadow-[0_0_15px_rgba(255,90,31,0.9)] transition-all duration-300 ease-out"></div>
+    </div>
 
     <div id="loader" style="position:fixed;inset:0;background:var(--color-brand-black);z-index:9999;display:flex;flex-direction:column;justify-content:center;align-items:center;transition:opacity 0.8s ease-out,visibility 0.8s;">
         <div class="mb-6 mt-4 relative">
@@ -484,7 +488,46 @@
         }
         initLucide();
 
-        // --- Navegação Inteligente ---
+        // --- Motor Custom Cursor Premium (Apenas Desktop) ---
+        const follower = document.getElementById('cursor-follower');
+        const dot = document.getElementById('cursor-dot');
+        let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+        let followerX = mouseX, followerY = mouseY;
+        let isHovering = false;
+
+        // Ativa o custom cursor apenas se o dispositivo usar mouse preciso (não mobile/touch)
+        if (window.matchMedia("(pointer: fine)").matches) {
+            window.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                if (follower.style.opacity === '0') follower.style.opacity = '1';
+            });
+
+            // Inteligência de Hover: Expande para virar Glassmorphism ao passar em elementos interativos
+            const interactables = document.querySelectorAll('a, button, input');
+            interactables.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    dot.classList.remove('w-1.5', 'h-1.5', 'bg-brand-orange');
+                    dot.classList.add('w-10', 'h-10', 'bg-brand-gold/20', 'border', 'border-brand-gold/40', 'backdrop-blur-[2px]');
+                });
+                el.addEventListener('mouseleave', () => {
+                    dot.classList.add('w-1.5', 'h-1.5', 'bg-brand-orange');
+                    dot.classList.remove('w-10', 'h-10', 'bg-brand-gold/20', 'border', 'border-brand-gold/40', 'backdrop-blur-[2px]');
+                });
+            });
+
+            function renderCursor() {
+                // Matemática de Inércia Linear (Lerp) para fluidez do rastro
+                followerX += (mouseX - followerX) * 0.15;
+                followerY += (mouseY - followerY) * 0.15;
+                // Compensa a largura do wrapper (w-8 h-8 = 32px -> offset -16px)
+                follower.style.transform = `translate3d(${followerX - 16}px, ${followerY - 16}px, 0)`; 
+                requestAnimationFrame(renderCursor);
+            }
+            requestAnimationFrame(renderCursor);
+        }
+
+        // --- Navegação Inteligente (Hide on Scroll) ---
         let lastScrollTop = 0;
         const mainNav = document.getElementById('main-nav');
         window.addEventListener('scroll', () => {
@@ -625,7 +668,7 @@
                 opacity = p; 
                 blur = 20 * (1 - easeP);
                 scale = 1.05 - (0.05 * easeP);
-                ty = 10 * (1 - easeP); // Deslocamento sutil em vez de viagem longa
+                ty = 10 * (1 - easeP);
             } 
             else if (fraction >= inEnd && fraction <= outStart) {
                 opacity = 1; blur = 0; scale = 1; ty = 0;
@@ -669,7 +712,6 @@
 
             if (document.body.classList.contains('loaded')) {
                 // Tempos extremamente generosos para evitar quebra no meio da rolagem
-                // Foca em 15% do trajeto, segura por 20%, desfoca em 10%
                 updateStepOpacity(step1, fraction, -0.05, 0.10, 0.25, 0.35);
                 updateStepOpacity(step2, fraction, 0.30, 0.45, 0.60, 0.70);
                 updateStepOpacity(step3, fraction, 0.65, 0.80, 0.95, 1.05);
@@ -833,4 +875,5 @@
         });
     </script>
 </body>
+</html>
 </html>
