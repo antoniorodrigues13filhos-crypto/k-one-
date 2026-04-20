@@ -33,7 +33,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* 1. Cinematic Texture (Noise) Overlay */
+        /* 1. Cinematic Texture Overlay */
         .noise-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -46,8 +46,8 @@
         /* 2. Scroll Reveal Utility Classes */
         .reveal {
             opacity: 0;
-            transform: translateY(30px);
-            filter: blur(5px);
+            transform: translateY(40px);
+            filter: blur(8px);
             transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .reveal.active {
@@ -132,7 +132,7 @@
             <div class="hidden md:flex items-center gap-10 text-xs font-semibold tracking-widest uppercase text-brand-light-gray">
                 <a href="#metodo" class="hover:text-brand-gold transition-colors">A Abordagem</a>
                 <a href="#servicos" class="hover:text-brand-gold transition-colors">Estratégia</a>
-                <a href="#autoridade" class="hover:text-brand-gold transition-colors">Impacto</a>
+                <a href="#sobre" class="hover:text-brand-gold transition-colors">Liderança</a>
             </div>
             <div>
                 <a href="#contato" class="glow-cta group relative px-8 py-3.5 bg-brand-orange text-white text-xs font-bold tracking-widest uppercase overflow-hidden inline-block transition-colors rounded-sm">
@@ -159,7 +159,7 @@
                         Sua História em <br class="hidden md:block"/>
                         <span class="text-white relative font-bold inline-block">Manchetes Exclusivas.<span class="absolute bottom-2 left-0 w-full h-2 md:h-3 bg-brand-orange -z-10 opacity-80"></span></span>
                     </h1>
-                    <p class="reveal-element delay-3 text-lg md:text-xl text-brand-light-gray max-w-3xl font-light leading-relaxed mb-12 text-center text-balance">
+                    <p class="reveal-element delay-3 text-lg md:text-xl text-brand-light-gray max-w-3xl font-light leading-relaxed mb-12 text-center">
                         Conquiste credibilidade orgânica na grande mídia nacional com ações de alto impacto e gestão de imagem de elite.
                     </p>
                     <div class="reveal-element delay-4 flex items-center gap-2 text-xs text-brand-light-gray font-mono tracking-widest uppercase">
@@ -170,21 +170,21 @@
 
                 <div id="step-2" class="scroll-step absolute inset-0 flex flex-col items-center justify-center px-6 md:px-12 w-full max-w-7xl mx-auto opacity-0 pointer-events-none">
                     <h2 class="text-3xl md:text-5xl font-serif font-bold text-white mb-12 text-center">Nossa Metodologia</h2>
-                    <div class="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
+                    <div class="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-left text-balance">
                         <div class="glass-card p-8 rounded-xl border border-white/5">
                             <i data-lucide="file-text" class="w-8 h-8 text-brand-gold mb-4"></i>
                             <h3 class="text-xl font-serif font-bold text-white mb-3">Pautas Exclusivas</h3>
-                            <p class="text-sm text-brand-light-gray leading-relaxed">Mapeamos histórias que a grande imprensa realmente quer contar sobre você.</p>
+                            <p class="text-sm text-brand-light-gray leading-relaxed">Mapeamos as histórias que a grande imprensa realmente quer contar.</p>
                         </div>
                         <div class="glass-card p-8 rounded-xl border border-white/5">
                             <i data-lucide="globe" class="w-8 h-8 text-brand-gold mb-4"></i>
                             <h3 class="text-xl font-serif font-bold text-white mb-3">Visibilidade Nacional</h3>
-                            <p class="text-sm text-brand-light-gray leading-relaxed">Presença orgânica focada em editorias de esportes, comportamento e negócios.</p>
+                            <p class="text-sm text-brand-light-gray leading-relaxed">Presença orgânica focada em editorias de esportes e negócios.</p>
                         </div>
                         <div class="glass-card p-8 rounded-xl border border-white/5">
                             <i data-lucide="mic" class="w-8 h-8 text-brand-gold mb-4"></i>
                             <h3 class="text-xl font-serif font-bold text-white mb-3">Gestão de Imagem</h3>
-                            <p class="text-sm text-brand-light-gray leading-relaxed">Media training e desenvolvimento de palestras dinâmicas para o mercado.</p>
+                            <p class="text-sm text-brand-light-gray leading-relaxed">Media training e desenvolvimento de palestras dinâmicas.</p>
                         </div>
                         <div class="glass-card p-8 rounded-xl border border-white/5">
                             <i data-lucide="bar-chart-2" class="w-8 h-8 text-brand-gold mb-4"></i>
@@ -199,7 +199,7 @@
                         Sua Marca no <br/> 
                         <span class="text-brand-orange italic">Pódio da Mídia.</span>
                     </h2>
-                    <p class="text-lg md:text-xl text-brand-light-gray max-w-3xl font-light leading-relaxed mb-12 text-center">
+                    <p class="text-lg md:text-xl text-brand-light-gray max-w-3xl font-light leading-relaxed mb-12 text-center text-balance">
                         Suporte de mídia em etapas da <strong class="text-white">Stock Car</strong> com pilotos de elite e ações institucionais nas maiores universidades do país.
                     </p>
                     <a href="#contato" class="glow-cta group relative px-10 py-5 bg-brand-orange text-white text-sm font-bold tracking-widest uppercase overflow-hidden inline-flex items-center gap-3 rounded-sm">
@@ -211,9 +211,9 @@
         </div>
     </section>
 
-    <section id="metodo" class="bg-brand-black text-white py-32 relative editorial-border-b">
+    <section id="metodo" class="bg-brand-black text-white py-32 relative editorial-border-b reveal">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 reveal">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
                 <div class="lg:col-span-5 flex flex-col justify-start lg:pr-12 lg:editorial-border-r">
                     <span class="text-xs font-sans text-brand-gold font-bold tracking-[0.2em] uppercase mb-8 block">O Cenário</span>
                     <h2 class="text-4xl md:text-5xl font-serif font-bold leading-tight">
@@ -246,13 +246,53 @@
                 <div class="glass-card p-10 rounded-2xl">
                     <i data-lucide="crosshair" class="w-10 h-10 text-brand-gold mb-8"></i>
                     <h3 class="text-3xl font-serif text-white mb-4">Elite Sports</h3>
-                    <p class="text-brand-light-gray font-light">Acompanhamento completo em circuitos de alto rendimento como Stock Car.</p>
+                    <p class="text-brand-light-gray font-light">Acompanhamento completo em circuitos como a Stock Car.</p>
                 </div>
                 <div class="glass-card p-10 rounded-2xl">
                     <i data-lucide="shield-check" class="w-10 h-10 text-brand-gold mb-8"></i>
                     <h3 class="text-3xl font-serif text-white mb-4">Reputação</h3>
                     <p class="text-brand-light-gray font-light">Blindagem midiática e construção de legado institucional.</p>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="sobre" class="bg-brand-black text-white py-32 relative editorial-border-b reveal">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+                
+                <div class="lg:col-span-7 flex flex-col justify-center lg:pr-12">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-8 h-[1px] bg-brand-gold"></div>
+                        <span class="text-xs font-sans text-brand-gold font-bold tracking-[0.2em] uppercase">Liderança em Mídia</span>
+                    </div>
+                    
+                    <h2 class="text-4xl md:text-5xl font-serif font-bold leading-tight mb-8">
+                        A Arte de Criar <br>
+                        <span class="text-brand-light-gray font-light text-balance">Autoridades no Mercado.</span>
+                    </h2>
+                    
+                    <div class="prose prose-invert prose-lg max-w-none text-balance">
+                        <p class="text-brand-light-gray font-light leading-relaxed mb-6">
+                            A <strong class="text-white font-medium">K-one</strong> tem se destacado no cenário de assessoria de imprensa estratégica, conquistando um papel de liderança na ajuda a empresas, especialistas e marcas a alcançarem maior visibilidade na mídia.
+                        </p>
+                        <p class="text-brand-light-gray font-light leading-relaxed mb-6">
+                            Ao oferecer soluções personalizadas e eficazes, garantimos que nossos clientes sejam percebidos como autoridades em seus respectivos setores, fortalecendo sua presença e impacto no mercado.
+                        </p>
+                        <p class="text-brand-light-gray font-light leading-relaxed">
+                            Nosso enfoque em criar narrativas convincentes e adaptadas faz da K-one um parceiro imprescindível para aqueles que buscam consolidar seu posicionamento de forma duradoura.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5 relative mt-12 lg:mt-0">
+                    <div class="absolute inset-0 bg-brand-gold/5 blur-3xl rounded-full transform -translate-x-4 translate-y-4"></div>
+                    <div class="glass-card p-2 rounded-2xl relative z-10 overflow-hidden group">
+                        <img src="perfil.jpg" alt="Liderança K-One" class="w-full h-auto object-cover rounded-xl grayscale group-hover:grayscale-0 transition-all duration-700 ease-in-out transform group-hover:scale-105">
+                        <div class="absolute bottom-0 left-0 w-full h-1 bg-brand-gold transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-left"></div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
@@ -281,7 +321,7 @@
         }
         initLucide();
 
-        // 1. Scroll Reveal Logic (Intersection Observer)
+        // 1. Scroll Reveal Logic
         const observerOptions = { threshold: 0.15 };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
