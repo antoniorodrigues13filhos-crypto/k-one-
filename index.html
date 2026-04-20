@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pauta&Co | Assessoria de Imprensa Estratégica</title>
     
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,37 +13,28 @@
     
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'brand-black': '#0a0d10',
-                        'brand-dark': '#13181d',
-                        'brand-light-gray': '#A7ADB2',
-                        'brand-orange': '#FF5A1F',
-                        'brand-orange-dark': '#e04e1b',
-                        'brand-gold': '#D4C06A',
-                    },
-                    fontFamily: {
-                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-                        serif: ['"Cormorant Garamond"', 'serif'],
-                    }
-                }
-            }
+    <style type="text/tailwindcss">
+        @theme {
+            /* Premium Editorial Palette */
+            --color-brand-black: #0a0d10;
+            --color-brand-dark: #13181d;
+            --color-brand-light-gray: #A7ADB2;
+            --color-brand-orange: #FF5A1F;
+            --color-brand-orange-dark: #e04e1b;
+            --color-brand-gold: #D4C06A;
+            
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+            --font-serif: 'Cormorant Garamond', serif;
         }
-    </script>
 
-    <style>
         body {
-            background-color: #0a0d10;
+            background-color: var(--color-brand-black);
             color: #ffffff;
+            font-family: var(--font-sans);
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Apple/Tesla Hardware Acceleration */
+        /* Apple/Tesla Hardware Acceleration Apenas no Hero */
         #hero-canvas {
             will-change: transform;
             transform: translateZ(0);
@@ -107,12 +98,12 @@
         }
 
         ::selection {
-            background: #FF5A1F;
+            background: var(--color-brand-orange);
             color: white;
         }
     </style>
 </head>
-<body style="overflow:hidden;" class="antialiased font-sans">
+<body style="overflow:hidden;" class="antialiased font-sans text-white bg-brand-black">
 
     <div id="loader" style="position:fixed;inset:0;background:linear-gradient(135deg,#13181d,#0a0d10);z-index:9999;display:flex;flex-direction:column;justify-content:center;align-items:center;transition:opacity 0.8s ease-out,visibility 0.8s;">
         <div class="mb-6 relative">
@@ -263,23 +254,13 @@
         }
         initLucide();
 
-        const lenis = new Lenis({
-            duration: 1.2,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
-            smooth: true,
-            touchMultiplier: 2,
-        });
-
+        // Variáveis de controle para Suavização Isolada (Lerp)
+        let targetScrollY = window.scrollY;
         let smoothedScrollY = window.scrollY;
-        lenis.on('scroll', (e) => {
-            smoothedScrollY = e.scroll;
-        });
 
-        function raf(time) {
-            lenis.raf(time);
-            requestAnimationFrame(raf);
-        }
-        requestAnimationFrame(raf);
+        window.addEventListener('scroll', () => {
+            targetScrollY = window.scrollY;
+        }, { passive: true });
 
         const frameCount = 128; 
         const images = [];
@@ -348,54 +329,59 @@
         window.addEventListener('resize', setupCanvas);
 
         let lastDrawnFrame = -1;
-        let lastRenderedFraction = -1;
 
+        // Loop de Renderização Desacoplado
         function renderFluidLoop() {
             if (loadedCount === 0) {
                 requestAnimationFrame(renderFluidLoop);
                 return;
             }
 
+            // Lerp: Suaviza matematicamente o movimento APENAS da animação do Hero, sem afetar a página
+            smoothedScrollY += (targetScrollY - smoothedScrollY) * 0.08;
+
             const maxScroll = heroEl.offsetHeight - window.innerHeight;
+            // Se já passamos do Hero, não precisamos calcular a fundo
             const currentScrollFraction = Math.max(0, Math.min(1, smoothedScrollY / maxScroll));
 
-            if (Math.abs(currentScrollFraction - lastRenderedFraction) > 0.0001 || lastDrawnFrame === -1) {
-                lastRenderedFraction = currentScrollFraction;
-                const frameIndex = Math.min(frameCount - 1, Math.floor(currentScrollFraction * (frameCount - 1)));
-                
-                if (frameIndex !== lastDrawnFrame && images[frameIndex]) {
-                    drawCover(images[frameIndex]);
-                    lastDrawnFrame = frameIndex;
-                }
-                
-                let opacity = 1, translateY = 0, scale = 1, blurAmount = 0;
-
-                if (currentScrollFraction <= 0.10) {
-                    translateY = currentScrollFraction * -150; 
-                } else if (currentScrollFraction > 0.10 && currentScrollFraction < 0.35) {
-                    let localFrac = (currentScrollFraction - 0.10) / 0.25;
-                    opacity = 1 - localFrac;
-                    blurAmount = localFrac * 15;
-                    translateY = (0.10 * -150) - (localFrac * 200);
-                    scale = 1 + (localFrac * 0.1); 
-                } else {
-                    opacity = 0;
-                    translateY = -400;
-                }
-
-                if (document.body.classList.contains('loaded')) {
-                    textGroup.style.opacity = opacity.toFixed(3);
-                    if (window.innerWidth > 768) {
-                        textGroup.style.filter = `blur(${blurAmount.toFixed(1)}px)`;
-                    } else {
-                        textGroup.style.filter = 'none';
-                    }
-                    textGroup.style.transform = `translate3d(0, ${translateY.toFixed(1)}px, 0) scale(${scale.toFixed(3)})`;
-                }
+            const frameIndex = Math.min(frameCount - 1, Math.floor(currentScrollFraction * (frameCount - 1)));
+            
+            // Só desenha se mudou de frame
+            if (frameIndex !== lastDrawnFrame && images[frameIndex]) {
+                drawCover(images[frameIndex]);
+                lastDrawnFrame = frameIndex;
             }
+            
+            // Animação de entrada/saída do texto
+            let opacity = 1, translateY = 0, scale = 1, blurAmount = 0;
+
+            if (currentScrollFraction <= 0.10) {
+                translateY = currentScrollFraction * -150; 
+            } else if (currentScrollFraction > 0.10 && currentScrollFraction < 0.35) {
+                let localFrac = (currentScrollFraction - 0.10) / 0.25;
+                opacity = 1 - localFrac;
+                blurAmount = localFrac * 15;
+                translateY = (0.10 * -150) - (localFrac * 200);
+                scale = 1 + (localFrac * 0.1); 
+            } else {
+                opacity = 0;
+                translateY = -400;
+            }
+
+            if (document.body.classList.contains('loaded')) {
+                textGroup.style.opacity = opacity.toFixed(3);
+                if (window.innerWidth > 768) {
+                    textGroup.style.filter = `blur(${blurAmount.toFixed(1)}px)`;
+                } else {
+                    textGroup.style.filter = 'none';
+                }
+                textGroup.style.transform = `translate3d(0, ${translateY.toFixed(1)}px, 0) scale(${scale.toFixed(3)})`;
+            }
+
             requestAnimationFrame(renderFluidLoop);
         }
 
+        // Inicia o loop de animação ultra fluida do Hero
         requestAnimationFrame(renderFluidLoop);
     </script>
 </body>
