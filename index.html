@@ -1,517 +1,278 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Center Net Informática | Performance Elite</title>
+    <title>Pauta&Co | Assessoria de Imprensa Estratégica</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
-    <style type="text/tailwindcss">
-        @theme {
-            --color-tech-bg: #0D0D0D; 
-            --color-tech-primary: #FF7A00; 
-            --color-tech-primary-light: #FFA726;
-            --color-tech-accent: #FFC107;
-            --font-sans: 'Space Grotesk', sans-serif;
-        }
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
 
-        @layer base {
-            body { 
-                @apply bg-tech-bg text-white antialiased overflow-x-hidden; 
-                font-family: var(--font-sans);
-            }
-        }
-
-        @layer utilities {
-            .hero-grid {
-                display: grid;
-                grid-template-columns: repeat(12, 1fr);
-                gap: 2rem;
-                width: 100%;
-                max-width: 1280px;
-                margin: 0 auto;
-                padding: 0 2rem;
-            }
-
-            .btn-glow {
-                box-shadow: 0 0 20px rgba(255, 122, 0, 0.3);
-                transition: all 0.3s ease;
-            }
-            .btn-glow:hover {
-                box-shadow: 0 0 35px rgba(255, 167, 38, 0.6);
-                transform: translateY(-2px);
-            }
-
-            .headline-main {
-                @apply text-4xl md:text-7xl font-black uppercase tracking-tighter mb-6 leading-[0.95];
-                background: linear-gradient(135deg, #FFF 30%, rgba(255,255,255,0.5) 100%);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                text-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            }
-
-            .text-highlight {
-                -webkit-text-fill-color: var(--color-tech-primary) !important;
-                @apply text-tech-primary;
-            }
-
-            .subheadline-main {
-                @apply text-lg md:text-xl text-white/80 font-medium mb-10 max-w-2xl leading-relaxed;
-            }
-
-            .text-group {
-                grid-column: 1 / span 10;
-                text-align: left;
-                opacity: 0;
-                transform: translateY(40px);
-                filter: blur(15px);
-                transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-                pointer-events: none;
-            }
-
-            .text-group.active {
-                opacity: 1;
-                transform: translateY(0);
-                filter: blur(0px);
-                pointer-events: auto;
-            }
-
-            .product-card {
-                @apply relative overflow-hidden transition-all duration-500 rounded-2xl;
-                background: linear-gradient(145deg, rgba(255,255,255,0.03) 0%, rgba(0,0,0,0.4) 100%);
-                border: 1px solid rgba(255,255,255,0.05);
-                box-shadow: 
-                    inset 0 1px 0 rgba(255,255,255,0.1),
-                    inset 0 0 20px rgba(255,255,255,0.02),
-                    0 8px 32px rgba(0,0,0,0.5);
-                backdrop-filter: blur(16px);
-                -webkit-backdrop-filter: blur(16px);
-                will-change: transform;
-            }
-
-            .product-card::before {
-                content: '';
-                position: absolute;
-                inset: 0;
-                background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255,122,0,0.15) 0%, transparent 50%);
-                opacity: 0;
-                transition: opacity 0.5s;
-            }
-
-            .product-card:hover::before {
-                opacity: 1;
-            }
-
-            .card-reveal {
-                opacity: 0;
-                transform: translateY(30px);
-                transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-            }
-            .card-reveal.active {
-                opacity: 1;
-                transform: translateY(0);
-            }
-            .delay-1 { transition-delay: 0.1s; }
-            .delay-2 { transition-delay: 0.2s; }
-            .delay-3 { transition-delay: 0.3s; }
-
-            /* FAQ Styles */
-            .faq-answer {
-                display: grid;
-                grid-template-rows: 0fr;
-                transition: grid-template-rows 0.3s ease;
-            }
-            .faq-answer > div {
-                overflow: hidden;
-            }
-            details[open] .faq-answer {
-                grid-template-rows: 1fr;
-            }
-            details summary::-webkit-details-marker {
-                display: none;
-            }
-
-            /* Scrollbar Widget Customizada */
-            #chat-messages::-webkit-scrollbar {
-                width: 4px;
-            }
-            #chat-messages::-webkit-scrollbar-track {
-                background: rgba(255,255,255,0.02);
-            }
-            #chat-messages::-webkit-scrollbar-thumb {
-                background: var(--color-tech-primary);
-                border-radius: 4px;
-            }
-
-            #preloader {
-                @apply fixed inset-0 z-[100] bg-tech-bg flex flex-col items-center justify-center transition-opacity duration-700;
-            }
-            .load-bar-container {
-                @apply w-48 h-[2px] bg-white/10 overflow-hidden relative;
-            }
-            .load-bar-fill {
-                @apply absolute top-0 left-0 h-full bg-tech-primary w-0 transition-all duration-500 ease-out;
-                box-shadow: 0 0 15px var(--color-tech-primary);
-            }
-
-            @keyframes scan {
-                0% { left: -100%; }
-                100% { left: 150%; }
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-black': '#0a0d10',
+                        'brand-dark': '#13181d',
+                        'brand-light-gray': '#A7ADB2',
+                        'brand-orange': '#FF5A1F',
+                        'brand-orange-dark': '#e04e1b',
+                        'brand-gold': '#D4C06A',
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                    }
+                }
             }
         }
+    </script>
 
-        .hero-sticky-container {
-            position: sticky;
-            top: 0;
-            height: 100vh;
-            width: 100%;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
+    <style>
+        body {
+            background-color: #0a0d10;
+            color: #ffffff;
+            -webkit-font-smoothing: antialiased;
         }
 
+        /* Apple/Tesla Hardware Acceleration */
         #hero-canvas {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            will-change: transform;
+            transform: translateZ(0);
+        }
+        #hero-content-group {
+            will-change: transform, opacity, filter;
+            transform: translateZ(0);
         }
 
-        .hero-overlay {
-            position: absolute;
-            inset: 0;
-            z-index: 5;
-            background: transparent;
+        /* Premium Editorial Borders */
+        .editorial-border { border: 1px solid rgba(212, 192, 106, 0.15); }
+        .editorial-border-b { border-bottom: 1px solid rgba(212, 192, 106, 0.15); }
+        .editorial-border-r { border-right: 1px solid rgba(212, 192, 106, 0.15); }
+        .editorial-border-t { border-top: 1px solid rgba(212, 192, 106, 0.15); }
+
+        /* Cinematic Blur Reveal Text Animation */
+        .reveal-element {
+            opacity: 0;
+            filter: blur(12px);
+            transform: translateY(30px) scale(0.95);
         }
 
-        @media (min-width: 768px) {
-            .hero-overlay {
-                background: radial-gradient(circle at 20% 50%, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.7) 100%);
+        body.loaded .reveal-element {
+            animation: cinematicReveal 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes cinematicReveal {
+            to {
+                opacity: 1;
+                filter: blur(0);
+                transform: translateY(0) scale(1);
             }
+        }
+
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.3s; }
+        .delay-3 { animation-delay: 0.5s; }
+        .delay-4 { animation-delay: 0.7s; }
+
+        /* Extreme Glass Effect for Cards */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(212, 192, 106, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .glow-cta {
+            box-shadow: 0 0 20px rgba(255, 90, 31, 0);
+            transition: all 0.4s ease;
+        }
+        .glow-cta:hover {
+            box-shadow: 0 0 30px rgba(255, 90, 31, 0.4);
+        }
+
+        ::selection {
+            background: #FF5A1F;
+            color: white;
         }
     </style>
 </head>
-<body class="antialiased relative">
+<body style="overflow:hidden;" class="antialiased font-sans">
 
-    <div id="preloader">
-        <div class="mb-4 text-[10px] font-black uppercase tracking-[0.3em] text-white/40">Iniciando Sistemas</div>
-        <div class="load-bar-container">
-            <div id="load-fill" class="load-bar-fill"></div>
+    <div id="loader" style="position:fixed;inset:0;background:linear-gradient(135deg,#13181d,#0a0d10);z-index:9999;display:flex;flex-direction:column;justify-content:center;align-items:center;transition:opacity 0.8s ease-out,visibility 0.8s;">
+        <div class="mb-6 relative">
+            <div class="absolute -inset-4 border border-brand-gold/30 rotate-45 animate-pulse"></div>
+            <i data-lucide="newspaper" class="w-12 h-12 text-brand-gold relative z-10"></i>
         </div>
+        <h2 class="text-3xl font-serif text-white mb-4 tracking-widest uppercase mt-4">Pauta&Co.</h2>
+        <div style="width:16rem;height:1px;background:rgba(212,192,106,0.2);overflow:hidden;border-radius:0;">
+            <div id="progress-bar" style="height:100%;background:#FF5A1F;transition:width 200ms ease-out;width:0%;"></div>
+        </div>
+        <p id="loading-text" class="text-brand-light-gray mt-4 text-xs font-mono tracking-widest uppercase">Articulando mídia 0%...</p>
     </div>
 
-    <nav class="fixed top-0 left-0 w-full z-50 bg-tech-bg/80 backdrop-blur-md border-b border-white/5">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
-            <span class="font-black text-xl tracking-tighter uppercase">Center<span class="text-tech-primary">Net</span></span>
-            <button onclick="document.getElementById('chat-fab').click()" class="bg-tech-primary text-tech-bg px-6 py-2 text-[10px] font-black uppercase tracking-widest btn-glow cursor-pointer">
-                Atendimento Elite
-            </button>
+    <nav class="fixed top-0 left-0 w-full z-50 editorial-border-b bg-brand-black/70 backdrop-blur-xl transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3 group cursor-pointer">
+                <div class="w-8 h-8 bg-brand-gold flex items-center justify-center transition-transform group-hover:rotate-12">
+                    <i data-lucide="pen-tool" class="w-4 h-4 text-brand-black"></i>
+                </div>
+                <span class="text-2xl font-serif tracking-widest font-bold">PAUTA&CO.</span>
+            </div>
+            <div class="hidden md:flex items-center gap-10 text-xs font-semibold tracking-widest uppercase text-brand-light-gray">
+                <a href="#metodo" class="hover:text-brand-gold transition-colors">A Abordagem</a>
+                <a href="#servicos" class="hover:text-brand-gold transition-colors">Estratégia</a>
+                <a href="#autoridade" class="hover:text-brand-gold transition-colors">Impacto</a>
+            </div>
+            <div>
+                <a href="#contato" class="glow-cta group relative px-8 py-3.5 bg-brand-orange text-white text-xs font-bold tracking-widest uppercase overflow-hidden inline-block transition-colors rounded-sm">
+                    <span class="absolute inset-0 bg-brand-orange-dark transform -translate-x-full transition-transform duration-500 ease-out group-hover:translate-x-0"></span>
+                    <span class="relative z-10">Aplicar Agora</span>
+                </a>
+            </div>
         </div>
     </nav>
 
-    <section id="scroll-hero" class="relative" style="height: 600vh;">
-        <div class="hero-sticky-container">
-            <canvas id="hero-canvas"></canvas>
-            <div class="hero-overlay"></div>
+    <section id="scroll-hero" style="height:400vh;position:relative;">
+        <div style="position:sticky;top:0;height:100vh;width:100%;overflow:hidden;">
+            <canvas id="hero-canvas" style="position:absolute;inset:0;width:100%;height:100%;"></canvas>
             
-            <div class="hero-grid relative z-10">
-                <div id="step-1" class="text-group">
-                    <h2 class="headline-main">O seu fluxo de trabalho <span class="text-highlight">não pode parar</span> por limitações técnicas.</h2>
-                </div>
-
-                <div id="step-2" class="text-group absolute">
-                    <h2 class="headline-main">Esqueça a lentidão e os <span class="text-highlight">travamentos</span> que interrompem sua produtividade.</h2>
-                </div>
-
-                <div id="step-3" class="text-group absolute">
-                    <h2 class="headline-main">Na Center Net, unimos <span class="text-highlight">Hardware de Elite</span> e manutenção.</h2>
-                    <p class="subheadline-main text-white">Performance máxima. Estabilidade absoluta. Soluções sob medida para o seu resultado.</p>
-                    <div class="flex flex-col sm:flex-row gap-5">
-                        <a href="#produtos" class="inline-flex items-center justify-center border border-white/40 px-10 py-5 text-sm font-black uppercase tracking-widest bg-black/20 backdrop-blur-sm hover:bg-black/40 transition-all">
-                            Conheça nossos produtos
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="produtos" class="py-32 bg-tech-bg relative z-20 border-t border-white/5">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-                <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tighter card-reveal">
-                    Vitrine <span class="text-tech-primary">Elite Performance</span>
-                </h2>
-                <p class="text-white/40 uppercase tracking-[0.3em] text-[10px] font-bold card-reveal delay-1">
-                    // Hardware selecionado por especialistas
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="product-card card-reveal delay-1 group p-8">
-                    <div class="absolute top-0 left-[-100%] w-[50%] h-full bg-gradient-to-r from-transparent via-tech-primary/10 to-transparent skew-x-[-25deg] group-hover:animate-[scan_1.5s_ease-in-out_infinite]"></div>
-                    <div class="mb-2 flex justify-between items-start">
-                        <span class="text-[9px] font-black bg-tech-primary text-black px-2 py-1 uppercase tracking-tighter">Gamer Pro</span>
-                        <span class="text-[9px] font-bold text-white/30 uppercase tracking-widest">ID: CN-5600</span>
-                    </div>
-                    <div class="mb-8 h-56 flex items-center justify-center relative z-10">
-                        <img src="produtos/amdryzen5.png" alt="AMD Ryzen 5 5600GT" class="w-full h-full object-contain group-hover:scale-110 group-hover:rotate-2 transition-transform duration-700 drop-shadow-[0_20px_50px_rgba(255,122,0,0.15)]">
-                    </div>
-                    <h3 class="text-2xl font-black uppercase mb-4 leading-tight group-hover:text-tech-primary transition-colors">AMD Ryzen 5 <br> 5600GT Performance</h3>
-                    <div class="grid grid-cols-2 gap-4 mb-8 pt-4 border-t border-white/5">
-                        <div>
-                            <p class="text-[8px] text-white/30 uppercase font-bold tracking-widest">Processador</p>
-                            <p class="text-xs font-bold text-white/80">6 Cores / 12 Threads</p>
-                        </div>
-                        <div>
-                            <p class="text-[8px] text-white/30 uppercase font-bold tracking-widest">Gráficos</p>
-                            <p class="text-xs font-bold text-white/80">Radeon™ 7-Core</p>
-                        </div>
-                    </div>
-                    <button onclick="document.getElementById('chat-fab').click(); setTimeout(()=> {document.getElementById('chat-input').value='Olá, tenho interesse no PC Ryzen 5600GT'}, 300)" class="w-full bg-white/5 border border-white/10 hover:bg-tech-primary hover:text-black py-4 text-[10px] font-black uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-2 cursor-pointer">
-                        Orçamento Instantâneo
-                    </button>
-                </div>
-
-                <div class="product-card card-reveal delay-2 group p-8">
-                    <div class="absolute top-0 left-[-100%] w-[50%] h-full bg-gradient-to-r from-transparent via-tech-primary/10 to-transparent skew-x-[-25deg] group-hover:animate-[scan_1.5s_ease-in-out_infinite]"></div>
-                    <div class="mb-2 flex justify-between items-start">
-                        <span class="text-[9px] font-black bg-white text-black px-2 py-1 uppercase tracking-tighter">High-End Laptop</span>
-                        <span class="text-[9px] font-bold text-white/30 uppercase tracking-widest">ID: CN-NITRO-V</span>
-                    </div>
-                    <div class="mb-8 h-56 flex items-center justify-center relative z-10">
-                        <img src="produtos/nitrov5.png" alt="Nitro V Intel Core" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700 drop-shadow-[0_20px_50px_rgba(255,122,0,0.1)]">
-                    </div>
-                    <h3 class="text-2xl font-black uppercase mb-4 leading-tight group-hover:text-tech-primary transition-colors">Acer Nitro V <br> Intel Core RTX</h3>
-                    <div class="grid grid-cols-2 gap-4 mb-8 pt-4 border-t border-white/5">
-                        <div>
-                            <p class="text-[8px] text-white/30 uppercase font-bold tracking-widest">Tela</p>
-                            <p class="text-xs font-bold text-white/80">144Hz IPS FHD</p>
-                        </div>
-                        <div>
-                            <p class="text-[8px] text-white/30 uppercase font-bold tracking-widest">GPU</p>
-                            <p class="text-xs font-bold text-white/80">NVIDIA RTX Series</p>
-                        </div>
-                    </div>
-                    <button onclick="document.getElementById('chat-fab').click(); setTimeout(()=> {document.getElementById('chat-input').value='Olá, gostaria de consultar o estoque do Acer Nitro V'}, 300)" class="w-full bg-white/5 border border-white/10 hover:bg-tech-primary hover:text-black py-4 text-[10px] font-black uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-2 cursor-pointer">
-                        Consultar Estoque
-                    </button>
-                </div>
-
-                <div class="product-card card-reveal delay-3 group p-8">
-                    <div class="absolute top-0 left-[-100%] w-[50%] h-full bg-gradient-to-r from-transparent via-tech-primary/10 to-transparent skew-x-[-25deg] group-hover:animate-[scan_1.5s_ease-in-out_infinite]"></div>
-                    <div class="mb-2 flex justify-between items-start">
-                        <span class="text-[9px] font-black bg-tech-primary text-black px-2 py-1 uppercase tracking-tighter">Peças Elite</span>
-                        <span class="text-[9px] font-bold text-white/30 uppercase tracking-widest">ID: CN-RTX-3060</span>
-                    </div>
-                    <div class="mb-8 h-56 flex items-center justify-center relative z-10">
-                        <img src="produtos/rtx3090.png" alt="Placa de Video RTX 3060" class="w-full h-full object-contain group-hover:scale-110 group-hover:-rotate-2 transition-transform duration-700 drop-shadow-[0_20px_50px_rgba(255,122,0,0.15)]">
-                    </div>
-                    <h3 class="text-2xl font-black uppercase mb-4 leading-tight group-hover:text-tech-primary transition-colors">Placa de Vídeo <br> RTX 3060 OC</h3>
-                    <div class="grid grid-cols-2 gap-4 mb-8 pt-4 border-t border-white/5">
-                        <div>
-                            <p class="text-[8px] text-white/30 uppercase font-bold tracking-widest">Memória VRAM</p>
-                            <p class="text-xs font-bold text-white/80">12GB GDDR6</p>
-                        </div>
-                        <div>
-                            <p class="text-[8px] text-white/30 uppercase font-bold tracking-widest">Arquitetura</p>
-                            <p class="text-xs font-bold text-white/80">Ampere Architecture</p>
-                        </div>
-                    </div>
-                    <button onclick="document.getElementById('chat-fab').click(); setTimeout(()=> {document.getElementById('chat-input').value='Olá, tenho interesse na RTX 3060'}, 300)" class="w-full bg-white/5 border border-white/10 hover:bg-tech-primary hover:text-black py-4 text-[10px] font-black uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-2 cursor-pointer">
-                        Ver Preços
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-20 bg-black relative z-20 border-t border-white/5">
-        <div class="max-w-7xl mx-auto px-6">
-            <h3 class="text-2xl font-black uppercase mb-12 tracking-tighter">Resultados em <span class="text-tech-primary">Produção</span></h3>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="product-card p-6">
-                    <div class="flex items-center gap-2 mb-4 text-tech-accent">
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                    </div>
-                    <p class="text-white/80 text-sm italic mb-6">"Meu workflow de edição travava toda hora. A equipe fez um upgrade cirúrgico na minha máquina e agora renderizo vídeos pesados sem engasgo."</p>
-                    <p class="text-[10px] font-bold uppercase tracking-widest text-white/50">Lucas F. - Produtor Audiovisual</p>
-                </div>
-                <div class="product-card p-6">
-                    <div class="flex items-center gap-2 mb-4 text-tech-accent">
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                    </div>
-                    <p class="text-white/80 text-sm italic mb-6">"Levei meu PC gamer que estava aquecendo demais. Manutenção preventiva top, trocaram a pasta térmica e cabos. Temperatura caiu 20 graus."</p>
-                    <p class="text-[10px] font-bold uppercase tracking-widest text-white/50">Rafael M. - Streamer</p>
-                </div>
-                <div class="product-card p-6 border-tech-primary/30">
-                    <div class="flex items-center gap-2 mb-4 text-tech-accent">
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                    </div>
-                    <p class="text-white/80 text-sm italic mb-6">"Comprei meu setup inteiro na Center Net. Consultoria excelente, me venderam exatamente o que eu precisava pra arquitetura 3D."</p>
-                    <p class="text-[10px] font-bold uppercase tracking-widest text-white/50">Carla S. - Arquiteta</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-32 bg-tech-bg relative z-20 border-t border-white/5">
-        <div class="max-w-4xl mx-auto px-6">
-            <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tighter mb-12 text-center">
-                Dúvidas <span class="text-tech-primary">Frequentes</span>
-            </h2>
+            <div style="position:absolute;inset:0;background:linear-gradient(to top, #0a0d10 0%, rgba(10,13,16,0.6) 50%, rgba(10,13,16,0.2) 100%);z-index:1;"></div>
             
-            <div class="space-y-4">
-                <details class="group bg-white/5 border border-white/10 rounded-xl overflow-hidden backdrop-blur-sm cursor-pointer">
-                    <summary class="flex items-center justify-between p-6 font-bold text-lg outline-none select-none">
-                        Vocês montam PCs personalizados?
-                        <i data-lucide="chevron-down" class="w-5 h-5 text-tech-primary transition-transform group-open:rotate-180"></i>
-                    </summary>
-                    <div class="faq-answer">
-                        <div class="px-6 pb-6 text-white/70 text-sm leading-relaxed">
-                            Sim. Montamos máquinas específicas para o seu fluxo de trabalho, seja para edição de vídeo pesada, renderização 3D, programação ou setups gamers de alta performance.
-                        </div>
-                    </div>
-                </details>
-
-                <details class="group bg-white/5 border border-white/10 rounded-xl overflow-hidden backdrop-blur-sm cursor-pointer">
-                    <summary class="flex items-center justify-between p-6 font-bold text-lg outline-none select-none">
-                        Fazemos manutenção em notebooks?
-                        <i data-lucide="chevron-down" class="w-5 h-5 text-tech-primary transition-transform group-open:rotate-180"></i>
-                    </summary>
-                    <div class="faq-answer">
-                        <div class="px-6 pb-6 text-white/70 text-sm leading-relaxed">
-                            Com certeza. Realizamos desde upgrades de memória e SSD até reparos em placa-mãe, troca de tela, teclado e limpeza preventiva profunda.
-                        </div>
-                    </div>
-                </details>
-
-                <details class="group bg-white/5 border border-white/10 rounded-xl overflow-hidden backdrop-blur-sm cursor-pointer">
-                    <summary class="flex items-center justify-between p-6 font-bold text-lg outline-none select-none">
-                        Qual a garantia dos produtos?
-                        <i data-lucide="chevron-down" class="w-5 h-5 text-tech-primary transition-transform group-open:rotate-180"></i>
-                    </summary>
-                    <div class="faq-answer">
-                        <div class="px-6 pb-6 text-white/70 text-sm leading-relaxed">
-                            Todos os nossos componentes de hardware novos possuem garantia direta de fábrica, além do nosso suporte técnico especializado local para garantir que sua máquina volte a rodar rápido.
-                        </div>
-                    </div>
-                </details>
+            <div class="absolute inset-8 border border-brand-gold/10 z-[2] pointer-events-none hidden md:block">
+                <div class="absolute top-0 left-0 w-6 h-6 border-t border-l border-brand-gold -mt-[1px] -ml-[1px]"></div>
+                <div class="absolute top-0 right-0 w-6 h-6 border-t border-r border-brand-gold -mt-[1px] -mr-[1px]"></div>
+                <div class="absolute bottom-0 left-0 w-6 h-6 border-b border-l border-brand-gold -mb-[1px] -ml-[1px]"></div>
+                <div class="absolute bottom-0 right-0 w-6 h-6 border-b border-r border-brand-gold -mb-[1px] -mr-[1px]"></div>
             </div>
-        </div>
-    </section>
-
-    <footer class="bg-black border-t border-white/5 relative z-20 pt-20 pb-10">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="flex flex-col md:flex-row items-center justify-between mb-16 pb-16 border-b border-white/5 gap-8 text-center md:text-left">
-                <div>
-                    <h2 class="text-4xl font-black uppercase tracking-tighter mb-4">Seu PC <span class="text-tech-primary">está lento?</span></h2>
-                    <p class="text-white/60">Pare de perder dinheiro com máquinas travando. Fale com um especialista.</p>
-                </div>
-                <button onclick="document.getElementById('chat-fab').click()" class="bg-white text-black px-10 py-5 text-sm font-black uppercase tracking-widest hover:bg-tech-primary transition-colors btn-glow cursor-pointer">
-                    Solicitar Diagnóstico
-                </button>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-                <div>
-                    <span class="font-black text-2xl tracking-tighter uppercase mb-6 block">Center<span class="text-tech-primary">Net</span></span>
-                    <p class="text-white/40 text-sm max-w-sm mb-6 leading-relaxed">
-                        Hardware de elite, montagem premium e manutenção especializada. Elevando o padrão técnico do seu setup.
+            
+            <div style="position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center;padding:2rem;">
+                <div id="hero-content-group" class="text-center max-w-5xl mx-auto flex flex-col items-center">
+                    
+                    <div class="reveal-element delay-1 flex items-center gap-4 mb-6">
+                        <div class="w-12 h-[1px] bg-brand-gold"></div>
+                        <p class="text-brand-gold uppercase tracking-[0.4em] text-xs font-bold font-mono">Editorial de Autoridade</p>
+                        <div class="w-12 h-[1px] bg-brand-gold"></div>
+                    </div>
+                    
+                    <h1 class="reveal-element delay-2 text-5xl md:text-7xl lg:text-8xl font-serif text-white mb-6 leading-[1.1] tracking-tight">
+                        Atenção não se compra. <br/>
+                        <span class="italic text-brand-light-gray font-light">Se conquista na</span> <span class="text-white relative font-bold">Mídia.<span class="absolute bottom-2 left-0 w-full h-2 bg-brand-orange -z-10 opacity-80"></span></span>
+                    </h1>
+                    
+                    <p class="reveal-element delay-3 text-lg md:text-xl text-brand-light-gray max-w-2xl font-light leading-relaxed mb-10">
+                        Assessoria de imprensa estratégica para líderes, empresas e especialistas que desejam dominar o mercado sem depender exclusivamente de anúncios pagos.
                     </p>
-                </div>
-                
-                <div class="md:text-right">
-                    <h4 class="font-bold uppercase tracking-widest text-xs mb-6 text-white/50">Endereço Operacional</h4>
-                    <address class="not-italic text-sm text-white/70 leading-relaxed flex flex-col md:items-end gap-2">
-                        <span class="flex items-center gap-2"><i data-lucide="map-pin" class="w-4 h-4 text-tech-primary"></i> Rua 15 de Dezembro, 98 sl A lj 26/27</span>
-                        <span>Centro - Anápolis, GO</span>
-                        <span>CEP: 75024-070, Brasil</span>
-                    </address>
+
+                    <div class="reveal-element delay-4 flex items-center gap-2 text-xs text-brand-light-gray font-mono tracking-widest uppercase">
+                        <i data-lucide="mouse" class="w-4 h-4 animate-bounce text-brand-gold"></i>
+                        <span>Role para descobrir</span>
+                    </div>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <div class="mt-16 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-bold uppercase tracking-widest text-white/30">
-                <p>&copy; 2026 Center Net Informática. Todos os direitos reservados.</p>
-                <div class="flex gap-4">
-                    <a href="#" class="hover:text-tech-primary transition-colors"><i data-lucide="instagram" class="w-5 h-5"></i></a>
-                    <a href="#" class="hover:text-tech-primary transition-colors"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+    <section id="metodo" class="bg-brand-black text-white py-32 relative editorial-border-b">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 relative">
+                <div class="lg:col-span-5 flex flex-col justify-start relative z-10 lg:pr-12 lg:editorial-border-r">
+                    <span class="text-xs font-sans text-brand-gold font-bold tracking-[0.2em] uppercase mb-8 block">O Cenário Atual</span>
+                    <h2 class="text-4xl md:text-5xl font-serif leading-tight mb-8">
+                        Preso em um leilão <br>
+                        <span class="italic text-brand-light-gray font-light">interminável</span> de tráfego pago?
+                    </h2>
                 </div>
+                <div class="lg:col-span-7 flex flex-col justify-center">
+                    <div class="prose prose-invert prose-lg max-w-none">
+                        <p class="text-xl text-brand-light-gray font-light leading-relaxed mb-6">
+                            Enquanto a maioria das marcas drena seus orçamentos tentando comprar espaço na tela dos consumidores, as verdadeiras autoridades ditam as regras do jogo. Elas não interrompem; <strong class="text-white font-medium">elas são procuradas.</strong>
+                        </p>
+                        <div class="pl-8 border-l-2 border-brand-gold my-12">
+                            <p class="text-3xl font-serif text-white italic leading-snug">
+                                "Publicidade é o que você paga. Relações Públicas é o que você planta, colhe e pelo qual é respeitado."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="servicos" class="py-32 bg-brand-dark relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass-card group relative p-10 md:p-14 rounded-2xl transition-all duration-500 overflow-hidden">
+                    <i data-lucide="radio" class="w-10 h-10 text-brand-gold mb-8"></i>
+                    <h3 class="text-3xl font-serif text-white mb-4">Mídia de Topo</h3>
+                    <p class="text-brand-light-gray font-light text-sm">Inserção orgânica em portais de notícias e canais de TV.</p>
+                </div>
+                <div class="glass-card group relative p-10 md:p-14 rounded-2xl transition-all duration-500 overflow-hidden">
+                    <i data-lucide="crosshair" class="w-10 h-10 text-brand-gold mb-8"></i>
+                    <h3 class="text-3xl font-serif text-white mb-4">Posicionamento</h3>
+                    <p class="text-brand-light-gray font-light text-sm">Construção da imagem pública de CEOs como líderes de pensamento.</p>
+                </div>
+                <div class="glass-card group relative p-10 md:p-14 rounded-2xl transition-all duration-500 overflow-hidden">
+                    <i data-lucide="shield-check" class="w-10 h-10 text-brand-gold mb-8"></i>
+                    <h3 class="text-3xl font-serif text-white mb-4">Gestão de Crise</h3>
+                    <p class="text-brand-light-gray font-light text-sm">Blindagem midiática para garantir a integridade do seu legado.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-brand-black py-12 editorial-border-t">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-2">
+                <i data-lucide="pen-tool" class="w-4 h-4 text-brand-gold"></i>
+                <span class="text-lg font-serif tracking-wider font-bold text-white">PAUTA&CO.</span>
+            </div>
+            <div class="flex gap-4">
+                <a href="#" class="text-brand-light-gray/70 hover:text-brand-gold transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                </a>
+                <a href="#" class="text-brand-light-gray/70 hover:text-brand-gold transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                </a>
             </div>
         </div>
     </footer>
 
-    <div class="fixed bottom-6 right-6 z-[100] flex flex-col items-end">
-        
-        <div id="chat-box" class="hidden flex-col w-[340px] md:w-[380px] h-[480px] mb-4 rounded-2xl overflow-hidden product-card transform transition-all duration-300 translate-y-8 opacity-0">
-            <div class="bg-black/60 border-b border-white/10 p-4 flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <div class="relative">
-                        <div class="w-10 h-10 rounded-full bg-tech-bg border border-white/20 flex items-center justify-center">
-                            <i data-lucide="cpu" class="text-tech-primary w-5 h-5"></i>
-                        </div>
-                        <span class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-tech-bg rounded-full shadow-[0_0_10px_#22c55e]"></span>
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-sm tracking-wide">Atendimento Triage</h4>
-                        <p class="text-[10px] text-green-400 font-medium tracking-widest uppercase">Especialista Online</p>
-                    </div>
-                </div>
-                <button id="close-chat" class="text-white/50 hover:text-white transition-colors cursor-pointer p-1">
-                    <i data-lucide="x" class="w-5 h-5"></i>
-                </button>
-            </div>
-            
-            <div id="chat-messages" class="flex-1 p-4 overflow-y-auto flex flex-col gap-4 bg-gradient-to-b from-transparent to-black/40">
-                <div class="bg-white/10 rounded-2xl rounded-tl-none p-4 max-w-[85%] self-start border border-white/5 text-sm shadow-lg backdrop-blur-md">
-                    <p class="mb-2 font-bold text-tech-primary">Sistemas Operacionais Prontos.</p>
-                    <p class="text-white/90">Olá! Bem-vindo à Center Net. Como posso ajudar a otimizar sua máquina ou setup hoje?</p>
-                </div>
-            </div>
-
-            <div class="p-4 bg-black/60 border-t border-white/10 flex gap-2 items-center">
-                <input type="text" id="chat-input" placeholder="Digite sua dúvida aqui..." class="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-tech-primary/50 text-white placeholder-white/30 transition-colors">
-                <button id="send-chat" class="bg-tech-primary text-black p-3 rounded-xl hover:bg-tech-primary-light transition-colors cursor-pointer flex-shrink-0">
-                    <i data-lucide="send" class="w-5 h-5"></i>
-                </button>
-            </div>
-        </div>
-
-        <button id="chat-fab" class="w-16 h-16 rounded-full bg-tech-primary text-black flex items-center justify-center btn-glow hover:scale-105 transition-transform shadow-[0_10px_30px_rgba(255,122,0,0.4)] cursor-pointer">
-            <img src="midia/3d-icon-social-media-app.png" alt="Chat Center Net" class="w-8 h-8 object-contain" loading="lazy">
-        </button>
-    </div>
-
     <script>
-        lucide.createIcons();
+        function initLucide(){
+            if(window.lucide){
+                lucide.createIcons();
+            } else {
+                setTimeout(initLucide, 50); 
+            }
+        }
+        initLucide();
 
-        // 1. Lenis Smooth Scroll
         const lenis = new Lenis({
             duration: 1.2,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
             smooth: true,
-            orientation: 'vertical',
-            gestureOrientation: 'vertical'
+            touchMultiplier: 2,
+        });
+
+        let smoothedScrollY = window.scrollY;
+        lenis.on('scroll', (e) => {
+            smoothedScrollY = e.scroll;
         });
 
         function raf(time) {
@@ -520,185 +281,122 @@
         }
         requestAnimationFrame(raf);
 
-        // 2. Preloader
-        window.addEventListener('load', () => {
-            const preloader = document.getElementById('preloader');
-            setTimeout(() => {
-                preloader.style.opacity = '0';
-                setTimeout(() => preloader.style.display = 'none', 700);
-            }, 800);
-        });
-
-        // 3. Efeito Glassmorphism Cards (Mouse tracking)
-        document.querySelectorAll('.product-card').forEach(card => {
-            card.addEventListener('mousemove', e => {
-                const rect = card.getBoundingClientRect();
-                const x = ((e.clientX - rect.left) / card.clientWidth) * 100;
-                const y = ((e.clientY - rect.top) / card.clientHeight) * 100;
-                card.style.setProperty('--x', `${x}%`);
-                card.style.setProperty('--y', `${y}%`);
-            });
-        });
-
-        // 4. Canvas Hero Animation
-        const canvas = document.getElementById('hero-canvas');
-        const ctx = canvas.getContext('2d');
-        const frameCount = 100;
+        const frameCount = 128; 
         const images = [];
         let loadedCount = 0;
-        const baseUrl = "./hardline/ezgif-frame-";
-        let currentFrameIndex = 0;
+        const baseUrl = "ezgif-frame-"; 
+        
+        const loaderEl = document.getElementById('loader');
+        const progressBar = document.getElementById('progress-bar');
+        const loadingText = document.getElementById('loading-text');
 
-        function preloadImages() {
-            for (let i = 1; i <= frameCount; i++) {
-                const img = new Image();
-                img.src = `${baseUrl}${i.toString().padStart(3, '0')}.jpg`;
-                if (i <= 15) img.loading = "eager";
-                img.onload = () => {
-                    loadedCount++;
-                    document.getElementById('load-fill').style.width = `${(loadedCount / frameCount) * 100}%`;
-                    if (loadedCount === 1) renderFrame(0);
-                };
-                images.push(img);
-            }
-        }
-
-        function renderFrame(index) {
-            const safeIndex = Math.max(0, Math.min(frameCount - 1, index));
-            currentFrameIndex = safeIndex; 
-            const img = images[safeIndex];
-            if (!img || !img.complete) return;
-
-            const canvasRatio = canvas.width / canvas.height;
-            const imgRatio = img.width / img.height;
-            let rw, rh, ox = 0, oy = 0;
-
-            if (canvasRatio > imgRatio) {
-                rw = canvas.width; rh = img.height * (canvas.width / img.width);
-                oy = (canvas.height - rh) / 2;
-            } else {
-                rh = canvas.height; rw = img.width * (canvas.height / img.height);
-                ox = (canvas.width - rw) / 2;
-            }
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.drawImage(img, ox, oy, rw, rh);
-        }
-
-        lenis.on('scroll', (e) => {
-            const scrollArea = document.getElementById('scroll-hero');
-            const scrollTop = e.scroll; 
-            const scrollHeight = scrollArea.scrollHeight - window.innerHeight;
-            const scrollFraction = Math.max(0, Math.min(1, scrollTop / scrollHeight));
+        for (let i = 1; i <= frameCount; i++) {
+            const img = new Image();
+            const frameNumber = i.toString().padStart(3, '0');
+            img.src = `${baseUrl}${frameNumber}.jpg`;
             
-            const targetFrame = scrollFraction * (frameCount - 1);
-            renderFrame(Math.round(targetFrame));
+            img.onload = () => {
+                loadedCount++;
+                const percent = Math.floor((loadedCount / frameCount) * 100);
+                progressBar.style.width = `${percent}%`;
+                
+                if (loadedCount === 1) setupCanvas();
 
-            const s1 = document.getElementById('step-1');
-            const s2 = document.getElementById('step-2');
-            const s3 = document.getElementById('step-3');
-            s1.classList.remove('active'); s2.classList.remove('active'); s3.classList.remove('active');
+                if (loadedCount === frameCount) {
+                    setTimeout(() => {
+                        loaderEl.style.opacity = '0';
+                        loaderEl.style.visibility = 'hidden';
+                        document.body.style.overflowY = 'auto';
+                        document.body.classList.add('loaded');
+                    }, 600);
+                }
+            };
+            images.push(img);
+        }
 
-            if (scrollFraction > 0.05 && scrollFraction < 0.3) s1.classList.add('active');
-            else if (scrollFraction >= 0.35 && scrollFraction < 0.6) s2.classList.add('active');
-            else if (scrollFraction >= 0.65) s3.classList.add('active');
-
-            if (scrollFraction >= 0.93) {
-                document.querySelectorAll('.card-reveal').forEach(el => el.classList.add('active'));
-            }
-        });
-
-        function resize() {
+        const canvas = document.getElementById("hero-canvas");
+        const context = canvas.getContext("2d", { alpha: false });
+        const heroEl = document.getElementById("scroll-hero");
+        const textGroup = document.getElementById("hero-content-group");
+        
+        function setupCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            renderFrame(currentFrameIndex);
+            lastDrawnFrame = -1; 
         }
 
-        window.addEventListener('resize', resize);
-        resize();
-        preloadImages();
+        function drawCover(img) {
+            if (!img || !img.complete) return;
+            const canvasRatio = canvas.width / canvas.height;
+            const imgRatio = img.width / img.height;
+            let renderWidth, renderHeight, offsetX = 0, offsetY = 0;
 
-        // 5. Lógica do Chat Widget (Integração WhatsApp/Webhook)
-        const chatFab = document.getElementById('chat-fab');
-        const chatBox = document.getElementById('chat-box');
-        const closeChat = document.getElementById('close-chat');
-        const chatInput = document.getElementById('chat-input');
-        const sendChat = document.getElementById('send-chat');
-        const chatMessages = document.getElementById('chat-messages');
-
-        function toggleChat() {
-            if (chatBox.classList.contains('hidden')) {
-                chatBox.classList.remove('hidden');
-                // Pequeno delay para a transição do Tailwind funcionar
-                setTimeout(() => {
-                    chatBox.classList.remove('translate-y-8', 'opacity-0');
-                }, 10);
-                chatInput.focus();
+            if (canvasRatio > imgRatio) {
+                renderWidth = canvas.width;
+                renderHeight = img.height * (canvas.width / img.width);
+                offsetY = (canvas.height - renderHeight) / 2;
             } else {
-                chatBox.classList.add('translate-y-8', 'opacity-0');
-                setTimeout(() => {
-                    chatBox.classList.add('hidden');
-                }, 300);
+                renderHeight = canvas.height;
+                renderWidth = img.width * (canvas.height / img.height);
+                offsetX = (canvas.width - renderWidth) / 2;
             }
+            context.fillStyle = "#0a0d10";
+            context.fillRect(0, 0, canvas.width, canvas.height);
+            context.drawImage(img, offsetX, offsetY, renderWidth, renderHeight);
         }
 
-        chatFab.addEventListener('click', toggleChat);
-        closeChat.addEventListener('click', toggleChat);
+        window.addEventListener('resize', setupCanvas);
 
-        function handleSendMessage() {
-            const text = chatInput.value.trim();
-            if(!text) return;
+        let lastDrawnFrame = -1;
+        let lastRenderedFraction = -1;
 
-            // Insere a mensagem do usuário na tela
-            const userMsgHTML = `
-                <div class="bg-tech-primary text-black rounded-2xl rounded-tr-none p-4 max-w-[85%] self-end font-semibold text-sm shadow-md animate-[pulse_0.3s_ease-out]">
-                    <p>${text}</p>
-                </div>
-            `;
-            chatMessages.insertAdjacentHTML('beforeend', userMsgHTML);
-            chatInput.value = '';
-            
-            // Rola para baixo
-            chatMessages.scrollTop = chatMessages.scrollHeight;
+        function renderFluidLoop() {
+            if (loadedCount === 0) {
+                requestAnimationFrame(renderFluidLoop);
+                return;
+            }
 
-            // Simula "Digitando..." rápido
-            setTimeout(() => {
-                const loadingHTML = `
-                    <div id="typing-indicator" class="bg-white/10 rounded-2xl rounded-tl-none p-3 max-w-[85%] self-start border border-white/5 text-sm flex gap-1">
-                        <span class="w-2 h-2 bg-tech-primary rounded-full animate-bounce"></span>
-                        <span class="w-2 h-2 bg-tech-primary rounded-full animate-bounce" style="animation-delay: 0.1s"></span>
-                        <span class="w-2 h-2 bg-tech-primary rounded-full animate-bounce" style="animation-delay: 0.2s"></span>
-                    </div>
-                `;
-                chatMessages.insertAdjacentHTML('beforeend', loadingHTML);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
+            const maxScroll = heroEl.offsetHeight - window.innerHeight;
+            const currentScrollFraction = Math.max(0, Math.min(1, smoothedScrollY / maxScroll));
+
+            if (Math.abs(currentScrollFraction - lastRenderedFraction) > 0.0001 || lastDrawnFrame === -1) {
+                lastRenderedFraction = currentScrollFraction;
+                const frameIndex = Math.min(frameCount - 1, Math.floor(currentScrollFraction * (frameCount - 1)));
                 
-                // Redireciona para o WhatsApp (onde sua automação assume)
-                setTimeout(() => {
-                    document.getElementById('typing-indicator').remove();
-                    
-                    // Coloque o seu número profissional aqui
-                    const numeroWhatsApp = "5562999999999"; // Exemplo
-                    const linkWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(text)}`;
-                    window.open(linkWhatsApp, '_blank');
-                    
-                    // Resposta final na UI
-                    const finalMsgHTML = `
-                        <div class="bg-white/10 rounded-2xl rounded-tl-none p-4 max-w-[85%] self-start border border-white/5 text-sm">
-                            <p>Encaminhando você para o WhatsApp Elite para continuar o atendimento e capturar seus dados...</p>
-                        </div>
-                    `;
-                    chatMessages.insertAdjacentHTML('beforeend', finalMsgHTML);
-                    chatMessages.scrollTop = chatMessages.scrollHeight;
-                }, 1200);
+                if (frameIndex !== lastDrawnFrame && images[frameIndex]) {
+                    drawCover(images[frameIndex]);
+                    lastDrawnFrame = frameIndex;
+                }
+                
+                let opacity = 1, translateY = 0, scale = 1, blurAmount = 0;
 
-            }, 400);
+                if (currentScrollFraction <= 0.10) {
+                    translateY = currentScrollFraction * -150; 
+                } else if (currentScrollFraction > 0.10 && currentScrollFraction < 0.35) {
+                    let localFrac = (currentScrollFraction - 0.10) / 0.25;
+                    opacity = 1 - localFrac;
+                    blurAmount = localFrac * 15;
+                    translateY = (0.10 * -150) - (localFrac * 200);
+                    scale = 1 + (localFrac * 0.1); 
+                } else {
+                    opacity = 0;
+                    translateY = -400;
+                }
+
+                if (document.body.classList.contains('loaded')) {
+                    textGroup.style.opacity = opacity.toFixed(3);
+                    if (window.innerWidth > 768) {
+                        textGroup.style.filter = `blur(${blurAmount.toFixed(1)}px)`;
+                    } else {
+                        textGroup.style.filter = 'none';
+                    }
+                    textGroup.style.transform = `translate3d(0, ${translateY.toFixed(1)}px, 0) scale(${scale.toFixed(3)})`;
+                }
+            }
+            requestAnimationFrame(renderFluidLoop);
         }
 
-        sendChat.addEventListener('click', handleSendMessage);
-        chatInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') handleSendMessage();
-        });
-
+        requestAnimationFrame(renderFluidLoop);
     </script>
 </body>
 </html>
