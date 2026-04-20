@@ -296,16 +296,16 @@
             </p>
             
             <div class="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-12 mt-16 text-left border-t border-brand-gold/10 pt-16">
-                <div>
-                    <h4 class="text-4xl md:text-5xl font-serif font-bold text-brand-orange mb-2">3x</h4>
+                <div class="reveal delay-100">
+                    <h4 class="text-4xl md:text-5xl font-serif font-bold text-brand-orange mb-2"><span class="number-counter" data-target="3">0</span>x</h4>
                     <p class="text-xs md:text-sm text-brand-light-gray font-sans">Mais eficiência no envio e aprovação de pautas nos veículos.</p>
                 </div>
-                <div>
+                <div class="reveal delay-200">
                     <h4 class="text-4xl md:text-5xl font-serif font-bold text-brand-orange mb-2">+Alto</h4>
                     <p class="text-xs md:text-sm text-brand-light-gray font-sans">Nível de relacionamento com os principais jornalistas do país.</p>
                 </div>
-                <div class="col-span-2 md:col-span-1">
-                    <h4 class="text-4xl md:text-5xl font-serif font-bold text-brand-orange mb-2">100%</h4>
+                <div class="col-span-2 md:col-span-1 reveal delay-300">
+                    <h4 class="text-4xl md:text-5xl font-serif font-bold text-brand-orange mb-2"><span class="number-counter" data-target="100">0</span>%</h4>
                     <p class="text-xs md:text-sm text-brand-light-gray font-sans">De foco na gestão ativa da sua reputação na mídia e em eventos.</p>
                 </div>
             </div>
@@ -573,6 +573,39 @@
             requestAnimationFrame(renderFluidLoop);
         }
         requestAnimationFrame(renderFluidLoop);
+
+        // Animated Counters
+        const counters = document.querySelectorAll('.number-counter');
+        const counterObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    const target = entry.target;
+                    const endValue = parseInt(target.getAttribute('data-target'));
+                    const duration = 2000;
+                    let startTime = null;
+
+                    function countUp(timestamp) {
+                        if (!startTime) startTime = timestamp;
+                        const progress = timestamp - startTime;
+                        const percentage = Math.min(progress / duration, 1);
+                        // Easing easeOutExpo
+                        const easeOut = percentage === 1 ? 1 : 1 - Math.pow(2, -10 * percentage);
+                        
+                        target.innerText = Math.floor(easeOut * endValue);
+                        
+                        if (progress < duration) {
+                            requestAnimationFrame(countUp);
+                        } else {
+                            target.innerText = endValue;
+                        }
+                    }
+                    requestAnimationFrame(countUp);
+                    observer.unobserve(target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        counters.forEach(counter => counterObserver.observe(counter));
     </script>
 </body>
 </html>
