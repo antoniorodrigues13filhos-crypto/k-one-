@@ -34,12 +34,12 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Cinematic Texture Overlay */
+        /* Cinematic Texture Overlay (Convertido para Base64 para evitar Erro 403) */
         .noise-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: url('https://grainy-gradients.vercel.app/noise.svg');
-            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.05;
             pointer-events: none;
             z-index: 9999;
         }
@@ -60,6 +60,7 @@
         .delay-100 { transition-delay: 100ms; }
         .delay-200 { transition-delay: 200ms; }
         .delay-300 { transition-delay: 300ms; }
+        .delay-400 { transition-delay: 400ms; }
 
         /* Hero Performance Tweaks */
         #hero-canvas { will-change: transform; transform: translateZ(0); }
@@ -80,7 +81,7 @@
         .delay-3 { animation-delay: 0.5s; }
         .delay-4 { animation-delay: 0.7s; }
 
-        /* Estilo de Card B2B */
+        /* B2B Glass Card */
         .glass-card {
             background: var(--color-brand-dark);
             border: 1px solid rgba(212, 192, 106, 0.1);
@@ -153,6 +154,14 @@
         <a href="#servicos" class="mobile-link text-3xl font-serif font-bold text-white hover:text-brand-orange transition-colors">Estratégia</a>
         <a href="#sobre" class="mobile-link text-3xl font-serif font-bold text-white hover:text-brand-orange transition-colors">Especialista</a>
         <div class="w-12 h-[1px] bg-brand-gold/30 my-4"></div>
+        <div class="flex gap-6">
+            <a href="#" class="text-brand-light-gray hover:text-brand-orange transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+            </a>
+            <a href="#" class="text-brand-light-gray hover:text-brand-orange transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            </a>
+        </div>
     </div>
 
     <section id="scroll-hero" style="height:400vh;position:relative;">
@@ -200,48 +209,48 @@
                     <div class="w-full grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6 text-left">
                         <div class="glass-card p-5 md:p-8 rounded-sm border-t-2 border-t-brand-gold">
                             <i data-lucide="file-text" class="w-6 h-6 md:w-8 md:h-8 text-brand-gold mb-3 md:mb-5"></i>
-                            <h3 class="text-base md:text-xl font-serif font-bold text-white mb-2">Pautas Únicas</h3>
+                            <h3 class="text-base md:text-lg font-serif font-bold text-white mb-2">Pautas Únicas</h3>
                             <p class="text-[11px] md:text-sm text-brand-light-gray leading-relaxed hidden sm:block font-sans">Transformamos sua expertise técnica em uma <span class="text-brand-orange font-semibold">notícia</span> relevante.</p>
                         </div>
                         <div class="glass-card p-5 md:p-8 rounded-sm border-t-2 border-t-brand-gold">
                             <i data-lucide="globe" class="w-6 h-6 md:w-8 md:h-8 text-brand-gold mb-3 md:mb-5"></i>
-                            <h3 class="text-base md:text-xl font-serif font-bold text-white mb-2">Visão Nacional</h3>
+                            <h3 class="text-base md:text-lg font-serif font-bold text-white mb-2">Visão Nacional</h3>
                             <p class="text-[11px] md:text-sm text-brand-light-gray leading-relaxed hidden sm:block font-sans">Presença orgânica focada na grande imprensa e editorias chave.</p>
                         </div>
                         <div class="glass-card p-5 md:p-8 rounded-sm border-t-2 border-t-brand-gold">
                             <i data-lucide="mic" class="w-6 h-6 md:w-8 md:h-8 text-brand-gold mb-3 md:mb-5"></i>
-                            <h3 class="text-base md:text-xl font-serif font-bold text-white mb-2">Gestão Imagem</h3>
+                            <h3 class="text-base md:text-lg font-serif font-bold text-white mb-2">Gestão Imagem</h3>
                             <p class="text-[11px] md:text-sm text-brand-light-gray leading-relaxed hidden sm:block font-sans">Media training para líderes e desenvolvimento de palestras.</p>
                         </div>
                         <div class="glass-card p-5 md:p-8 rounded-sm border-t-2 border-t-brand-gold">
                             <i data-lucide="bar-chart-2" class="w-6 h-6 md:w-8 md:h-8 text-brand-gold mb-3 md:mb-5"></i>
-                            <h3 class="text-base md:text-xl font-serif font-bold text-white mb-2">Clipagem Ativa</h3>
+                            <h3 class="text-base md:text-lg font-serif font-bold text-white mb-2">Clipagem Ativa</h3>
                             <p class="text-[11px] md:text-sm text-brand-light-gray leading-relaxed hidden sm:block font-sans">Monitoramento de todo o material publicado com precisão.</p>
                         </div>
                     </div>
                 </div>
 
-                <div id="step-3" class="scroll-step absolute inset-0 flex flex-col items-center justify-center px-4 md:px-12 w-full max-w-5xl mx-auto opacity-0 pointer-events-none pt-10 md:pt-20">
+                <div id="step-3" class="scroll-step absolute inset-0 flex flex-col items-center justify-center px-4 w-full max-w-4xl mx-auto opacity-0 pointer-events-none">
                     
                     <div class="text-center w-full relative z-10 flex flex-col items-center">
                         
-                        <div class="w-14 h-14 md:w-16 md:h-16 bg-[#161a1d] border border-brand-gold/40 rounded-full flex items-center justify-center mb-8 md:mb-10">
-                            <i data-lucide="award" class="w-6 h-6 md:w-8 md:h-8 text-brand-gold"></i>
+                        <div class="w-12 h-12 md:w-14 md:h-14 bg-brand-black border border-brand-gold rounded-full flex items-center justify-center mb-8 shadow-[0_0_15px_rgba(212,192,106,0.2)]">
+                            <i data-lucide="award" class="w-5 h-5 md:w-6 md:h-6 text-brand-gold"></i>
                         </div>
 
-                        <h2 class="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-serif text-white font-normal mb-2 md:mb-4 leading-[1.1] text-center tracking-tight">
-                            Autoridade não se <br class="hidden sm:block"> compra.
+                        <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-[5.5rem] font-serif text-white font-normal mb-1 leading-[1.1] tracking-tight">
+                            Autoridade não se<br/>compra.
                         </h2>
                         
-                        <h3 class="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-serif text-brand-orange italic font-normal mb-10 leading-[1.1] text-center tracking-tight">
+                        <h3 class="text-4xl sm:text-5xl md:text-6xl lg:text-[5.5rem] font-serif text-brand-orange italic font-bold mb-8 leading-[1.1] tracking-tight">
                             Se constrói.
                         </h3>
 
-                        <p class="text-base md:text-xl text-brand-light-gray max-w-2xl mx-auto font-light leading-relaxed mb-12 text-center text-balance font-sans">
-                            Da estratégia à exposição, posicionamos sua <br class="hidden md:block"> marca nos lugares que <strong class="text-white font-medium">realmente importam.</strong>
+                        <p class="text-sm md:text-lg text-brand-light-gray max-w-xl mx-auto font-light leading-relaxed mb-10 text-balance font-sans">
+                            Da estratégia à exposição, posicionamos sua<br class="hidden md:block"> marca nos lugares que <strong class="text-white font-medium">realmente importam.</strong>
                         </p>
 
-                        <div class="flex flex-wrap justify-center items-center gap-4 md:gap-8 mb-12">
+                        <div class="flex flex-wrap justify-center items-center gap-4 md:gap-8">
                             <div class="flex items-center gap-2">
                                 <i data-lucide="target" class="w-4 h-4 md:w-5 md:h-5 text-brand-gold"></i>
                                 <span class="text-[10px] md:text-xs font-sans font-semibold tracking-[0.2em] uppercase text-brand-light-gray">Estratégia</span>
@@ -261,11 +270,6 @@
                                 <span class="text-[10px] md:text-xs font-sans font-semibold tracking-[0.2em] uppercase text-brand-light-gray">Resultados</span>
                             </div>
                         </div>
-
-                        <a href="#contato" class="glow-cta group relative px-8 py-4 md:px-12 md:py-4 bg-brand-orange text-white text-[10px] md:text-xs font-sans font-bold tracking-widest uppercase overflow-hidden inline-flex items-center gap-3 rounded-sm pointer-events-auto">
-                            <span class="absolute inset-0 bg-brand-orange-dark transform -translate-x-full transition-transform duration-500 ease-out group-hover:translate-x-0"></span>
-                            <span class="relative z-10 flex items-center gap-2 md:gap-3">Agendar Reunião <i data-lucide="arrow-right" class="w-4 h-4"></i></span>
-                        </a>
 
                     </div>
                 </div>
@@ -393,8 +397,12 @@
                 Copyright © 2026 - K-ONE Assessoria. Todos os direitos reservados.
             </div>
             <div class="flex gap-6">
-                <a href="#" class="text-brand-light-gray/70 hover:text-brand-orange transition-colors"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
-                <a href="#" class="text-brand-light-gray/70 hover:text-brand-orange transition-colors"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                <a href="#" class="text-brand-light-gray/70 hover:text-brand-orange transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                </a>
+                <a href="#" class="text-brand-light-gray/70 hover:text-brand-orange transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                </a>
             </div>
         </div>
     </footer>
