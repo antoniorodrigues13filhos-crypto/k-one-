@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>K-ONE | Assessoria de Imprensa Estratégica</title>
+    <title>K-ONE | Assessoria de Imprensa e Relacionamento com a Mídia</title>
     
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     
@@ -47,8 +47,8 @@
         /* Scroll Reveal Utility Classes */
         .reveal {
             opacity: 0;
-            transform: translateY(50px);
-            filter: blur(10px);
+            transform: translateY(40px);
+            filter: blur(8px);
             transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .reveal.active {
@@ -60,7 +60,6 @@
         .delay-100 { transition-delay: 100ms; }
         .delay-200 { transition-delay: 200ms; }
         .delay-300 { transition-delay: 300ms; }
-        .delay-400 { transition-delay: 400ms; }
 
         /* Hero Performance Tweaks */
         #hero-canvas { will-change: transform; transform: translateZ(0); }
@@ -72,12 +71,8 @@
         .editorial-border-t { border-top: 1px solid rgba(212, 192, 106, 0.15); }
 
         /* Initial Cinematic Load */
-        .reveal-element {
-            opacity: 0; filter: blur(12px); transform: translateY(30px) scale(0.95);
-        }
-        body.loaded .reveal-element {
-            animation: cinematicReveal 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
+        .reveal-element { opacity: 0; filter: blur(12px); transform: translateY(30px) scale(0.95); }
+        body.loaded .reveal-element { animation: cinematicReveal 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes cinematicReveal { to { opacity: 1; filter: blur(0); transform: translateY(0) scale(1); } }
 
         .delay-1 { animation-delay: 0.1s; }
@@ -85,18 +80,16 @@
         .delay-3 { animation-delay: 0.5s; }
         .delay-4 { animation-delay: 0.7s; }
 
-        /* Extreme Glass using #1C2328 */
+        /* Estilo de Card B2B (Foco em conversão e clareza) */
         .glass-card {
-            background: rgba(28, 35, 40, 0.6);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: var(--color-brand-dark);
             border: 1px solid rgba(212, 192, 106, 0.1);
-            transition: all 0.5s ease;
+            transition: all 0.4s ease;
         }
         .glass-card:hover {
-            background: rgba(28, 35, 40, 0.9);
-            border: 1px solid rgba(212, 192, 106, 0.4);
-            transform: translateY(-8px);
+            border-color: rgba(255, 90, 31, 0.5); /* Borda laranja no hover para incentivar clique */
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         .glow-cta {
@@ -104,8 +97,8 @@
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .glow-cta:hover {
-            box-shadow: 0 10px 40px rgba(255, 90, 31, 0.4);
-            transform: scale(1.03);
+            box-shadow: 0 8px 25px rgba(255, 90, 31, 0.4);
+            transform: scale(1.02);
         }
 
         body.menu-open { overflow: hidden; }
@@ -123,12 +116,12 @@
         </div>
         <h2 class="text-3xl font-heading font-bold text-white mb-4 tracking-widest uppercase mt-4">K-ONE</h2>
         <div style="width:16rem;height:1px;background:rgba(212,192,106,0.2);overflow:hidden;border-radius:0;">
-            <div id="progress-bar" style="height:100%;background:#FF5A1F;transition:width 200ms ease-out;width:0%;"></div>
+            <div id="progress-bar" style="height:100%;background:var(--color-brand-orange);transition:width 200ms ease-out;width:0%;"></div>
         </div>
         <p id="loading-text" class="text-brand-light-gray mt-4 text-xs font-mono tracking-widest uppercase">Articulando mídia 0%...</p>
     </div>
 
-    <nav class="fixed top-0 left-0 w-full z-50 editorial-border-b bg-brand-black/90 backdrop-blur-xl transition-all duration-300">
+    <nav class="fixed top-0 left-0 w-full z-50 editorial-border-b bg-brand-black/95 backdrop-blur-xl transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 md:px-6 h-20 flex items-center justify-between">
             <div class="flex items-center gap-3 group cursor-pointer z-50 relative">
                 <div class="w-8 h-8 bg-brand-gold flex items-center justify-center transition-transform group-hover:rotate-12">
@@ -137,16 +130,16 @@
                 <span class="text-xl md:text-2xl font-heading tracking-widest font-bold uppercase">K-One</span>
             </div>
             
-            <div class="hidden md:flex items-center gap-10 text-xs font-semibold tracking-widest uppercase text-brand-light-gray font-heading">
-                <a href="#metodo" class="hover:text-brand-gold transition-colors">O Cenário</a>
-                <a href="#servicos" class="hover:text-brand-gold transition-colors">Nossos Pilares</a>
-                <a href="#sobre" class="hover:text-brand-gold transition-colors">Mentoria</a>
+            <div class="hidden md:flex items-center gap-8 text-xs font-semibold tracking-widest uppercase text-brand-light-gray font-heading">
+                <a href="#plataforma" class="hover:text-brand-gold transition-colors">A Solução</a>
+                <a href="#servicos" class="hover:text-brand-gold transition-colors">Estratégia</a>
+                <a href="#sobre" class="hover:text-brand-gold transition-colors">Especialista</a>
             </div>
             
             <div class="flex items-center gap-3 z-50 relative">
-                <a href="#sobre" class="glow-cta group relative px-4 md:px-8 py-2 md:py-3.5 bg-brand-orange text-white text-[10px] md:text-xs font-heading font-bold tracking-widest uppercase overflow-hidden inline-block transition-colors rounded-sm">
+                <a href="#contato" class="glow-cta group relative px-5 md:px-8 py-2 md:py-3.5 bg-brand-orange text-white text-[10px] md:text-xs font-heading font-bold tracking-widest uppercase overflow-hidden inline-block transition-colors rounded-sm">
                     <span class="absolute inset-0 bg-brand-orange-dark transform -translate-x-full transition-transform duration-500 ease-out group-hover:translate-x-0"></span>
-                    <span class="relative z-10">Agendar</span>
+                    <span class="relative z-10">Fale com o Time</span>
                 </a>
                 <button id="mobile-menu-btn" class="md:hidden text-white p-2 focus:outline-none">
                     <i data-lucide="menu" class="w-6 h-6"></i>
@@ -155,19 +148,17 @@
         </div>
     </nav>
 
-    <div id="mobile-menu" class="fixed inset-0 bg-brand-black/95 backdrop-blur-2xl z-40 transform translate-x-full transition-transform duration-500 ease-in-out flex flex-col items-center justify-center gap-10 opacity-0 pointer-events-none">
-        <a href="#metodo" class="mobile-link text-2xl font-heading font-bold text-white hover:text-brand-gold transition-colors uppercase tracking-widest">O Cenário</a>
-        <a href="#servicos" class="mobile-link text-2xl font-heading font-bold text-white hover:text-brand-gold transition-colors uppercase tracking-widest">Nossos Pilares</a>
-        <a href="#sobre" class="mobile-link text-2xl font-heading font-bold text-white hover:text-brand-gold transition-colors uppercase tracking-widest">Mentoria</a>
+    <div id="mobile-menu" class="fixed inset-0 bg-brand-black/98 backdrop-blur-3xl z-40 transform translate-x-full transition-transform duration-500 ease-in-out flex flex-col items-center justify-center gap-8 opacity-0 pointer-events-none">
+        <a href="#plataforma" class="mobile-link text-2xl font-heading font-bold text-white hover:text-brand-orange transition-colors uppercase tracking-widest">A Solução</a>
+        <a href="#servicos" class="mobile-link text-2xl font-heading font-bold text-white hover:text-brand-orange transition-colors uppercase tracking-widest">Estratégia</a>
+        <a href="#sobre" class="mobile-link text-2xl font-heading font-bold text-white hover:text-brand-orange transition-colors uppercase tracking-widest">Especialista</a>
         <div class="w-12 h-[1px] bg-brand-gold/30 my-4"></div>
     </div>
 
     <section id="scroll-hero" style="height:400vh;position:relative;">
         <div style="position:sticky;top:0;height:100dvh;width:100%;overflow:hidden;">
             <canvas id="hero-canvas" style="position:absolute;inset:0;width:100%;height:100%;"></canvas>
-            
             <div style="position:absolute;inset:0;background:linear-gradient(to top, #0F1419 5%, rgba(15,20,25,0.85) 50%, rgba(15,20,25,0.4) 100%);z-index:1;"></div>
-            
             <div class="absolute inset-6 md:inset-10 border border-brand-gold/20 z-[2] pointer-events-none hidden md:block"></div>
             
             <div class="absolute top-28 right-12 z-[3] hidden lg:block reveal-element delay-2 text-right">
@@ -176,28 +167,23 @@
             </div>
 
             <div id="hero-content-group" style="position:absolute;inset:0;z-index:2;">
-                
                 <div id="step-1" class="scroll-step absolute inset-0 flex flex-col justify-center px-6 md:px-16 w-full max-w-7xl mx-auto pt-20">
                     <div class="flex items-start gap-4 md:gap-8">
                         <div class="reveal-element delay-1 w-1.5 md:w-2 h-32 md:h-48 bg-brand-gold mt-2 md:mt-4 hidden sm:block"></div>
-                        
                         <div>
                             <div class="reveal-element delay-1 flex items-center gap-3 mb-4">
                                 <span class="text-brand-gold uppercase tracking-[0.3em] text-[10px] md:text-xs font-bold font-heading">k-1.press</span>
                                 <div class="w-12 h-[1px] bg-brand-gold/50"></div>
                             </div>
-
                             <h1 class="reveal-element delay-2 text-4xl sm:text-5xl md:text-7xl lg:text-[5rem] font-heading font-bold text-white mb-6 leading-[1.1] tracking-tight">
                                 Aprimore a sua <br>
                                 estratégia de <br>
                                 <span class="text-brand-orange">comunicação</span>
                             </h1>
-
                             <div class="reveal-element delay-3 flex items-center gap-3 mb-8">
                                 <span class="font-heading italic text-xl md:text-3xl text-brand-gold">destaque-se!</span>
                                 <i data-lucide="arrow-down" class="w-6 h-6 md:w-8 md:h-8 text-brand-gold animate-bounce"></i>
                             </div>
-
                             <div class="reveal-element delay-4 flex items-center gap-2 mt-8">
                                 <span class="w-2.5 h-2.5 rounded-full bg-brand-orange"></span>
                                 <span class="w-2.5 h-2.5 rounded-full bg-brand-gold"></span>
@@ -215,7 +201,7 @@
                         <div class="glass-card p-5 md:p-8 rounded-sm border-t-2 border-t-brand-gold">
                             <i data-lucide="file-text" class="w-6 h-6 md:w-8 md:h-8 text-brand-gold mb-3 md:mb-5"></i>
                             <h3 class="text-base md:text-lg font-heading font-bold text-white mb-2">Pautas Únicas</h3>
-                            <p class="text-[11px] md:text-sm text-brand-light-gray leading-relaxed hidden sm:block">Transformamos informações técnicas em uma <span class="text-brand-orange font-semibold">notícia</span> relevante.</p>
+                            <p class="text-[11px] md:text-sm text-brand-light-gray leading-relaxed hidden sm:block">Transformamos sua expertise técnica em uma <span class="text-brand-orange font-semibold">notícia</span> relevante.</p>
                         </div>
                         <div class="glass-card p-5 md:p-8 rounded-sm border-t-2 border-t-brand-gold">
                             <i data-lucide="globe" class="w-6 h-6 md:w-8 md:h-8 text-brand-gold mb-3 md:mb-5"></i>
@@ -225,7 +211,7 @@
                         <div class="glass-card p-5 md:p-8 rounded-sm border-t-2 border-t-brand-gold">
                             <i data-lucide="mic" class="w-6 h-6 md:w-8 md:h-8 text-brand-gold mb-3 md:mb-5"></i>
                             <h3 class="text-base md:text-lg font-heading font-bold text-white mb-2">Gestão Imagem</h3>
-                            <p class="text-[11px] md:text-sm text-brand-light-gray leading-relaxed hidden sm:block">Media training e desenvolvimento de palestras corporativas.</p>
+                            <p class="text-[11px] md:text-sm text-brand-light-gray leading-relaxed hidden sm:block">Media training para líderes e desenvolvimento de palestras.</p>
                         </div>
                         <div class="glass-card p-5 md:p-8 rounded-sm border-t-2 border-t-brand-gold">
                             <i data-lucide="bar-chart-2" class="w-6 h-6 md:w-8 md:h-8 text-brand-gold mb-3 md:mb-5"></i>
@@ -236,18 +222,17 @@
                 </div>
 
                 <div id="step-3" class="scroll-step absolute inset-0 flex flex-col items-center justify-center px-4 md:px-12 w-full max-w-5xl mx-auto opacity-0 pointer-events-none pt-20">
-                    
                     <div class="glass-card p-8 md:p-16 rounded-lg text-center border-l-4 border-l-brand-orange w-full">
                         <h2 class="text-4xl sm:text-5xl md:text-6xl font-heading font-bold text-white mb-6 leading-tight tracking-tight">
                             Sua Marca no <br/> 
                             <span class="text-brand-orange italic">Pódio da Mídia.</span>
                         </h2>
                         <p class="text-sm md:text-lg text-brand-light-gray max-w-2xl mx-auto font-light leading-relaxed mb-10 text-balance">
-                            Suporte de mídia em etapas da <strong class="text-white">Stock Car</strong> com pilotos de elite e ações institucionais nas maiores universidades.
+                            Do corporativo ao asfalto: suporte de mídia em etapas da <strong class="text-white">Stock Car</strong> com pilotos de elite e assessoria completa em grandes eventos.
                         </p>
-                        <a href="#sobre" class="glow-cta group relative px-8 py-4 md:px-12 md:py-5 bg-brand-orange text-white text-[10px] md:text-sm font-heading font-bold tracking-widest uppercase overflow-hidden inline-flex items-center gap-3 rounded-sm pointer-events-auto">
+                        <a href="#contato" class="glow-cta group relative px-8 py-4 md:px-12 md:py-5 bg-brand-orange text-white text-[10px] md:text-sm font-heading font-bold tracking-widest uppercase overflow-hidden inline-flex items-center gap-3 rounded-sm pointer-events-auto">
                             <span class="absolute inset-0 bg-brand-orange-dark transform -translate-x-full transition-transform duration-500 ease-out group-hover:translate-x-0"></span>
-                            <span class="relative z-10 flex items-center gap-2 md:gap-3">Agendar Consultoria <i data-lucide="arrow-right" class="w-4 h-4 md:w-5 md:h-5"></i></span>
+                            <span class="relative z-10 flex items-center gap-2 md:gap-3">Agendar Reunião Estratégica <i data-lucide="arrow-right" class="w-4 h-4 md:w-5 md:h-5"></i></span>
                         </a>
                     </div>
                 </div>
@@ -255,86 +240,127 @@
         </div>
     </section>
 
-    <section id="metodo" class="bg-brand-black text-white py-20 md:py-32 relative editorial-border-b">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-16">
-                <div class="lg:col-span-5 flex flex-col justify-start lg:pr-12 lg:editorial-border-r reveal">
-                    <span class="text-[10px] md:text-xs font-sans text-brand-gold font-bold tracking-[0.2em] uppercase mb-6 block">O Cenário Atual</span>
-                    <h2 class="text-3xl md:text-5xl font-heading font-bold leading-tight">
-                        Cansado do leilão <br>
-                        <span class="text-brand-light-gray font-light">infinito</span> do tráfego pago?
-                    </h2>
+    <section class="bg-[var(--color-brand-black)] py-12 md:py-16 editorial-border-b relative z-10">
+        <div class="max-w-7xl mx-auto px-6 text-center reveal">
+            <p class="text-[10px] md:text-xs font-sans text-brand-light-gray font-bold tracking-[0.2em] uppercase mb-8">Nossos clientes conquistam as principais manchetes</p>
+            <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
+                <h4 class="text-2xl md:text-3xl font-heading font-bold text-white tracking-tighter">FORBES</h4>
+                <h4 class="text-2xl md:text-3xl font-heading font-bold text-white italic">Exame.</h4>
+                <h4 class="text-2xl md:text-3xl font-sans font-black text-white uppercase tracking-tighter">Estadão</h4>
+                <h4 class="text-2xl md:text-3xl font-heading font-bold text-white">Valor Econômico</h4>
+            </div>
+        </div>
+    </section>
+
+    <section id="plataforma" class="bg-[var(--color-brand-black)] text-white py-24 md:py-32 relative editorial-border-b">
+        <div class="max-w-7xl mx-auto px-6 text-center max-w-4xl reveal">
+            <h2 class="text-3xl md:text-5xl font-heading font-bold leading-tight mb-8">
+                Conectando marcas aos seus públicos com <span class="text-brand-orange">tecnologia e estratégia</span>
+            </h2>
+            <p class="text-lg md:text-xl text-brand-light-gray font-light leading-relaxed mb-10">
+                A K-ONE atua como uma solução Top of Mind para empresas, executivos e atletas que buscam <strong class="text-white font-medium">credibilidade e confiança</strong>. Ajudamos você a alcançar a mídia de grande impacto com eficiência e resultados totalmente mensuráveis.
+            </p>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-12 mt-16 text-left border-t border-brand-gold/10 pt-16">
+                <div>
+                    <h4 class="text-3xl md:text-4xl font-heading font-bold text-brand-orange mb-2">3x</h4>
+                    <p class="text-xs md:text-sm text-brand-light-gray">Mais eficiência no envio e aprovação de pautas nos veículos.</p>
                 </div>
-                <div class="lg:col-span-7 flex flex-col justify-center reveal delay-100">
-                    <p class="text-lg md:text-xl text-brand-light-gray font-light leading-relaxed mb-6">
-                        Enquanto outros compram cliques, autoridades conquistam respeito. Elas não interrompem; <strong class="text-white font-semibold">elas são convidadas.</strong>
-                    </p>
-                    <div class="pl-6 md:pl-8 border-l-2 border-brand-orange my-6 md:my-8">
-                        <p class="text-xl md:text-3xl font-heading text-white font-medium leading-snug italic">
-                            "Publicidade é o que você paga. Relações Públicas é o que você planta e colhe."
-                        </p>
-                    </div>
+                <div>
+                    <h4 class="text-3xl md:text-4xl font-heading font-bold text-brand-orange mb-2">+Alto</h4>
+                    <p class="text-xs md:text-sm text-brand-light-gray">Nível de relacionamento com os principais jornalistas do país.</p>
+                </div>
+                <div class="col-span-2 md:col-span-1">
+                    <h4 class="text-3xl md:text-4xl font-heading font-bold text-brand-orange mb-2">100%</h4>
+                    <p class="text-xs md:text-sm text-brand-light-gray">De foco na gestão ativa da sua reputação na mídia e em eventos.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="sobre" class="relative bg-brand-black text-white py-24 md:py-40 overflow-hidden min-h-[80dvh] flex items-center editorial-border-b">
-        <div class="absolute inset-0 z-0 flex justify-end pointer-events-none">
-            <div class="relative w-full md:w-1/2 h-full">
-                <div class="absolute inset-0 bg-gradient-to-r from-[var(--color-brand-black)] via-[var(--color-brand-black)]/80 to-transparent z-10 hidden md:block"></div>
-                <div class="absolute inset-0 bg-gradient-to-b from-[var(--color-brand-black)] via-transparent to-[var(--color-brand-black)] z-10"></div>
-                <div class="absolute inset-0 bg-gradient-to-t from-[var(--color-brand-black)] via-[var(--color-brand-black)]/95 to-transparent z-10 md:hidden"></div>
-                <img src="perfil.jpg/WhatsApp Image 2026-04-20 at 11.51.27.jpeg" alt="Liderança K-One" class="w-full h-full object-cover object-top md:object-center opacity-40 md:opacity-80 grayscale">
+    <section id="servicos" class="py-24 md:py-32 bg-[var(--color-brand-dark)] relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 md:mb-24 reveal">
+                <h2 class="text-3xl md:text-4xl font-heading font-bold text-white mb-4">Conecte-se e impacte em um só lugar</h2>
+                <p class="text-brand-light-gray max-w-2xl mx-auto">Nossas soluções potencializam a chegada do seu conteúdo à grande mídia.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                <div class="glass-card p-8 md:p-10 rounded-sm reveal">
+                    <div class="w-14 h-14 bg-brand-black flex items-center justify-center rounded-full mb-6 border border-brand-gold/20">
+                        <i data-lucide="send" class="w-6 h-6 text-brand-orange"></i>
+                    </div>
+                    <h3 class="text-xl font-heading font-bold text-white mb-3">Mailing Estratégico</h3>
+                    <p class="text-sm text-brand-light-gray font-light leading-relaxed">Sua pauta no lugar certo. Acesso e relacionamento com uma rede exclusiva de contatos de jornalistas e editores em todo o Brasil.</p>
+                </div>
+                <div class="glass-card p-8 md:p-10 rounded-sm reveal delay-100">
+                    <div class="w-14 h-14 bg-brand-black flex items-center justify-center rounded-full mb-6 border border-brand-gold/20">
+                        <i data-lucide="eye" class="w-6 h-6 text-brand-orange"></i>
+                    </div>
+                    <h3 class="text-xl font-heading font-bold text-white mb-3">Cobertura Completa</h3>
+                    <p class="text-sm text-brand-light-gray font-light leading-relaxed">Monitoramento de menções sobre sua marca em rádio, TV, portais e mídias impressas com autonomia e clipagem detalhada.</p>
+                </div>
+                <div class="glass-card p-8 md:p-10 rounded-sm reveal delay-200">
+                    <div class="w-14 h-14 bg-brand-black flex items-center justify-center rounded-full mb-6 border border-brand-gold/20">
+                        <i data-lucide="shield" class="w-6 h-6 text-brand-orange"></i>
+                    </div>
+                    <h3 class="text-xl font-heading font-bold text-white mb-3">Imagem & Liderança</h3>
+                    <p class="text-sm text-brand-light-gray font-light leading-relaxed">Trabalhamos sua reputação de forma mensurável. De executivos C-Level a atletas da Stock Car, transformamos você em autoridade.</p>
+                </div>
             </div>
         </div>
+    </section>
 
-        <div class="relative z-10 max-w-7xl mx-auto px-6 w-full">
-            <div class="max-w-2xl pt-40 md:pt-0">
-                <div class="reveal">
-                    <div class="flex items-center gap-3 md:gap-4 mb-4 md:mb-6">
-                        <div class="w-6 md:w-8 h-[1px] bg-brand-gold"></div>
-                        <span class="text-[10px] md:text-xs font-sans text-brand-gold font-bold tracking-[0.2em] uppercase">Mentoria Executiva</span>
+    <section id="sobre" class="bg-[var(--color-brand-black)] text-white py-24 md:py-32 relative editorial-border-b">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-16 items-center">
+                
+                <div class="lg:col-span-5 reveal">
+                    <div class="relative max-w-sm mx-auto lg:mx-0">
+                        <div class="absolute -inset-2 bg-gradient-to-r from-brand-orange to-brand-gold rounded-xl opacity-20 blur-lg"></div>
+                        <img src="perfil.jpg/WhatsApp Image 2026-04-20 at 11.51.27.jpeg" alt="Liderança Estratégica" class="relative z-10 w-full h-auto rounded-xl grayscale hover:grayscale-0 transition-all duration-500 border border-white/10">
+                        
+                        <div class="absolute -bottom-6 right-6 bg-[var(--color-brand-dark)] border border-brand-gold/30 px-6 py-4 rounded-sm shadow-2xl z-20">
+                            <p class="text-white font-heading font-bold text-lg leading-none">K-ONE</p>
+                            <p class="text-brand-orange font-mono text-[9px] tracking-[0.1em] uppercase mt-1">Estratégia Comprovada</p>
+                        </div>
                     </div>
                 </div>
-                
-                <h2 class="text-3xl sm:text-4xl md:text-6xl font-heading font-bold leading-[1.1] mb-6 md:mb-8 reveal delay-100">
-                    Não basta ser o melhor. <br>
-                    <span class="text-brand-light-gray font-light">O mundo precisa <strong class="text-white">saber.</strong></span>
-                </h2>
-                
-                <div class="prose prose-invert prose-base md:prose-lg max-w-none">
-                    <p class="text-brand-light-gray font-light leading-relaxed mb-4 md:mb-6 reveal delay-200">
-                        Nos bastidores das maiores marcas, existe uma estratégia invisível. A <strong class="text-white font-medium">K-one</strong> não envia apenas releases; nós arquitetamos a sua percepção pública de ponta a ponta.
-                    </p>
-                    <p class="text-brand-light-gray font-light leading-relaxed mb-8 md:mb-10 reveal delay-300">
-                        Transformamos sua trajetória em pautas de alto valor. Quando você se torna a fonte oficial da mídia, o jogo vira: <strong class="text-brand-gold font-medium">você deixa de correr atrás do mercado e passa a ser a autoridade procurada.</strong>
-                    </p>
-                </div>
 
-                <div class="reveal delay-400">
-                    <a href="https://wa.me/SEUNUMERO" target="_blank" class="glow-cta group relative px-6 md:px-8 py-3 md:py-4 border border-brand-gold/30 hover:border-brand-orange bg-brand-dark/80 backdrop-blur-md text-white text-[10px] md:text-xs font-heading font-bold tracking-widest uppercase overflow-hidden inline-flex items-center gap-2 md:gap-3 transition-colors w-full sm:w-auto justify-center rounded-sm">
-                        <span class="absolute inset-0 bg-brand-orange transform -translate-x-full transition-transform duration-500 ease-out group-hover:translate-x-0"></span>
-                        <span class="relative z-10 flex items-center gap-2">Quero me posicionar <i data-lucide="arrow-right" class="w-4 h-4"></i></span>
+                <div class="lg:col-span-7 reveal delay-200 lg:pl-10">
+                    <h2 class="text-3xl md:text-5xl font-heading font-bold leading-tight mb-8">
+                        A ferramenta ideal para trabalhar a <span class="text-brand-orange">sua reputação</span>.
+                    </h2>
+                    
+                    <div class="bg-[var(--color-brand-dark)] p-8 md:p-10 rounded-sm border-l-4 border-brand-orange mb-8 relative">
+                        <i data-lucide="quote" class="absolute top-6 right-6 w-12 h-12 text-white/5"></i>
+                        <p class="text-brand-light-gray font-light text-base md:text-lg leading-relaxed mb-6 relative z-10">
+                            "A K-ONE é um acelerador. Ela potencializa de forma incomparável a chegada do conteúdo dos nossos clientes aos principais jornalistas e veículos de comunicação. Nosso formato garante que você seja percebido como a principal autoridade do seu setor."
+                        </p>
+                        <p class="text-white font-heading font-bold text-sm uppercase tracking-wider">Metodologia Exclusiva K-One</p>
+                    </div>
+
+                    <a href="#contato" class="glow-cta inline-flex items-center gap-2 px-8 py-4 bg-brand-orange text-white text-xs font-heading font-bold tracking-widest uppercase rounded-sm">
+                        Quero ser uma autoridade <i data-lucide="arrow-right" class="w-4 h-4"></i>
                     </a>
                 </div>
+
             </div>
         </div>
     </section>
 
-    <footer class="bg-brand-black py-10 md:py-12 border-t border-brand-gold/10">
+    <footer class="bg-brand-black py-10 md:py-12">
         <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
             <div class="flex items-center gap-2">
-                <i data-lucide="pen-tool" class="w-4 h-4 text-brand-gold"></i>
-                <span class="text-lg font-heading tracking-wider font-bold text-white uppercase">K-ONE</span>
+                <i data-lucide="pen-tool" class="w-5 h-5 text-brand-gold"></i>
+                <span class="text-xl font-heading tracking-wider font-bold text-white uppercase">K-ONE</span>
             </div>
-            <div class="flex gap-4">
-                <a href="#" class="text-brand-light-gray/70 hover:text-brand-gold transition-colors">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-                </a>
-                <a href="#" class="text-brand-light-gray/70 hover:text-brand-gold transition-colors">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-                </a>
+            <div class="text-[10px] text-brand-light-gray/50 uppercase tracking-widest text-center md:text-left">
+                Copyright © 2026 - K-ONE Assessoria. Todos os direitos reservados.
+            </div>
+            <div class="flex gap-6">
+                <a href="#" class="text-brand-light-gray/70 hover:text-brand-orange transition-colors"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+                <a href="#" class="text-brand-light-gray/70 hover:text-brand-orange transition-colors"><i data-lucide="instagram" class="w-5 h-5"></i></a>
             </div>
         </div>
     </footer>
@@ -436,7 +462,7 @@
             } else {
                 rh = canvas.height; rw = img.width * (canvas.height / img.height); ox = (canvas.width - rw) / 2;
             }
-            context.fillStyle = "#0F1419"; /* Updated to match new deep black */
+            context.fillStyle = "#0F1419"; 
             context.fillRect(0, 0, canvas.width, canvas.height);
             context.drawImage(img, ox, oy, rw, rh);
         }
