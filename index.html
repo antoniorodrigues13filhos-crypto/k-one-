@@ -60,7 +60,6 @@
         .delay-100 { transition-delay: 100ms; }
         .delay-200 { transition-delay: 200ms; }
         .delay-300 { transition-delay: 300ms; }
-        .delay-400 { transition-delay: 400ms; }
 
         /* Hero Performance Tweaks */
         #hero-canvas { will-change: transform; transform: translateZ(0); }
@@ -81,7 +80,7 @@
         .delay-3 { animation-delay: 0.5s; }
         .delay-4 { animation-delay: 0.7s; }
 
-        /* B2B Glass Card */
+        /* Estilo de Card B2B */
         .glass-card {
             background: var(--color-brand-dark);
             border: 1px solid rgba(212, 192, 106, 0.1);
@@ -184,7 +183,7 @@
                         </span>
                     </h1>
 
-                    <p class="reveal-element delay-3 text-sm sm:text-base md:text-xl text-brand-light-gray max-w-3xl font-light leading-relaxed mb-10 md:mb-16 text-center text-balance mx-auto">
+                    <p class="reveal-element delay-3 text-sm sm:text-base md:text-xl text-brand-light-gray max-w-3xl font-light leading-relaxed mb-10 md:mb-16 text-center text-balance mx-auto font-sans">
                         Assessoria de imprensa estratégica para líderes, empresas e especialistas que desejam dominar o mercado sem depender exclusivamente de anúncios pagos.
                     </p>
 
@@ -201,72 +200,73 @@
                     <div class="w-full grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6 text-left">
                         <div class="glass-card p-5 md:p-8 rounded-sm border-t-2 border-t-brand-gold">
                             <i data-lucide="file-text" class="w-6 h-6 md:w-8 md:h-8 text-brand-gold mb-3 md:mb-5"></i>
-                            <h3 class="text-base md:text-lg font-serif font-bold text-white mb-2">Pautas Únicas</h3>
-                            <p class="text-[11px] md:text-sm text-brand-light-gray leading-relaxed hidden sm:block">Transformamos sua expertise técnica em uma <span class="text-brand-orange font-semibold">notícia</span> relevante.</p>
+                            <h3 class="text-base md:text-xl font-serif font-bold text-white mb-2">Pautas Únicas</h3>
+                            <p class="text-[11px] md:text-sm text-brand-light-gray leading-relaxed hidden sm:block font-sans">Transformamos sua expertise técnica em uma <span class="text-brand-orange font-semibold">notícia</span> relevante.</p>
                         </div>
                         <div class="glass-card p-5 md:p-8 rounded-sm border-t-2 border-t-brand-gold">
                             <i data-lucide="globe" class="w-6 h-6 md:w-8 md:h-8 text-brand-gold mb-3 md:mb-5"></i>
-                            <h3 class="text-base md:text-lg font-serif font-bold text-white mb-2">Visão Nacional</h3>
-                            <p class="text-[11px] md:text-sm text-brand-light-gray leading-relaxed hidden sm:block">Presença orgânica focada na grande imprensa e editorias chave.</p>
+                            <h3 class="text-base md:text-xl font-serif font-bold text-white mb-2">Visão Nacional</h3>
+                            <p class="text-[11px] md:text-sm text-brand-light-gray leading-relaxed hidden sm:block font-sans">Presença orgânica focada na grande imprensa e editorias chave.</p>
                         </div>
                         <div class="glass-card p-5 md:p-8 rounded-sm border-t-2 border-t-brand-gold">
                             <i data-lucide="mic" class="w-6 h-6 md:w-8 md:h-8 text-brand-gold mb-3 md:mb-5"></i>
-                            <h3 class="text-base md:text-lg font-serif font-bold text-white mb-2">Gestão Imagem</h3>
-                            <p class="text-[11px] md:text-sm text-brand-light-gray leading-relaxed hidden sm:block">Media training para líderes e desenvolvimento de palestras.</p>
+                            <h3 class="text-base md:text-xl font-serif font-bold text-white mb-2">Gestão Imagem</h3>
+                            <p class="text-[11px] md:text-sm text-brand-light-gray leading-relaxed hidden sm:block font-sans">Media training para líderes e desenvolvimento de palestras.</p>
                         </div>
                         <div class="glass-card p-5 md:p-8 rounded-sm border-t-2 border-t-brand-gold">
                             <i data-lucide="bar-chart-2" class="w-6 h-6 md:w-8 md:h-8 text-brand-gold mb-3 md:mb-5"></i>
-                            <h3 class="text-base md:text-lg font-serif font-bold text-white mb-2">Clipagem Ativa</h3>
-                            <p class="text-[11px] md:text-sm text-brand-light-gray leading-relaxed hidden sm:block">Monitoramento de todo o material publicado com precisão.</p>
+                            <h3 class="text-base md:text-xl font-serif font-bold text-white mb-2">Clipagem Ativa</h3>
+                            <p class="text-[11px] md:text-sm text-brand-light-gray leading-relaxed hidden sm:block font-sans">Monitoramento de todo o material publicado com precisão.</p>
                         </div>
                     </div>
                 </div>
 
-                <div id="step-3" class="scroll-step absolute inset-0 flex flex-col items-center justify-center px-4 md:px-12 w-full max-w-4xl mx-auto opacity-0 pointer-events-none pt-20">
+                <div id="step-3" class="scroll-step absolute inset-0 flex flex-col items-center justify-center px-4 md:px-12 w-full max-w-5xl mx-auto opacity-0 pointer-events-none pt-10 md:pt-20">
                     
                     <div class="text-center w-full relative z-10 flex flex-col items-center">
                         
-                        <div class="w-12 h-12 md:w-14 md:h-14 bg-brand-black border border-brand-gold rounded-full flex items-center justify-center mb-10 shadow-[0_0_15px_rgba(212,192,106,0.2)]">
-                            <i data-lucide="award" class="w-5 h-5 md:w-6 md:h-6 text-brand-gold"></i>
+                        <div class="w-14 h-14 md:w-16 md:h-16 bg-[#161a1d] border border-brand-gold/40 rounded-full flex items-center justify-center mb-8 md:mb-10">
+                            <i data-lucide="award" class="w-6 h-6 md:w-8 md:h-8 text-brand-gold"></i>
                         </div>
 
-                        <h2 class="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-serif text-white mb-4 leading-tight tracking-tight">
-                            Autoridade não se <br/> compra.
+                        <h2 class="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-serif text-white font-normal mb-2 md:mb-4 leading-[1.1] text-center tracking-tight">
+                            Autoridade não se <br class="hidden sm:block"> compra.
                         </h2>
                         
-                        <h3 class="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-serif text-brand-orange italic font-bold mb-10 leading-tight">
+                        <h3 class="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-serif text-brand-orange italic font-normal mb-10 leading-[1.1] text-center tracking-tight">
                             Se constrói.
                         </h3>
 
-                        <p class="text-sm md:text-lg text-brand-light-gray max-w-2xl mx-auto font-light leading-relaxed mb-12 text-balance">
+                        <p class="text-base md:text-xl text-brand-light-gray max-w-2xl mx-auto font-light leading-relaxed mb-12 text-center text-balance font-sans">
                             Da estratégia à exposição, posicionamos sua <br class="hidden md:block"> marca nos lugares que <strong class="text-white font-medium">realmente importam.</strong>
                         </p>
 
-                        <div class="flex flex-wrap justify-center items-center gap-4 md:gap-6 mb-12">
-                            <div class="flex items-center gap-2 group cursor-pointer">
-                                <i data-lucide="target" class="w-4 h-4 text-brand-gold group-hover:text-brand-orange transition-colors"></i>
-                                <span class="text-[10px] md:text-xs font-sans font-bold tracking-[0.2em] uppercase text-brand-light-gray group-hover:text-white transition-colors">Estratégia</span>
+                        <div class="flex flex-wrap justify-center items-center gap-4 md:gap-8 mb-12">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="target" class="w-4 h-4 md:w-5 md:h-5 text-brand-gold"></i>
+                                <span class="text-[10px] md:text-xs font-sans font-semibold tracking-[0.2em] uppercase text-brand-light-gray">Estratégia</span>
                             </div>
                             
-                            <span class="w-1 h-1 bg-brand-gold/40 rounded-full hidden sm:block"></span>
+                            <span class="w-1 h-1 bg-brand-gold/50 rounded-full hidden sm:block"></span>
                             
-                            <div class="flex items-center gap-2 group cursor-pointer">
-                                <i data-lucide="zap" class="w-4 h-4 text-brand-gold group-hover:text-brand-orange transition-colors"></i>
-                                <span class="text-[10px] md:text-xs font-sans font-bold tracking-[0.2em] uppercase text-brand-light-gray group-hover:text-white transition-colors">Exposição</span>
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="zap" class="w-4 h-4 md:w-5 md:h-5 text-brand-gold"></i>
+                                <span class="text-[10px] md:text-xs font-sans font-semibold tracking-[0.2em] uppercase text-brand-light-gray">Exposição</span>
                             </div>
                             
-                            <span class="w-1 h-1 bg-brand-gold/40 rounded-full hidden sm:block"></span>
+                            <span class="w-1 h-1 bg-brand-gold/50 rounded-full hidden sm:block"></span>
                             
-                            <div class="flex items-center gap-2 group cursor-pointer">
-                                <i data-lucide="trending-up" class="w-4 h-4 text-brand-gold group-hover:text-brand-orange transition-colors"></i>
-                                <span class="text-[10px] md:text-xs font-sans font-bold tracking-[0.2em] uppercase text-brand-light-gray group-hover:text-white transition-colors">Resultados</span>
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="trending-up" class="w-4 h-4 md:w-5 md:h-5 text-brand-gold"></i>
+                                <span class="text-[10px] md:text-xs font-sans font-semibold tracking-[0.2em] uppercase text-brand-light-gray">Resultados</span>
                             </div>
                         </div>
 
                         <a href="#contato" class="glow-cta group relative px-8 py-4 md:px-12 md:py-4 bg-brand-orange text-white text-[10px] md:text-xs font-sans font-bold tracking-widest uppercase overflow-hidden inline-flex items-center gap-3 rounded-sm pointer-events-auto">
                             <span class="absolute inset-0 bg-brand-orange-dark transform -translate-x-full transition-transform duration-500 ease-out group-hover:translate-x-0"></span>
-                            <span class="relative z-10 flex items-center gap-2 md:gap-3">Agendar Reunião Estratégica <i data-lucide="arrow-right" class="w-4 h-4"></i></span>
+                            <span class="relative z-10 flex items-center gap-2 md:gap-3">Agendar Reunião <i data-lucide="arrow-right" class="w-4 h-4"></i></span>
                         </a>
+
                     </div>
                 </div>
 
@@ -278,7 +278,7 @@
         <div class="max-w-7xl mx-auto px-6 text-center reveal">
             <p class="text-[10px] md:text-xs font-sans text-brand-light-gray font-bold tracking-[0.2em] uppercase mb-8">Nossos clientes conquistam as principais manchetes</p>
             <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
-                <h4 class="text-2xl md:text-3xl font-serif font-bold text-white tracking-tighter">FORBES</h4>
+                <h4 class="text-2xl md:text-3xl font-serif font-bold text-white tracking-widest uppercase">Forbes</h4>
                 <h4 class="text-2xl md:text-3xl font-serif font-bold text-white italic">Exame.</h4>
                 <h4 class="text-2xl md:text-3xl font-sans font-black text-white uppercase tracking-tighter">Estadão</h4>
                 <h4 class="text-2xl md:text-3xl font-serif font-bold text-white">Valor Econômico</h4>
@@ -289,24 +289,24 @@
     <section id="plataforma" class="bg-[var(--color-brand-black)] text-white py-24 md:py-32 relative editorial-border-b">
         <div class="max-w-7xl mx-auto px-6 text-center max-w-4xl reveal">
             <h2 class="text-3xl md:text-5xl font-serif font-bold leading-tight mb-8">
-                Conectando marcas aos seus públicos com <span class="text-brand-orange">tecnologia e estratégia</span>
+                Conectando marcas aos seus públicos com <span class="text-brand-orange italic">tecnologia e estratégia</span>
             </h2>
-            <p class="text-lg md:text-xl text-brand-light-gray font-light leading-relaxed mb-10">
+            <p class="text-lg md:text-xl text-brand-light-gray font-light leading-relaxed mb-10 font-sans">
                 A K-ONE atua como uma solução Top of Mind para empresas, executivos e atletas que buscam <strong class="text-white font-medium">credibilidade e confiança</strong>. Ajudamos você a alcançar a mídia de grande impacto com eficiência e resultados totalmente mensuráveis.
             </p>
             
             <div class="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-12 mt-16 text-left border-t border-brand-gold/10 pt-16">
                 <div>
-                    <h4 class="text-3xl md:text-4xl font-serif font-bold text-brand-orange mb-2">3x</h4>
-                    <p class="text-xs md:text-sm text-brand-light-gray">Mais eficiência no envio e aprovação de pautas nos veículos.</p>
+                    <h4 class="text-4xl md:text-5xl font-serif font-bold text-brand-orange mb-2">3x</h4>
+                    <p class="text-xs md:text-sm text-brand-light-gray font-sans">Mais eficiência no envio e aprovação de pautas nos veículos.</p>
                 </div>
                 <div>
-                    <h4 class="text-3xl md:text-4xl font-serif font-bold text-brand-orange mb-2">+Alto</h4>
-                    <p class="text-xs md:text-sm text-brand-light-gray">Nível de relacionamento com os principais jornalistas do país.</p>
+                    <h4 class="text-4xl md:text-5xl font-serif font-bold text-brand-orange mb-2">+Alto</h4>
+                    <p class="text-xs md:text-sm text-brand-light-gray font-sans">Nível de relacionamento com os principais jornalistas do país.</p>
                 </div>
                 <div class="col-span-2 md:col-span-1">
-                    <h4 class="text-3xl md:text-4xl font-serif font-bold text-brand-orange mb-2">100%</h4>
-                    <p class="text-xs md:text-sm text-brand-light-gray">De foco na gestão ativa da sua reputação na mídia e em eventos.</p>
+                    <h4 class="text-4xl md:text-5xl font-serif font-bold text-brand-orange mb-2">100%</h4>
+                    <p class="text-xs md:text-sm text-brand-light-gray font-sans">De foco na gestão ativa da sua reputação na mídia e em eventos.</p>
                 </div>
             </div>
         </div>
@@ -315,8 +315,8 @@
     <section id="servicos" class="py-24 md:py-32 bg-[var(--color-brand-dark)] relative">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-16 md:mb-24 reveal">
-                <h2 class="text-3xl md:text-4xl font-serif font-bold text-white mb-4">Conecte-se e impacte em um só lugar</h2>
-                <p class="text-brand-light-gray max-w-2xl mx-auto">Nossas soluções potencializam a chegada do seu conteúdo à grande mídia.</p>
+                <h2 class="text-4xl md:text-5xl font-serif font-bold text-white mb-4">Conecte-se e impacte em um só lugar</h2>
+                <p class="text-brand-light-gray max-w-2xl mx-auto font-sans">Nossas soluções potencializam a chegada do seu conteúdo à grande mídia.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
@@ -324,22 +324,22 @@
                     <div class="w-14 h-14 bg-brand-black flex items-center justify-center rounded-full mb-6 border border-brand-gold/20">
                         <i data-lucide="send" class="w-6 h-6 text-brand-orange"></i>
                     </div>
-                    <h3 class="text-xl font-serif font-bold text-white mb-3">Mailing Estratégico</h3>
-                    <p class="text-sm text-brand-light-gray font-light leading-relaxed">Sua pauta no lugar certo. Acesso e relacionamento com uma rede exclusiva de contatos de jornalistas e editores em todo o Brasil.</p>
+                    <h3 class="text-2xl font-serif font-bold text-white mb-3">Mailing Estratégico</h3>
+                    <p class="text-sm text-brand-light-gray font-light leading-relaxed font-sans">Sua pauta no lugar certo. Acesso e relacionamento com uma rede exclusiva de contatos de jornalistas e editores em todo o Brasil.</p>
                 </div>
                 <div class="glass-card p-8 md:p-10 rounded-sm reveal delay-100">
                     <div class="w-14 h-14 bg-brand-black flex items-center justify-center rounded-full mb-6 border border-brand-gold/20">
                         <i data-lucide="eye" class="w-6 h-6 text-brand-orange"></i>
                     </div>
-                    <h3 class="text-xl font-serif font-bold text-white mb-3">Cobertura Completa</h3>
-                    <p class="text-sm text-brand-light-gray font-light leading-relaxed">Monitoramento de menções sobre sua marca em rádio, TV, portais e mídias impressas com autonomia e clipagem detalhada.</p>
+                    <h3 class="text-2xl font-serif font-bold text-white mb-3">Cobertura Completa</h3>
+                    <p class="text-sm text-brand-light-gray font-light leading-relaxed font-sans">Monitoramento de menções sobre sua marca em rádio, TV, portais e mídias impressas com autonomia e clipagem detalhada.</p>
                 </div>
                 <div class="glass-card p-8 md:p-10 rounded-sm reveal delay-200">
                     <div class="w-14 h-14 bg-brand-black flex items-center justify-center rounded-full mb-6 border border-brand-gold/20">
                         <i data-lucide="shield" class="w-6 h-6 text-brand-orange"></i>
                     </div>
-                    <h3 class="text-xl font-serif font-bold text-white mb-3">Imagem & Liderança</h3>
-                    <p class="text-sm text-brand-light-gray font-light leading-relaxed">Trabalhamos sua reputação de forma mensurável. De executivos C-Level a atletas, transformamos você em autoridade.</p>
+                    <h3 class="text-2xl font-serif font-bold text-white mb-3">Imagem & Liderança</h3>
+                    <p class="text-sm text-brand-light-gray font-light leading-relaxed font-sans">Trabalhamos sua reputação de forma mensurável. De executivos C-Level a atletas da Stock Car, transformamos você em autoridade.</p>
                 </div>
             </div>
         </div>
