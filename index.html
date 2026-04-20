@@ -34,12 +34,13 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Apple/Tesla Hardware Acceleration Apenas no Hero */
+        /* Apple/Tesla Hardware Acceleration */
         #hero-canvas {
             will-change: transform;
             transform: translateZ(0);
         }
-        #hero-content-group {
+        
+        .scroll-step {
             will-change: transform, opacity, filter;
             transform: translateZ(0);
         }
@@ -50,7 +51,7 @@
         .editorial-border-r { border-right: 1px solid rgba(212, 192, 106, 0.15); }
         .editorial-border-t { border-top: 1px solid rgba(212, 192, 106, 0.15); }
 
-        /* Cinematic Blur Reveal Text Animation */
+        /* Cinematic Blur Reveal Text Animation (Apenas On Load) */
         .reveal-element {
             opacity: 0;
             filter: blur(12px);
@@ -73,7 +74,6 @@
         .delay-2 { animation-delay: 0.3s; }
         .delay-3 { animation-delay: 0.5s; }
         .delay-4 { animation-delay: 0.7s; }
-        .delay-5 { animation-delay: 0.9s; }
 
         /* Extreme Glass Effect for Cards */
         .glass-card {
@@ -144,7 +144,7 @@
         <div style="position:sticky;top:0;height:100vh;width:100%;overflow:hidden;">
             <canvas id="hero-canvas" style="position:absolute;inset:0;width:100%;height:100%;"></canvas>
             
-            <div style="position:absolute;inset:0;background:linear-gradient(to top, #0a0d10 10%, rgba(10,13,16,0.85) 60%, rgba(10,13,16,0.4) 100%);z-index:1;"></div>
+            <div style="position:absolute;inset:0;background:linear-gradient(to top, #0a0d10 10%, rgba(10,13,16,0.85) 50%, rgba(10,13,16,0.4) 100%);z-index:1;"></div>
             
             <div class="absolute inset-8 border border-brand-gold/10 z-[2] pointer-events-none hidden md:block">
                 <div class="absolute top-0 left-0 w-6 h-6 border-t border-l border-brand-gold -mt-[1px] -ml-[1px]"></div>
@@ -153,63 +153,85 @@
                 <div class="absolute bottom-0 right-0 w-6 h-6 border-b border-r border-brand-gold -mb-[1px] -mr-[1px]"></div>
             </div>
             
-            <div style="position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center;padding:1rem md:padding:2rem;">
-                <div id="hero-content-group" class="text-center w-full max-w-7xl mx-auto flex flex-col items-center mt-12 md:mt-0">
-                    
-                    <div class="reveal-element delay-1 flex items-center gap-4 mb-4 md:mb-6">
-                        <div class="w-8 md:w-12 h-[1px] bg-brand-gold"></div>
-                        <p class="text-brand-gold uppercase tracking-[0.3em] md:tracking-[0.4em] text-[10px] md:text-xs font-bold font-mono">Assessoria de Imprensa</p>
-                        <div class="w-8 md:w-12 h-[1px] bg-brand-gold"></div>
+            <div id="hero-content-group" style="position:absolute;inset:0;z-index:2;">
+                
+                <div id="step-1" class="scroll-step absolute inset-0 flex flex-col items-center justify-center px-6 md:px-12 w-full max-w-6xl mx-auto">
+                    <div class="reveal-element delay-1 flex items-center gap-4 mb-6">
+                        <div class="w-12 h-[1px] bg-brand-gold"></div>
+                        <p class="text-brand-gold uppercase tracking-[0.3em] md:tracking-[0.4em] text-xs font-bold font-mono">Assessoria de Imprensa</p>
+                        <div class="w-12 h-[1px] bg-brand-gold"></div>
                     </div>
                     
-                    <h1 class="reveal-element delay-2 text-4xl md:text-6xl lg:text-7xl font-serif text-white mb-4 md:mb-6 leading-[1.1] tracking-tight px-4">
+                    <h1 class="reveal-element delay-2 text-5xl md:text-7xl lg:text-8xl font-serif text-white mb-8 leading-[1.05] tracking-tight text-center">
                         Transformamos a Sua História em <br class="hidden md:block"/>
-                        <span class="text-white relative font-bold">Manchetes Exclusivas.<span class="absolute bottom-1 md:bottom-2 left-0 w-full h-1 md:h-2 bg-brand-orange -z-10 opacity-80"></span></span>
+                        <span class="text-white relative font-bold inline-block">Manchetes Exclusivas.<span class="absolute bottom-2 left-0 w-full h-2 md:h-3 bg-brand-orange -z-10 opacity-80"></span></span>
                     </h1>
                     
-                    <p class="reveal-element delay-3 text-sm md:text-lg text-brand-light-gray max-w-3xl font-light leading-relaxed mb-8 md:mb-12 px-6">
+                    <p class="reveal-element delay-3 text-lg md:text-xl text-brand-light-gray max-w-3xl font-light leading-relaxed mb-12 text-center">
                         Conquiste credibilidade orgânica na grande mídia nacional com ações estratégicas de alto impacto, gestão de imagem e clipagem inteligente.
                     </p>
 
-                    <div class="reveal-element delay-4 w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 px-4 mb-8 md:mb-12 text-left">
-                        
-                        <div class="glass-card p-5 md:p-6 rounded-xl border border-white/5 hover:border-brand-gold/40 transition-colors">
-                            <i data-lucide="file-text" class="w-5 h-5 md:w-6 md:h-6 text-brand-gold mb-3"></i>
-                            <h3 class="text-base md:text-lg font-serif font-bold text-white mb-1 md:mb-2">Pautas Exclusivas</h3>
-                            <p class="text-[11px] md:text-xs text-brand-light-gray leading-relaxed">Mapeamos as histórias que a grande imprensa realmente quer contar sobre você.</p>
-                        </div>
-                        
-                        <div class="glass-card p-5 md:p-6 rounded-xl border border-white/5 hover:border-brand-gold/40 transition-colors">
-                            <i data-lucide="globe" class="w-5 h-5 md:w-6 md:h-6 text-brand-gold mb-3"></i>
-                            <h3 class="text-base md:text-lg font-serif font-bold text-white mb-1 md:mb-2">Visibilidade Nacional</h3>
-                            <p class="text-[11px] md:text-xs text-brand-light-gray leading-relaxed">Presença orgânica focada em editorias de esportes, comportamento e variedades.</p>
-                        </div>
-                        
-                        <div class="glass-card p-5 md:p-6 rounded-xl border border-white/5 hover:border-brand-gold/40 transition-colors hidden sm:block">
-                            <i data-lucide="mic" class="w-5 h-5 md:w-6 md:h-6 text-brand-gold mb-3"></i>
-                            <h3 class="text-base md:text-lg font-serif font-bold text-white mb-1 md:mb-2">Gestão de Imagem</h3>
-                            <p class="text-[11px] md:text-xs text-brand-light-gray leading-relaxed">Media training e suporte a palestras para líderes e atletas de elite (Ex: Stock Car).</p>
-                        </div>
-                        
-                        <div class="glass-card p-5 md:p-6 rounded-xl border border-white/5 hover:border-brand-gold/40 transition-colors hidden sm:block">
-                            <i data-lucide="bar-chart-2" class="w-5 h-5 md:w-6 md:h-6 text-brand-gold mb-3"></i>
-                            <h3 class="text-base md:text-lg font-serif font-bold text-white mb-1 md:mb-2">Clipagem Inteligente</h3>
-                            <p class="text-[11px] md:text-xs text-brand-light-gray leading-relaxed">Relatórios detalhados e monitoramento ativo de todo o material publicado.</p>
-                        </div>
+                    <div class="reveal-element delay-4 flex items-center gap-2 text-xs text-brand-light-gray font-mono tracking-widest uppercase">
+                        <i data-lucide="mouse" class="w-5 h-5 animate-bounce text-brand-gold"></i>
+                        <span>Role para conhecer os pilares</span>
                     </div>
-
-                    <div class="reveal-element delay-5 flex flex-col items-center gap-4">
-                        <a href="#contato" class="glow-cta group relative px-6 md:px-10 py-3 md:py-4 bg-brand-orange text-white text-xs md:text-sm font-bold tracking-widest uppercase overflow-hidden inline-flex items-center gap-3 rounded-sm transition-all hover:scale-105">
-                            <span class="absolute inset-0 bg-brand-orange-dark transform -translate-x-full transition-transform duration-500 ease-out group-hover:translate-x-0"></span>
-                            <span class="relative z-10 flex items-center gap-2">Agendar Reunião Estratégica <i data-lucide="arrow-right" class="w-4 h-4"></i></span>
-                        </a>
-                        <div class="flex items-center gap-2 text-[10px] md:text-xs text-brand-light-gray font-mono tracking-widest uppercase mt-2">
-                            <i data-lucide="mouse" class="w-3 h-3 md:w-4 md:h-4 animate-bounce text-brand-gold"></i>
-                            <span>Role para descobrir mais</span>
-                        </div>
-                    </div>
-
                 </div>
+
+                <div id="step-2" class="scroll-step absolute inset-0 flex flex-col items-center justify-center px-6 md:px-12 w-full max-w-7xl mx-auto opacity-0 pointer-events-none">
+                    <h2 class="text-3xl md:text-5xl font-serif text-white mb-12 text-center leading-tight">
+                        Nossa Metodologia <br/>
+                        <span class="italic text-brand-gold font-light">O que nós entregamos.</span>
+                    </h2>
+                    
+                    <div class="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
+                        <div class="glass-card p-8 rounded-xl border border-white/5 hover:border-brand-gold/40 transition-colors">
+                            <i data-lucide="file-text" class="w-8 h-8 text-brand-gold mb-4"></i>
+                            <h3 class="text-xl font-serif font-bold text-white mb-3">Pautas Exclusivas</h3>
+                            <p class="text-sm text-brand-light-gray leading-relaxed">Mapeamos as histórias que a grande imprensa realmente quer contar sobre você ou seu evento.</p>
+                        </div>
+                        
+                        <div class="glass-card p-8 rounded-xl border border-white/5 hover:border-brand-gold/40 transition-colors">
+                            <i data-lucide="globe" class="w-8 h-8 text-brand-gold mb-4"></i>
+                            <h3 class="text-xl font-serif font-bold text-white mb-3">Visibilidade Nacional</h3>
+                            <p class="text-sm text-brand-light-gray leading-relaxed">Presença orgânica focada em editorias de esportes, comportamento e variedades.</p>
+                        </div>
+                        
+                        <div class="glass-card p-8 rounded-xl border border-white/5 hover:border-brand-gold/40 transition-colors hidden sm:block">
+                            <i data-lucide="mic" class="w-8 h-8 text-brand-gold mb-4"></i>
+                            <h3 class="text-xl font-serif font-bold text-white mb-3">Gestão de Imagem</h3>
+                            <p class="text-sm text-brand-light-gray leading-relaxed">Media training e desenvolvimento de palestras dinâmicas para o seu público e mercado.</p>
+                        </div>
+                        
+                        <div class="glass-card p-8 rounded-xl border border-white/5 hover:border-brand-gold/40 transition-colors hidden sm:block">
+                            <i data-lucide="bar-chart-2" class="w-8 h-8 text-brand-gold mb-4"></i>
+                            <h3 class="text-xl font-serif font-bold text-white mb-3">Clipagem Inteligente</h3>
+                            <p class="text-sm text-brand-light-gray leading-relaxed">Relatórios detalhados e monitoramento ativo de todo o material publicado na mídia.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="step-3" class="scroll-step absolute inset-0 flex flex-col items-center justify-center px-6 md:px-12 w-full max-w-5xl mx-auto opacity-0 pointer-events-none">
+                    <div class="inline-block border border-brand-gold/30 p-2 mb-8 bg-brand-black/50 backdrop-blur-md">
+                        <div class="bg-brand-gold text-brand-black px-6 py-2 text-sm font-bold tracking-widest uppercase font-mono">
+                            Do Corporativo às Pistas
+                        </div>
+                    </div>
+                    
+                    <h2 class="text-5xl md:text-7xl font-serif text-white mb-8 leading-[1.05] tracking-tight text-center">
+                        Sua Marca no Topo do <br/> 
+                        <span class="text-brand-orange italic font-bold">Pódio da Informação.</span>
+                    </h2>
+                    
+                    <p class="text-lg md:text-xl text-brand-light-gray max-w-3xl font-light leading-relaxed mb-12 text-center">
+                        Acompanhamos você em todas as etapas. Do suporte de mídia nas etapas do Campeonato de <strong class="text-white font-medium">Stock Car</strong> (junto aos pilotos de elite Ricardo Maurício, Max Wilson e Daniel Serra) até eventos institucionais nas maiores universidades do país.
+                    </p>
+                    
+                    <a href="#contato" class="glow-cta group relative px-10 py-5 bg-brand-orange text-white text-sm font-bold tracking-widest uppercase overflow-hidden inline-flex items-center gap-3 rounded-sm transition-all hover:scale-105">
+                        <span class="absolute inset-0 bg-brand-orange-dark transform -translate-x-full transition-transform duration-500 ease-out group-hover:translate-x-0"></span>
+                        <span class="relative z-10 flex items-center gap-3">Agendar Reunião Estratégica <i data-lucide="arrow-right" class="w-5 h-5"></i></span>
+                    </a>
+                </div>
+
             </div>
         </div>
     </section>
@@ -235,28 +257,6 @@
                             </p>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="servicos" class="py-32 bg-brand-dark relative">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="glass-card group relative p-10 md:p-14 rounded-2xl transition-all duration-500 overflow-hidden">
-                    <i data-lucide="radio" class="w-10 h-10 text-brand-gold mb-8"></i>
-                    <h3 class="text-3xl font-serif text-white mb-4">Mídia de Topo</h3>
-                    <p class="text-brand-light-gray font-light text-sm">Inserção orgânica em portais de notícias e canais de TV.</p>
-                </div>
-                <div class="glass-card group relative p-10 md:p-14 rounded-2xl transition-all duration-500 overflow-hidden">
-                    <i data-lucide="crosshair" class="w-10 h-10 text-brand-gold mb-8"></i>
-                    <h3 class="text-3xl font-serif text-white mb-4">Posicionamento</h3>
-                    <p class="text-brand-light-gray font-light text-sm">Construção da imagem pública de CEOs e atletas como líderes.</p>
-                </div>
-                <div class="glass-card group relative p-10 md:p-14 rounded-2xl transition-all duration-500 overflow-hidden">
-                    <i data-lucide="shield-check" class="w-10 h-10 text-brand-gold mb-8"></i>
-                    <h3 class="text-3xl font-serif text-white mb-4">Gestão de Crise</h3>
-                    <p class="text-brand-light-gray font-light text-sm">Blindagem midiática para garantir a integridade do seu legado.</p>
                 </div>
             </div>
         </div>
@@ -331,7 +331,11 @@
         const canvas = document.getElementById("hero-canvas");
         const context = canvas.getContext("2d", { alpha: false });
         const heroEl = document.getElementById("scroll-hero");
-        const textGroup = document.getElementById("hero-content-group");
+        
+        // Elementos das 3 Fases do Scroll
+        const step1 = document.getElementById("step-1");
+        const step2 = document.getElementById("step-2");
+        const step3 = document.getElementById("step-3");
         
         function setupCanvas() {
             canvas.width = window.innerWidth;
@@ -363,6 +367,38 @@
 
         let lastDrawnFrame = -1;
 
+        // Função universal para animar a entrada e saída das fases do texto
+        function updateStepOpacity(element, fraction, inStart, inEnd, outStart, outEnd) {
+            let opacity = 0;
+            let translateY = 40; // Começa um pouco abaixo
+            let blur = 10;
+
+            if (fraction <= inStart) {
+                opacity = 0; translateY = 40; blur = 10;
+            } else if (fraction > inStart && fraction < inEnd) {
+                // Fade IN
+                let p = (fraction - inStart) / (inEnd - inStart);
+                opacity = p; translateY = 40 * (1 - p); blur = 10 * (1 - p);
+            } else if (fraction >= inEnd && fraction <= outStart) {
+                // Totalmente visível
+                opacity = 1; translateY = 0; blur = 0;
+            } else if (fraction > outStart && fraction < outEnd) {
+                // Fade OUT (Sobe e some)
+                let p = (fraction - outStart) / (outEnd - outStart);
+                opacity = 1 - p; translateY = -40 * p; blur = 10 * p;
+            } else if (fraction >= outEnd) {
+                opacity = 0; translateY = -40; blur = 10;
+            }
+
+            // Otimização Mobile: Remove o Blur para não travar o celular
+            if (window.innerWidth <= 768) blur = 0;
+
+            element.style.opacity = opacity.toFixed(3);
+            element.style.filter = blur > 0 ? `blur(${blur.toFixed(1)}px)` : 'none';
+            element.style.transform = `translate3d(0, ${translateY.toFixed(1)}px, 0)`;
+            element.style.pointerEvents = opacity > 0.5 ? 'auto' : 'none'; // Impede clique em botões invisíveis
+        }
+
         function renderFluidLoop() {
             if (loadedCount === 0) {
                 requestAnimationFrame(renderFluidLoop);
@@ -376,34 +412,22 @@
 
             const frameIndex = Math.min(frameCount - 1, Math.floor(currentScrollFraction * (frameCount - 1)));
             
+            // Renderiza Imagem (se mudou)
             if (frameIndex !== lastDrawnFrame && images[frameIndex]) {
                 drawCover(images[frameIndex]);
                 lastDrawnFrame = frameIndex;
             }
-            
-            let opacity = 1, translateY = 0, scale = 1, blurAmount = 0;
 
-            if (currentScrollFraction <= 0.10) {
-                translateY = currentScrollFraction * -150; 
-            } else if (currentScrollFraction > 0.10 && currentScrollFraction < 0.35) {
-                let localFrac = (currentScrollFraction - 0.10) / 0.25;
-                opacity = 1 - localFrac;
-                blurAmount = localFrac * 15;
-                translateY = (0.10 * -150) - (localFrac * 250);
-                scale = 1 - (localFrac * 0.05); 
-            } else {
-                opacity = 0;
-                translateY = -500;
-            }
-
+            // Gerencia os 3 Atos da História apenas se a tela de loading sumiu
             if (document.body.classList.contains('loaded')) {
-                textGroup.style.opacity = opacity.toFixed(3);
-                if (window.innerWidth > 768) {
-                    textGroup.style.filter = `blur(${blurAmount.toFixed(1)}px)`;
-                } else {
-                    textGroup.style.filter = 'none';
-                }
-                textGroup.style.transform = `translate3d(0, ${translateY.toFixed(1)}px, 0) scale(${scale.toFixed(3)})`;
+                // Fase 1: Entra no load (0.0), sai aos 20% do scroll
+                updateStepOpacity(step1, currentScrollFraction, -1, 0, 0.15, 0.25);
+                
+                // Fase 2: Entra aos 25%, sai aos 60%
+                updateStepOpacity(step2, currentScrollFraction, 0.25, 0.35, 0.55, 0.65);
+                
+                // Fase 3: Entra aos 65%, Fica até o fim do Hero
+                updateStepOpacity(step3, currentScrollFraction, 0.65, 0.75, 0.95, 1.05);
             }
 
             requestAnimationFrame(renderFluidLoop);
