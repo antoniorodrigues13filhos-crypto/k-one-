@@ -62,8 +62,8 @@
         .delay-300 { transition-delay: 300ms; }
         .delay-400 { transition-delay: 400ms; }
 
-        /* Hero Performance Tweaks */
-        #hero-canvas { will-change: transform; transform: translateZ(0); }
+        /* Hero Performance Tweaks - Hardware Acceleration */
+        #hero-canvas { will-change: transform; transform: translateZ(0); transform-origin: center center; }
         .scroll-step { will-change: transform, opacity, filter; transform: translateZ(0); }
 
         /* Premium Borders */
@@ -124,7 +124,7 @@
             40% { transform: scale(1); }
         }
 
-        /* Animação do Chat (Mobile Fullscreen / Desktop Window) */
+        /* Animação do Chat */
         #chat-window {
             transform: translateY(100%);
             opacity: 0;
@@ -614,48 +614,52 @@
         window.addEventListener('resize', handleSmartResize);
         let lastDrawnFrame = -1;
 
-        // Função de Atualização com Tempo Descolado (Parallax & Inércia no Texto)
+        // Função de Atualização com Tempo Descolado (Parallax & Inércia Matemática Apple-like)
         function updateStepOpacity(element, fraction, inStart, inEnd, outStart, outEnd) {
-            let opacity = 0, ty = 80, blur = 10;
+            let opacity = 0, ty = 80, blur = 15, scale = 0.95;
             
             if (fraction <= inStart) { 
-                opacity = 0; ty = 80; 
+                opacity = 0; ty = 80; scale = 0.95; blur = 15;
             }
             else if (fraction > inStart && fraction < inEnd) {
                 let p = (fraction - inStart) / (inEnd - inStart);
-                let easeP = 1 - Math.pow(1 - p, 3); // easeOutCubic
+                let easeP = 1 - Math.pow(1 - p, 4); // Quartic ease out
                 opacity = p; 
-                ty = 80 * (1 - easeP) + 20 * easeP;
-                blur = 10 * (1 - p);
+                ty = 80 * (1 - easeP);
+                blur = 15 * (1 - p);
+                scale = 0.95 + (0.05 * easeP);
             } 
             else if (fraction >= inEnd && fraction <= outStart) {
-                opacity = 1; 
-                blur = 0;
+                opacity = 1; blur = 0; scale = 1;
                 let p = (fraction - inEnd) / (outStart - inEnd);
-                ty = 20 - (40 * p); 
+                ty = 0 - (20 * p); // Parallax suave enquanto pino central
             } 
             else if (fraction > outStart && fraction < outEnd) {
                 let p = (fraction - outStart) / (outEnd - outStart);
-                let easeP = p * p * p; // easeInCubic
+                let easeP = p * p * p * p; // Quartic ease in
                 opacity = 1 - p; 
                 ty = -20 - (60 * easeP); 
-                blur = 10 * p;
+                blur = 15 * p;
+                scale = 1 + (0.05 * easeP);
             } 
             else { 
-                opacity = 0; ty = -80; 
+                opacity = 0; ty = -80; scale = 1.05; blur = 15;
             }
 
-            if (window.innerWidth <= 768) blur = 0;
+            if (window.innerWidth <= 768) blur = blur > 0 ? blur * 0.6 : 0;
             element.style.opacity = opacity.toFixed(3);
-            element.style.filter = blur > 0 ? `blur(${blur.toFixed(1)}px)` : 'none';
-            element.style.transform = `translate3d(0, ${ty.toFixed(1)}px, 0)`;
+            element.style.filter = blur > 0 ? `blur(${blur.toFixed(2)}px)` : 'none';
+            element.style.transform = `translate3d(0, ${ty.toFixed(2)}px, 0) scale(${scale.toFixed(3)})`;
             element.style.pointerEvents = opacity > 0.5 ? 'auto' : 'none'; 
         }
 
         function renderFluidLoop() {
             if (loadedCount === 0) { requestAnimationFrame(renderFluidLoop); return; }
+            
             const currentScroll = Math.max(0, targetScrollY);
-            smoothedScrollY += (currentScroll - smoothedScrollY) * 0.08;
+            // Inércia ampliada (0.05 invés de 0.08) para sensação de peso/fluidez
+            smoothedScrollY += (currentScroll - smoothedScrollY) * 0.05;
+            
             const maxScroll = Math.max(1, heroEl.offsetHeight - window.innerHeight);
             const fraction = Math.max(0, Math.min(1, smoothedScrollY / maxScroll));
             const frameIndex = Math.min(frameCount - 1, Math.floor(fraction * (frameCount - 1)));
@@ -664,6 +668,10 @@
                 drawCover(images[frameIndex]);
                 lastDrawnFrame = frameIndex;
             }
+
+            // Efeito cinematográfico no canvas: leve zoom conforme dá o scroll
+            const bgScale = 1 + (fraction * 0.1);
+            canvas.style.transform = `translateZ(0) scale(${bgScale.toFixed(3)})`;
 
             if (document.body.classList.contains('loaded')) {
                 updateStepOpacity(step1, fraction, -0.10, 0.05, 0.20, 0.35);
