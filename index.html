@@ -43,11 +43,11 @@
             z-index: 9999;
         }
 
-        /* 2. Scroll Reveal Utility Classes */
+        /* 2. Scroll Reveal Utility Classes (Staggered for Parallax feel) */
         .reveal {
             opacity: 0;
-            transform: translateY(40px);
-            filter: blur(8px);
+            transform: translateY(50px);
+            filter: blur(10px);
             transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .reveal.active {
@@ -55,6 +55,11 @@
             transform: translateY(0);
             filter: blur(0);
         }
+        
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+        .delay-400 { transition-delay: 400ms; }
 
         /* Hero Performance Tweaks */
         #hero-canvas { will-change: transform; transform: translateZ(0); }
@@ -211,17 +216,17 @@
         </div>
     </section>
 
-    <section id="metodo" class="bg-brand-black text-white py-32 relative editorial-border-b reveal">
+    <section id="metodo" class="bg-brand-black text-white py-32 relative editorial-border-b">
         <div class="max-w-7xl mx-auto px-6">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
-                <div class="lg:col-span-5 flex flex-col justify-start lg:pr-12 lg:editorial-border-r">
+                <div class="lg:col-span-5 flex flex-col justify-start lg:pr-12 lg:editorial-border-r reveal">
                     <span class="text-xs font-sans text-brand-gold font-bold tracking-[0.2em] uppercase mb-8 block">O Cenário</span>
                     <h2 class="text-4xl md:text-5xl font-serif font-bold leading-tight">
                         Cansado do leilão <br>
                         <span class="text-brand-light-gray font-light">infinito</span> do tráfego pago?
                     </h2>
                 </div>
-                <div class="lg:col-span-7 flex flex-col justify-center">
+                <div class="lg:col-span-7 flex flex-col justify-center reveal delay-100">
                     <p class="text-xl text-brand-light-gray font-light leading-relaxed mb-6">
                         Enquanto outros compram cliques, autoridades conquistam respeito. Elas não interrompem; <strong class="text-white font-medium">elas são convidadas.</strong>
                     </p>
@@ -235,20 +240,20 @@
         </div>
     </section>
 
-    <section id="servicos" class="py-32 bg-brand-dark relative reveal">
+    <section id="servicos" class="py-32 bg-brand-dark relative">
         <div class="max-w-7xl mx-auto px-6">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="glass-card p-10 rounded-2xl">
+                <div class="glass-card p-10 rounded-2xl reveal">
                     <i data-lucide="radio" class="w-10 h-10 text-brand-gold mb-8"></i>
                     <h3 class="text-3xl font-serif text-white mb-4">Mídia Nacional</h3>
                     <p class="text-brand-light-gray font-light">Inserção estratégica nos maiores veículos de comunicação do país.</p>
                 </div>
-                <div class="glass-card p-10 rounded-2xl">
+                <div class="glass-card p-10 rounded-2xl reveal delay-100">
                     <i data-lucide="crosshair" class="w-10 h-10 text-brand-gold mb-8"></i>
                     <h3 class="text-3xl font-serif text-white mb-4">Elite Sports</h3>
                     <p class="text-brand-light-gray font-light">Acompanhamento completo em circuitos como a Stock Car.</p>
                 </div>
-                <div class="glass-card p-10 rounded-2xl">
+                <div class="glass-card p-10 rounded-2xl reveal delay-200">
                     <i data-lucide="shield-check" class="w-10 h-10 text-brand-gold mb-8"></i>
                     <h3 class="text-3xl font-serif text-white mb-4">Reputação</h3>
                     <p class="text-brand-light-gray font-light">Blindagem midiática e construção de legado institucional.</p>
@@ -257,47 +262,52 @@
         </div>
     </section>
 
-    <section id="sobre" class="bg-brand-black text-white py-32 relative editorial-border-b reveal">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+    <section id="sobre" class="relative bg-brand-black text-white py-32 md:py-48 overflow-hidden min-h-[90vh] flex items-center editorial-border-b">
+        
+        <div class="absolute inset-0 z-0 flex justify-end pointer-events-none">
+            <div class="relative w-full md:w-1/2 h-full">
+                <div class="absolute inset-0 bg-gradient-to-r from-[#0a0d10] via-[#0a0d10]/80 to-transparent z-10 hidden md:block"></div>
+                <div class="absolute inset-0 bg-gradient-to-b from-[#0a0d10] via-transparent to-[#0a0d10] z-10"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-[#0a0d10] via-[#0a0d10]/90 to-transparent z-10 md:hidden"></div>
                 
-                <div class="lg:col-span-7 flex flex-col justify-center lg:pr-12">
+                <img src="perfil.jpg/WhatsApp Image 2026-04-20 at 11.51.27.jpeg" alt="Liderança K-One" class="w-full h-full object-cover object-top md:object-center opacity-60 md:opacity-80 grayscale">
+            </div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-6 w-full">
+            <div class="max-w-2xl">
+                <div class="reveal">
                     <div class="flex items-center gap-4 mb-6">
                         <div class="w-8 h-[1px] bg-brand-gold"></div>
-                        <span class="text-xs font-sans text-brand-gold font-bold tracking-[0.2em] uppercase">Liderança em Mídia</span>
-                    </div>
-                    
-                    <h2 class="text-4xl md:text-5xl font-serif font-bold leading-tight mb-8">
-                        A Arte de Criar <br>
-                        <span class="text-brand-light-gray font-light text-balance">Autoridades no Mercado.</span>
-                    </h2>
-                    
-                    <div class="prose prose-invert prose-lg max-w-none text-balance">
-                        <p class="text-brand-light-gray font-light leading-relaxed mb-6">
-                            A <strong class="text-white font-medium">K-one</strong> tem se destacado no cenário de assessoria de imprensa estratégica, conquistando um papel de liderança na ajuda a empresas, especialistas e marcas a alcançarem maior visibilidade na mídia.
-                        </p>
-                        <p class="text-brand-light-gray font-light leading-relaxed mb-6">
-                            Ao oferecer soluções personalizadas e eficazes, garantimos que nossos clientes sejam percebidos como autoridades em seus respectivos setores, fortalecendo sua presença e impacto no mercado.
-                        </p>
-                        <p class="text-brand-light-gray font-light leading-relaxed">
-                            Nosso enfoque em criar narrativas convincentes e adaptadas faz da K-one um parceiro imprescindível para aqueles que buscam consolidar seu posicionamento de forma duradoura.
-                        </p>
+                        <span class="text-xs font-sans text-brand-gold font-bold tracking-[0.2em] uppercase">Mentoria Executiva</span>
                     </div>
                 </div>
-
-                <div class="lg:col-span-5 relative mt-12 lg:mt-0">
-                    <div class="absolute inset-0 bg-brand-gold/5 blur-3xl rounded-full transform -translate-x-4 translate-y-4"></div>
-                    <div class="glass-card p-2 rounded-2xl relative z-10 overflow-hidden group">
-                        <img src="perfil.jpg/WhatsApp Image 2026-04-20 at 11.51.27.jpeg" alt="Liderança K-One" class="w-full h-auto object-cover rounded-xl grayscale group-hover:grayscale-0 transition-all duration-700 ease-in-out transform group-hover:scale-105">
-                        <div class="absolute bottom-0 left-0 w-full h-1 bg-brand-gold transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-left"></div>
-                    </div>
+                
+                <h2 class="text-4xl md:text-5xl lg:text-6xl font-serif font-bold leading-[1.1] mb-8 reveal delay-100">
+                    Não basta ser o melhor. <br>
+                    <span class="text-brand-light-gray font-light">O mundo precisa <strong class="text-white">saber disso.</strong></span>
+                </h2>
+                
+                <div class="prose prose-invert prose-lg max-w-none text-balance">
+                    <p class="text-brand-light-gray font-light leading-relaxed mb-6 reveal delay-200">
+                        Nos bastidores das maiores marcas e líderes do país, existe uma estratégia invisível. A <strong class="text-white font-medium">K-one</strong> não envia apenas releases para jornalistas; nós arquitetamos a sua percepção pública de ponta a ponta.
+                    </p>
+                    <p class="text-brand-light-gray font-light leading-relaxed mb-10 reveal delay-300">
+                        Transformamos sua trajetória técnica e corporativa em pautas de alto valor. Quando você se torna a fonte oficial da grande mídia, o jogo vira: <strong class="text-brand-gold font-medium">você deixa de correr atrás do mercado e passa a ser a autoridade que eles procuram.</strong>
+                    </p>
                 </div>
 
+                <div class="reveal delay-400">
+                    <a href="#contato" class="glow-cta group relative px-8 py-4 border border-brand-gold/30 hover:border-brand-orange bg-brand-black/50 backdrop-blur-md text-white text-xs font-bold tracking-widest uppercase overflow-hidden inline-flex items-center gap-3 transition-colors">
+                        <span class="absolute inset-0 bg-brand-orange transform -translate-x-full transition-transform duration-500 ease-out group-hover:translate-x-0"></span>
+                        <span class="relative z-10 flex items-center gap-2">Quero me posicionar como líder <i data-lucide="arrow-right" class="w-4 h-4"></i></span>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
 
-    <footer class="bg-brand-black py-12 editorial-border-t">
+    <footer class="bg-brand-black py-12">
         <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
             <div class="flex items-center gap-2">
                 <i data-lucide="pen-tool" class="w-4 h-4 text-brand-gold"></i>
@@ -321,8 +331,8 @@
         }
         initLucide();
 
-        // 1. Scroll Reveal Logic
-        const observerOptions = { threshold: 0.15 };
+        // 1. Scroll Reveal Logic (Intersection Observer with dynamic un-blur/translate)
+        const observerOptions = { threshold: 0.1 };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if(entry.isIntersecting) {
