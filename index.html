@@ -711,8 +711,8 @@
             canvas.style.transform = `translateZ(0) scale(${bgScale.toFixed(3)})`;
 
             if (document.body.classList.contains('loaded')) {
-                // Tempos extremamente generosos para evitar quebra no meio da rolagem
-                updateStepOpacity(step1, fraction, -0.05, 0.10, 0.25, 0.35);
+                // Ajuste feito aqui: inEnd de step1 alterado de 0.10 para 0.00 para que em scroll 0 o blur seja 0 e opacidade 1
+                updateStepOpacity(step1, fraction, -0.10, 0.00, 0.25, 0.35);
                 updateStepOpacity(step2, fraction, 0.30, 0.45, 0.60, 0.70);
                 updateStepOpacity(step3, fraction, 0.65, 0.80, 0.95, 1.05);
             }
