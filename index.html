@@ -1,877 +1,270 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="scroll-smooth">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>K-ONE | Assessoria de Imprensa Estratégica</title>
+    <title>K-ONE | Assessoria Estratégica</title>
     
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <style type="text/tailwindcss">
-        @theme {
-            /* Paleta Exata K-ONE */
-            --color-brand-black: #0F1419;
-            --color-brand-dark: #1C2328;
-            --color-brand-light-gray: #A7ADB2;
-            --color-brand-orange: #FF5A1F;
-            --color-brand-orange-dark: #e04e1b;
-            --color-brand-gold: #D4C06A;
-            
-            --font-sans: 'Inter', sans-serif;
-            --font-serif: 'Cormorant Garamond', serif;
-        }
-
+    <style>
         body {
-            background-color: var(--color-brand-black);
-            color: #FFFFFF;
-            font-family: var(--font-sans);
-            -webkit-font-smoothing: antialiased;
-        }
-
-        /* Cinematic Texture Overlay */
-        .noise-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-            opacity: 0.05;
-            pointer-events: none;
-            z-index: 9999;
-        }
-
-        /* Scroll Reveal Utility Classes */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            filter: blur(8px);
-            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-            filter: blur(0);
+            background-color: #0F1419;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden; /* Trava o scroll nativo */
         }
         
-        .delay-100 { transition-delay: 100ms; }
-        .delay-200 { transition-delay: 200ms; }
-        .delay-300 { transition-delay: 300ms; }
-        .delay-400 { transition-delay: 400ms; }
+        .font-serif { font-family: 'Cormorant Garamond', serif; }
 
-        /* Hero Performance Tweaks - Hardware Acceleration */
-        #hero-canvas { will-change: transform; transform: translateZ(0); transform-origin: center center; }
-        .scroll-step { will-change: transform, opacity, filter; transform: translateZ(0); }
-
-        /* Premium Borders */
-        .editorial-border { border: 1px solid rgba(212, 192, 106, 0.15); }
-        .editorial-border-b { border-bottom: 1px solid rgba(212, 192, 106, 0.15); }
-        .editorial-border-t { border-top: 1px solid rgba(212, 192, 106, 0.15); }
-
-        /* Initial Cinematic Load */
-        .reveal-element { opacity: 0; filter: blur(12px); transform: translateY(30px) scale(0.95); }
-        body.loaded .reveal-element { animation: cinematicReveal 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        @keyframes cinematicReveal { to { opacity: 1; filter: blur(0); transform: translateY(0) scale(1); } }
-
-        .delay-1 { animation-delay: 0.1s; }
-        .delay-2 { animation-delay: 0.3s; }
-        .delay-3 { animation-delay: 0.5s; }
-        .delay-4 { animation-delay: 0.7s; }
-
-        /* B2B Glass Card */
-        .glass-card {
-            background: var(--color-brand-dark);
-            border: 1px solid rgba(212, 192, 106, 0.1);
-            transition: all 0.4s ease;
-        }
-        .glass-card:hover {
-            border-color: rgba(255, 90, 31, 0.5);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        /* Noise Overlay Cinematográfico */
+        .noise-overlay {
+            position: fixed; inset: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.05; pointer-events: none; z-index: 9999;
         }
 
-        .glow-cta {
-            box-shadow: 0 0 0 rgba(255, 90, 31, 0);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        /* Motor de Transição (Vanilla substitution for Framer Motion) */
+        .step-container {
+            position: absolute; inset: 0; 
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none;
+            transform: translateY(40px) scale(0.95); filter: blur(12px);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            padding: 0 1.5rem;
         }
-        .glow-cta:hover {
-            box-shadow: 0 8px 25px rgba(255, 90, 31, 0.4);
-            transform: scale(1.02);
+        
+        /* Estado Ativo (Na tela) */
+        .step-container.active {
+            opacity: 1; pointer-events: auto;
+            transform: translateY(0) scale(1); filter: blur(0);
         }
-
-        body.menu-open { overflow: hidden; }
-        ::selection { background: var(--color-brand-orange); color: white; }
-
-        /* Chat Scrollbar & Typing Indicator */
-        .chat-scroll::-webkit-scrollbar { width: 4px; }
-        .chat-scroll::-webkit-scrollbar-track { background: transparent; }
-        .chat-scroll::-webkit-scrollbar-thumb { background: var(--color-brand-gold); border-radius: 4px; opacity: 0.5; }
-
-        .typing-indicator span {
-            display: inline-block;
-            width: 5px; height: 5px;
-            background-color: var(--color-brand-light-gray);
-            border-radius: 50%; margin: 0 2px;
-            animation: bounce 1.4s infinite ease-in-out both;
+        
+        /* Estado de Saída para Cima (Scroll Down) */
+        .step-container.exit-up {
+            transform: translateY(-40px) scale(1.05); filter: blur(12px); opacity: 0;
         }
-        .typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
-        .typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
-        @keyframes bounce {
-            0%, 80%, 100% { transform: scale(0); }
-            40% { transform: scale(1); }
+        
+        /* Estado de Saída para Baixo (Scroll Up) */
+        .step-container.exit-down {
+            transform: translateY(40px) scale(0.95); filter: blur(12px); opacity: 0;
         }
 
-        /* Animação do Chat */
-        #chat-window {
-            transform: translateY(100%);
-            opacity: 0;
-            pointer-events: none;
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
-        }
-        @media (min-width: 768px) {
-            #chat-window {
-                transform: translateY(2rem) scale(0.95);
-            }
-        }
-        #chat-window.chat-open {
-            transform: translateY(0) scale(1);
-            opacity: 1;
-            pointer-events: auto;
-        }
+        .video-bg { transition: opacity 1.5s ease-in-out; }
     </style>
 </head>
-<body class="antialiased font-sans text-white bg-brand-black overflow-x-hidden cursor-auto md:cursor-none">
+<body class="selection:bg-[#FF5A1F] selection:text-white">
 
     <div class="noise-overlay"></div>
 
-    <div id="cursor-follower" class="hidden md:flex fixed top-0 left-0 w-8 h-8 pointer-events-none z-[9998] items-center justify-center mix-blend-screen" style="opacity: 0; will-change: transform;">
-        <div id="cursor-dot" class="w-1.5 h-1.5 bg-brand-orange rounded-full shadow-[0_0_15px_rgba(255,90,31,0.9)] transition-all duration-300 ease-out"></div>
+    <div class="absolute inset-0 z-0 pointer-events-none">
+        <video id="video-0" autoplay loop muted playsinline class="video-bg absolute inset-0 w-full h-full object-cover" style="opacity: 0.3;" src="https://cdn.coverr.co/videos/coverr-dark-abstract-background-4482/1080p.mp4"></video>
+        <video id="video-1" autoplay loop muted playsinline class="video-bg absolute inset-0 w-full h-full object-cover grayscale" style="opacity: 0;" src="https://cdn.coverr.co/videos/coverr-modern-skyscraper-buildings-1555/1080p.mp4"></video>
     </div>
 
-    <div id="loader" style="position:fixed;inset:0;background:var(--color-brand-black);z-index:9999;display:flex;flex-direction:column;justify-content:center;align-items:center;transition:opacity 0.8s ease-out,visibility 0.8s;">
-        <div class="mb-6 mt-4 relative">
-            <div class="absolute -inset-4 border border-brand-gold/30 rotate-45 animate-pulse"></div>
-            <img src="logo sem fundo/WhatsApp_Image_2026-04-20_at_11.52.03-removebg-preview.png" alt="K-ONE Logo" class="h-24 md:h-28 w-auto relative z-10 object-contain" style="image-rendering: -webkit-optimize-contrast;">
-        </div>
-        <div style="width:16rem;height:1px;background:rgba(212,192,106,0.2);overflow:hidden;border-radius:0;margin-top:1.5rem;">
-            <div id="progress-bar" style="height:100%;background:var(--color-brand-orange);transition:width 200ms ease-out;width:0%;"></div>
-        </div>
-        <p id="loading-text" class="text-brand-light-gray mt-4 text-xs font-sans tracking-widest uppercase">Articulando mídia 0%...</p>
-    </div>
+    <header class="absolute top-0 w-full z-50 px-8 py-6 flex justify-between items-center bg-[#0F1419]/80 backdrop-blur-xl border-b border-[#D4C06A]/20 shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
+        <div class="text-2xl font-sans font-extrabold tracking-widest text-white">K-ONE</div>
+        <nav class="hidden md:flex space-x-12 text-[10px] uppercase tracking-[0.2em] text-[#A7ADB2] font-semibold">
+            <span class="hover:text-[#D4C06A] transition-colors cursor-pointer">A Solução</span>
+            <span class="hover:text-[#D4C06A] transition-colors cursor-pointer">Estratégia</span>
+            <span class="hover:text-[#D4C06A] transition-colors cursor-pointer">Especialista</span>
+        </nav>
+        <button class="px-6 py-2.5 bg-[#FF5A1F] text-white text-[10px] font-bold tracking-widest uppercase hover:bg-[#e04e1b] transition-all hover:shadow-[0_8px_25px_rgba(255,90,31,0.4)] rounded-sm">
+            Fale com o Time
+        </button>
+    </header>
 
-    <nav id="main-nav" class="fixed top-0 left-0 w-full z-50 editorial-border-b bg-brand-black/95 backdrop-blur-xl transition-transform duration-300 ease-in-out">
-        <div class="max-w-7xl mx-auto px-4 md:px-6 h-20 flex items-center justify-between">
-            <div class="flex items-center gap-3 group cursor-pointer z-50 relative">
-                <img src="logo sem fundo/WhatsApp_Image_2026-04-20_at_11.52.03-removebg-preview.png" alt="K-ONE Logo" class="h-16 md:h-24 w-auto transform origin-left scale-125 md:scale-150 transition-transform duration-300 object-contain" style="image-rendering: -webkit-optimize-contrast;">
+    <div class="relative z-10 w-full h-full pt-20">
+        
+        <div id="step-0" class="step-container active">
+            <div class="text-center flex flex-col items-center max-w-5xl">
+                <div class="flex items-center justify-center gap-4 mb-8">
+                    <div class="w-12 h-[1px] bg-[#D4C06A]"></div>
+                    <span class="text-[#D4C06A] uppercase tracking-[0.3em] text-xs font-bold font-sans">Editorial de Autoridade</span>
+                    <div class="w-12 h-[1px] bg-[#D4C06A]"></div>
+                </div>
+
+                <h1 class="text-5xl md:text-8xl font-serif text-white mb-8 leading-[1.05] tracking-tight">
+                    Atenção não se compra. <br />
+                    <span class="italic text-[#A7ADB2] font-light">Se conquista na </span>
+                    <span class="text-white font-bold relative inline-block">
+                        Mídia.
+                        <span class="absolute bottom-2 left-0 w-full h-3 bg-[#FF5A1F] -z-10"></span>
+                    </span>
+                </h1>
+
+                <p class="text-lg md:text-xl text-[#A7ADB2] max-w-3xl font-light leading-relaxed mb-12">
+                    Assessoria de imprensa estratégica para líderes, empresas e especialistas que desejam dominar o mercado sem depender exclusivamente de anúncios pagos.
+                </p>
             </div>
-            
-            <div class="hidden md:flex items-center gap-8 text-xs font-semibold tracking-widest uppercase text-brand-light-gray font-sans">
-                <a href="#plataforma" class="hover:text-brand-gold transition-colors">A Solução</a>
-                <a href="#servicos" class="hover:text-brand-gold transition-colors">Estratégia</a>
-                <a href="#sobre" class="hover:text-brand-gold transition-colors">Especialista</a>
+        </div>
+
+        <div id="step-1" class="step-container exit-down">
+            <div class="w-full max-w-6xl flex flex-col items-center">
+                <h2 class="text-4xl font-serif font-bold text-white mb-12 uppercase tracking-widest">Nossa Metodologia</h2>
+                
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 w-full text-left">
+                    <div class="bg-[#1C2328]/80 backdrop-blur-2xl border border-[#D4C06A]/10 border-t-2 border-t-[#D4C06A] p-8 hover:border-[#FF5A1F]/50 hover:-translate-y-2 transition-all duration-500 rounded-sm">
+                        <h3 class="text-lg font-serif font-bold text-white mb-3">Pautas Únicas</h3>
+                        <p class="text-sm text-[#A7ADB2] leading-relaxed font-sans">Transformamos sua expertise técnica em notícia relevante.</p>
+                    </div>
+                    <div class="bg-[#1C2328]/80 backdrop-blur-2xl border border-[#D4C06A]/10 border-t-2 border-t-[#D4C06A] p-8 hover:border-[#FF5A1F]/50 hover:-translate-y-2 transition-all duration-500 rounded-sm">
+                        <h3 class="text-lg font-serif font-bold text-white mb-3">Visão Nacional</h3>
+                        <p class="text-sm text-[#A7ADB2] leading-relaxed font-sans">Presença orgânica focada na grande imprensa e editorias chave.</p>
+                    </div>
+                    <div class="bg-[#1C2328]/80 backdrop-blur-2xl border border-[#D4C06A]/10 border-t-2 border-t-[#D4C06A] p-8 hover:border-[#FF5A1F]/50 hover:-translate-y-2 transition-all duration-500 rounded-sm">
+                        <h3 class="text-lg font-serif font-bold text-white mb-3">Gestão Imagem</h3>
+                        <p class="text-sm text-[#A7ADB2] leading-relaxed font-sans">Media training para líderes e desenvolvimento de palestras.</p>
+                    </div>
+                    <div class="bg-[#1C2328]/80 backdrop-blur-2xl border border-[#D4C06A]/10 border-t-2 border-t-[#D4C06A] p-8 hover:border-[#FF5A1F]/50 hover:-translate-y-2 transition-all duration-500 rounded-sm">
+                        <h3 class="text-lg font-serif font-bold text-white mb-3">Clipagem Ativa</h3>
+                        <p class="text-sm text-[#A7ADB2] leading-relaxed font-sans">Monitoramento de todo o material publicado com precisão.</p>
+                    </div>
+                </div>
             </div>
-            
-            <div class="flex items-center gap-3 z-50 relative">
-                <a href="#contato" class="glow-cta group relative px-5 md:px-8 py-2 md:py-3.5 bg-brand-orange text-white text-[10px] md:text-xs font-sans font-bold tracking-widest uppercase overflow-hidden inline-block transition-colors rounded-sm">
-                    <span class="absolute inset-0 bg-brand-orange-dark transform -translate-x-full transition-transform duration-500 ease-out group-hover:translate-x-0"></span>
-                    <span class="relative z-10">Fale com o Time</span>
-                </a>
-                <button id="mobile-menu-btn" class="md:hidden text-white p-2 focus:outline-none">
-                    <i data-lucide="menu" class="w-6 h-6"></i>
+        </div>
+
+        <div id="step-2" class="step-container exit-down">
+            <div class="w-full max-w-6xl flex flex-col md:flex-row gap-8 items-center justify-center text-left">
+                <div class="flex-1 bg-[#1C2328]/60 backdrop-blur-xl border border-[#D4C06A]/15 p-10 hover:bg-[#1C2328] transition-all duration-500 rounded-sm">
+                    <div class="w-14 h-14 bg-[#0F1419] flex items-center justify-center rounded-full mb-6 border border-[#D4C06A]/20">
+                        <i data-lucide="send" class="w-6 h-6 text-[#FF5A1F]"></i>
+                    </div>
+                    <h3 class="text-2xl font-serif font-bold text-white mb-4">Mailing Estratégico</h3>
+                    <p class="text-sm text-[#A7ADB2] font-light leading-relaxed">Acesso e relacionamento com uma rede exclusiva de contatos de jornalistas e editores.</p>
+                </div>
+                <div class="flex-1 bg-[#1C2328]/60 backdrop-blur-xl border border-[#D4C06A]/15 p-10 hover:bg-[#1C2328] transition-all duration-500 rounded-sm">
+                    <div class="w-14 h-14 bg-[#0F1419] flex items-center justify-center rounded-full mb-6 border border-[#D4C06A]/20">
+                        <i data-lucide="eye" class="w-6 h-6 text-[#FF5A1F]"></i>
+                    </div>
+                    <h3 class="text-2xl font-serif font-bold text-white mb-4">Cobertura Completa</h3>
+                    <p class="text-sm text-[#A7ADB2] font-light leading-relaxed">Monitoramento de menções sobre sua marca em rádio, TV e portais com autonomia.</p>
+                </div>
+                <div class="flex-1 bg-[#1C2328]/60 backdrop-blur-xl border border-[#D4C06A]/15 p-10 hover:bg-[#1C2328] transition-all duration-500 rounded-sm">
+                    <div class="w-14 h-14 bg-[#0F1419] flex items-center justify-center rounded-full mb-6 border border-[#D4C06A]/20">
+                        <i data-lucide="shield" class="w-6 h-6 text-[#FF5A1F]"></i>
+                    </div>
+                    <h3 class="text-2xl font-serif font-bold text-white mb-4">Imagem & Liderança</h3>
+                    <p class="text-sm text-[#A7ADB2] font-light leading-relaxed">Trabalhamos sua reputação. De executivos C-Level a atletas da Stock Car.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="step-3" class="step-container exit-down">
+            <div class="w-full max-w-4xl text-center flex flex-col items-center">
+                <div class="w-16 h-16 bg-[#0F1419] border border-[#D4C06A] rounded-full flex items-center justify-center mb-8 shadow-[0_0_20px_rgba(212,192,106,0.2)]">
+                    <i data-lucide="award" class="w-8 h-8 text-[#D4C06A]"></i>
+                </div>
+                
+                <h2 class="text-5xl md:text-7xl font-serif text-white font-normal mb-2 leading-[1.1] tracking-tight">
+                    Autoridade não se compra.
+                </h2>
+                <h3 class="text-5xl md:text-7xl font-serif text-[#FF5A1F] italic font-bold mb-10 leading-[1.1]">
+                    Se constrói.
+                </h3>
+
+                <div class="flex flex-wrap justify-center items-center gap-6 mb-12">
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="target" class="w-5 h-5 text-[#D4C06A]"></i>
+                        <span class="text-xs font-sans font-semibold tracking-[0.2em] uppercase text-[#A7ADB2]">Estratégia</span>
+                    </div>
+                    <span class="w-1.5 h-1.5 bg-[#D4C06A]/50 rounded-full"></span>
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="zap" class="w-5 h-5 text-[#D4C06A]"></i>
+                        <span class="text-xs font-sans font-semibold tracking-[0.2em] uppercase text-[#A7ADB2]">Exposição</span>
+                    </div>
+                    <span class="w-1.5 h-1.5 bg-[#D4C06A]/50 rounded-full"></span>
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="trending-up" class="w-5 h-5 text-[#D4C06A]"></i>
+                        <span class="text-xs font-sans font-semibold tracking-[0.2em] uppercase text-[#A7ADB2]">Resultados</span>
+                    </div>
+                </div>
+
+                <button class="inline-flex items-center gap-3 px-10 py-5 bg-[#FF5A1F] text-white text-xs font-sans font-bold tracking-[0.2em] uppercase rounded-sm hover:bg-[#e04e1b] transition-all shadow-[0_10px_30px_rgba(255,90,31,0.3)] hover:scale-105">
+                    Solicitar Consultoria K-ONE <i data-lucide="arrow-right" class="w-4 h-4"></i>
                 </button>
             </div>
         </div>
-    </nav>
 
-    <div id="mobile-menu" class="fixed inset-0 bg-brand-black/98 backdrop-blur-3xl z-40 transform translate-x-full transition-transform duration-500 ease-in-out flex flex-col items-center justify-center gap-8 opacity-0 pointer-events-none">
-        <a href="#plataforma" class="mobile-link text-3xl font-serif font-bold text-white hover:text-brand-orange transition-colors">A Solução</a>
-        <a href="#servicos" class="mobile-link text-3xl font-serif font-bold text-white hover:text-brand-orange transition-colors">Estratégia</a>
-        <a href="#sobre" class="mobile-link text-3xl font-serif font-bold text-white hover:text-brand-orange transition-colors">Especialista</a>
-        <div class="w-12 h-[1px] bg-brand-gold/30 my-4"></div>
-        <div class="flex gap-6">
-            <a href="#" class="text-brand-light-gray hover:text-brand-orange transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-            </a>
-            <a href="#" class="text-brand-light-gray hover:text-brand-orange transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-            </a>
-        </div>
     </div>
 
-    <section id="scroll-hero" style="height:400vh;position:relative;touch-action:pan-y;">
-        <div style="position:sticky;top:0;height:100dvh;width:100%;overflow:hidden;">
-            <canvas id="hero-canvas" style="position:absolute;inset:0;width:100%;height:100%;"></canvas>
-            <div style="position:absolute;inset:0;background:linear-gradient(to top, #0F1419 5%, rgba(15,20,25,0.85) 50%, rgba(15,20,25,0.4) 100%);z-index:1;"></div>
-            <div class="absolute inset-6 md:inset-10 border border-brand-gold/20 z-[2] pointer-events-none hidden md:block"></div>
-            
-            <div class="absolute top-28 right-12 z-[3] hidden lg:block reveal-element delay-2 text-right">
-                <span class="text-brand-gold font-serif italic text-lg tracking-wider">Notícias</span>
-                <div class="w-16 h-[2px] bg-brand-gold/50 mt-1 ml-auto"></div>
-            </div>
-
-            <div id="hero-content-group" style="position:absolute;inset:0;z-index:2;">
-                
-                <div id="step-1" class="scroll-step absolute inset-0 flex flex-col justify-center items-center px-6 md:px-16 w-full max-w-5xl mx-auto pt-20">
-                    <div class="reveal-element delay-1 flex items-center justify-center gap-4 mb-6 md:mb-8">
-                        <div class="w-8 md:w-16 h-[1px] bg-brand-gold"></div>
-                        <span class="text-brand-gold uppercase tracking-[0.2em] md:tracking-[0.3em] text-[10px] md:text-sm font-bold font-sans">Editorial de Autoridade</span>
-                        <div class="w-8 md:w-16 h-[1px] bg-brand-gold"></div>
-                    </div>
-
-                    <h1 class="reveal-element delay-2 text-5xl sm:text-6xl md:text-8xl lg:text-[6rem] font-serif text-white mb-6 md:mb-8 leading-[1.05] tracking-tight text-center">
-                        Atenção não se compra. <br>
-                        <span class="italic text-brand-light-gray font-light">Se conquista na</span>
-                        <span class="text-white font-bold relative inline-block">Mídia.
-                            <span class="absolute bottom-1 md:bottom-2 left-0 w-full h-2 md:h-3 bg-brand-orange -z-10"></span>
-                        </span>
-                    </h1>
-
-                    <p class="reveal-element delay-3 text-sm sm:text-base md:text-xl text-brand-light-gray max-w-3xl font-light leading-relaxed mb-10 md:mb-16 text-center text-balance mx-auto font-sans">
-                        Assessoria de imprensa estratégica para líderes, empresas e especialistas que desejam dominar o mercado sem depender exclusivamente de anúncios pagos.
-                    </p>
-
-                    <div class="reveal-element delay-4 flex items-center justify-center gap-2 text-[10px] md:text-xs text-brand-light-gray font-sans tracking-widest uppercase">
-                        <i data-lucide="mouse" class="w-4 h-4 md:w-5 md:h-5 animate-bounce text-brand-gold"></i>
-                        <span>Role para descobrir</span>
-                    </div>
-                </div>
-
-                <div id="step-2" class="scroll-step absolute inset-0 flex flex-col items-center justify-center px-4 md:px-12 w-full max-w-7xl mx-auto opacity-0 pointer-events-none pt-20">
-                    <h2 class="text-3xl md:text-5xl font-serif font-bold text-white mb-8 md:mb-12 text-center uppercase tracking-wider">
-                        Nossa Metodologia
-                    </h2>
-                    <div class="w-full grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6 text-left">
-                        <div class="glass-card p-5 md:p-8 rounded-sm border-t-2 border-t-brand-gold">
-                            <i data-lucide="file-text" class="w-6 h-6 md:w-8 md:h-8 text-brand-gold mb-3 md:mb-5"></i>
-                            <h3 class="text-base md:text-lg font-serif font-bold text-white mb-2">Pautas Únicas</h3>
-                            <p class="text-[11px] md:text-sm text-brand-light-gray leading-relaxed hidden sm:block font-sans">Transformamos sua expertise técnica em uma <span class="text-brand-orange font-semibold">notícia</span> relevante.</p>
-                        </div>
-                        <div class="glass-card p-5 md:p-8 rounded-sm border-t-2 border-t-brand-gold">
-                            <i data-lucide="globe" class="w-6 h-6 md:w-8 md:h-8 text-brand-gold mb-3 md:mb-5"></i>
-                            <h3 class="text-base md:text-lg font-serif font-bold text-white mb-2">Visão Nacional</h3>
-                            <p class="text-[11px] md:text-sm text-brand-light-gray leading-relaxed hidden sm:block font-sans">Presença orgânica focada na grande imprensa e editorias chave.</p>
-                        </div>
-                        <div class="glass-card p-5 md:p-8 rounded-sm border-t-2 border-t-brand-gold">
-                            <i data-lucide="mic" class="w-6 h-6 md:w-8 md:h-8 text-brand-gold mb-3 md:mb-5"></i>
-                            <h3 class="text-base md:text-lg font-serif font-bold text-white mb-2">Gestão Imagem</h3>
-                            <p class="text-[11px] md:text-sm text-brand-light-gray leading-relaxed hidden sm:block font-sans">Media training para líderes e desenvolvimento de palestras.</p>
-                        </div>
-                        <div class="glass-card p-5 md:p-8 rounded-sm border-t-2 border-t-brand-gold">
-                            <i data-lucide="bar-chart-2" class="w-6 h-6 md:w-8 md:h-8 text-brand-gold mb-3 md:mb-5"></i>
-                            <h3 class="text-base md:text-lg font-serif font-bold text-white mb-2">Clipagem Ativa</h3>
-                            <p class="text-[11px] md:text-sm text-brand-light-gray leading-relaxed hidden sm:block font-sans">Monitoramento de todo o material publicado com precisão.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="step-3" class="scroll-step absolute inset-0 flex flex-col items-center justify-center px-4 w-full max-w-4xl mx-auto opacity-0 pointer-events-none">
-                    
-                    <div class="text-center w-full relative z-10 flex flex-col items-center">
-                        
-                        <div class="w-12 h-12 md:w-14 md:h-14 bg-brand-black border border-brand-gold rounded-full flex items-center justify-center mb-8 shadow-[0_0_15px_rgba(212,192,106,0.2)]">
-                            <i data-lucide="award" class="w-5 h-5 md:w-6 md:h-6 text-brand-gold"></i>
-                        </div>
-
-                        <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-[5.5rem] font-serif text-white font-normal mb-1 leading-[1.1] tracking-tight">
-                            Autoridade não se<br/>compra.
-                        </h2>
-                        
-                        <h3 class="text-4xl sm:text-5xl md:text-6xl lg:text-[5.5rem] font-serif text-brand-orange italic font-bold mb-8 leading-[1.1] tracking-tight">
-                            Se constrói.
-                        </h3>
-
-                        <p class="text-sm md:text-lg text-brand-light-gray max-w-xl mx-auto font-light leading-relaxed mb-10 text-balance font-sans">
-                            Da estratégia à exposição, posicionamos sua<br class="hidden md:block"> marca nos lugares que <strong class="text-white font-medium">realmente importam.</strong>
-                        </p>
-
-                        <div class="flex flex-wrap justify-center items-center gap-4 md:gap-8">
-                            <div class="flex items-center gap-2">
-                                <i data-lucide="target" class="w-4 h-4 md:w-5 md:h-5 text-brand-gold"></i>
-                                <span class="text-[10px] md:text-xs font-sans font-semibold tracking-[0.2em] uppercase text-brand-light-gray">Estratégia</span>
-                            </div>
-                            
-                            <span class="w-1 h-1 bg-brand-gold/50 rounded-full hidden sm:block"></span>
-                            
-                            <div class="flex items-center gap-2">
-                                <i data-lucide="zap" class="w-4 h-4 md:w-5 md:h-5 text-brand-gold"></i>
-                                <span class="text-[10px] md:text-xs font-sans font-semibold tracking-[0.2em] uppercase text-brand-light-gray">Exposição</span>
-                            </div>
-                            
-                            <span class="w-1 h-1 bg-brand-gold/50 rounded-full hidden sm:block"></span>
-                            
-                            <div class="flex items-center gap-2">
-                                <i data-lucide="trending-up" class="w-4 h-4 md:w-5 md:h-5 text-brand-gold"></i>
-                                <span class="text-[10px] md:text-xs font-sans font-semibold tracking-[0.2em] uppercase text-brand-light-gray">Resultados</span>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <section class="bg-[var(--color-brand-black)] py-12 md:py-16 editorial-border-b relative z-10">
-        <div class="max-w-7xl mx-auto px-6 text-center reveal">
-            <p class="text-[10px] md:text-xs font-sans text-brand-light-gray font-bold tracking-[0.2em] uppercase mb-8">Nossos clientes conquistam as principais manchetes</p>
-            <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
-                <h4 class="text-2xl md:text-3xl font-serif font-bold text-white tracking-widest uppercase">Forbes</h4>
-                <h4 class="text-2xl md:text-3xl font-serif font-bold text-white italic">Exame.</h4>
-                <h4 class="text-2xl md:text-3xl font-sans font-black text-white uppercase tracking-tighter">Estadão</h4>
-                <h4 class="text-2xl md:text-3xl font-serif font-bold text-white">Valor Econômico</h4>
-            </div>
-        </div>
-    </section>
-
-    <section id="plataforma" class="bg-[var(--color-brand-black)] text-white py-24 md:py-32 relative editorial-border-b">
-        <div class="max-w-7xl mx-auto px-6 text-center max-w-4xl reveal">
-            <h2 class="text-3xl md:text-5xl font-serif font-bold leading-tight mb-8">
-                Conectando marcas aos seus públicos com <span class="text-brand-orange italic">tecnologia e estratégia</span>
-            </h2>
-            <p class="text-lg md:text-xl text-brand-light-gray font-light leading-relaxed mb-10 font-sans">
-                A K-ONE atua como uma solução Top of Mind para empresas, executivos e atletas que buscam <strong class="text-white font-medium">credibilidade e confiança</strong>. Ajudamos você a alcançar a mídia de grande impacto com eficiência e resultados totalmente mensuráveis.
-            </p>
-            
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-12 mt-16 text-left border-t border-brand-gold/10 pt-16">
-                <div class="reveal delay-100">
-                    <h4 class="text-4xl md:text-5xl font-serif font-bold text-brand-orange mb-2"><span class="number-counter" data-target="3">0</span>x</h4>
-                    <p class="text-xs md:text-sm text-brand-light-gray font-sans">Mais eficiência no envio e aprovação de pautas nos veículos.</p>
-                </div>
-                <div class="reveal delay-200">
-                    <h4 class="text-4xl md:text-5xl font-serif font-bold text-brand-orange mb-2">+Alto</h4>
-                    <p class="text-xs md:text-sm text-brand-light-gray font-sans">Nível de relacionamento com os principais jornalistas do país.</p>
-                </div>
-                <div class="col-span-2 md:col-span-1 reveal delay-300">
-                    <h4 class="text-4xl md:text-5xl font-serif font-bold text-brand-orange mb-2"><span class="number-counter" data-target="100">0</span>%</h4>
-                    <p class="text-xs md:text-sm text-brand-light-gray font-sans">De foco na gestão ativa da sua reputação na mídia e em eventos.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="servicos" class="py-24 md:py-32 bg-[var(--color-brand-dark)] relative">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16 md:mb-24 reveal">
-                <h2 class="text-4xl md:text-5xl font-serif font-bold text-white mb-4">Conectamos sua marca aos lugares onde a atenção vira autoridade.</h2>
-                <p class="text-brand-light-gray max-w-2xl mx-auto font-sans">Nossas soluções potencializam a chegada do seu conteúdo à grande mídia.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-                <div class="glass-card p-8 md:p-10 rounded-sm reveal">
-                    <div class="w-14 h-14 bg-brand-black flex items-center justify-center rounded-full mb-6 border border-brand-gold/20">
-                        <i data-lucide="send" class="w-6 h-6 text-brand-orange"></i>
-                    </div>
-                    <h3 class="text-2xl font-serif font-bold text-white mb-3">Mailing Estratégico</h3>
-                    <p class="text-sm text-brand-light-gray font-light leading-relaxed font-sans">Sua pauta no lugar certo. Acesso e relacionamento com uma rede exclusiva de contatos de jornalistas e editores em todo o Brasil.</p>
-                </div>
-                <div class="glass-card p-8 md:p-10 rounded-sm reveal delay-100">
-                    <div class="w-14 h-14 bg-brand-black flex items-center justify-center rounded-full mb-6 border border-brand-gold/20">
-                        <i data-lucide="eye" class="w-6 h-6 text-brand-orange"></i>
-                    </div>
-                    <h3 class="text-2xl font-serif font-bold text-white mb-3">Cobertura Completa</h3>
-                    <p class="text-sm text-brand-light-gray font-light leading-relaxed font-sans">Monitoramento de menções sobre sua marca em rádio, TV, portais e mídias impressas com autonomia e clipagem detalhada.</p>
-                </div>
-                <div class="glass-card p-8 md:p-10 rounded-sm reveal delay-200">
-                    <div class="w-14 h-14 bg-brand-black flex items-center justify-center rounded-full mb-6 border border-brand-gold/20">
-                        <i data-lucide="shield" class="w-6 h-6 text-brand-orange"></i>
-                    </div>
-                    <h3 class="text-2xl font-serif font-bold text-white mb-3">Imagem & Liderança</h3>
-                    <p class="text-sm text-brand-light-gray font-light leading-relaxed font-sans">Trabalhamos sua reputação de forma mensurável. De executivos C-Level a atletas da Stock Car, transformamos você em autoridade.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="sobre" class="bg-[var(--color-brand-black)] text-white py-24 md:py-32 relative editorial-border-b">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-16 items-center">
-                
-                <div class="lg:col-span-5 reveal">
-                    <div class="relative max-w-sm mx-auto lg:mx-0">
-                        <div class="absolute -inset-2 bg-gradient-to-r from-brand-orange to-brand-gold rounded-xl opacity-20 blur-lg"></div>
-                        <img src="perfil.jpg/WhatsApp Image 2026-04-20 at 11.51.27.jpeg" alt="Liderança Estratégica" class="relative z-10 w-full h-auto rounded-xl grayscale hover:grayscale-0 transition-all duration-500 border border-white/10">
-                        
-                        <div class="absolute -bottom-6 right-6 bg-[var(--color-brand-dark)] border border-brand-gold/30 px-6 py-4 rounded-sm shadow-2xl z-20">
-                            <div class="text-2xl md:text-3xl font-sans font-extrabold text-white tracking-tight uppercase">K-ONE</div>
-                            <p class="text-brand-orange font-sans font-bold text-[9px] tracking-[0.1em] uppercase mt-1.5">Estratégia Comprovada</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="lg:col-span-7 reveal delay-200 lg:pl-10">
-                    <h2 class="text-4xl md:text-5xl font-serif font-bold leading-tight mb-8">
-                        A ferramenta ideal para trabalhar a <span class="text-brand-orange italic">sua reputação</span>.
-                    </h2>
-                    
-                    <div class="bg-[var(--color-brand-dark)] p-8 md:p-10 rounded-sm border-l-4 border-brand-orange mb-8 relative">
-                        <i data-lucide="quote" class="absolute top-6 right-6 w-12 h-12 text-white/5"></i>
-                        <p class="text-brand-light-gray font-light text-base md:text-lg leading-relaxed mb-6 relative z-10 font-sans">
-                            "A K-ONE é um acelerador. Ela potencializa de forma incomparável a chegada do conteúdo dos nossos clientes aos principais jornalistas e veículos de comunicação. Nosso formato garante que você seja percebido como a principal autoridade do seu setor."
-                        </p>
-                        <p class="text-white font-sans font-bold text-[10px] uppercase tracking-widest">Metodologia Exclusiva K-One</p>
-                    </div>
-
-                    <a href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Gostaria%20de%20entender%20como%20a%20K-ONE%20pode%20acelerar%20minha%20autoridade." target="_blank" class="glow-cta inline-flex items-center gap-2 px-8 py-4 bg-brand-orange text-white text-xs font-sans font-bold tracking-widest uppercase rounded-sm">
-                        Quero ser uma autoridade <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                    </a>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <footer class="bg-brand-black py-10 md:py-12">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-            <div class="flex items-center gap-2">
-                
-            </div>
-            <div class="text-[10px] text-brand-light-gray/50 uppercase tracking-widest text-center md:text-left font-sans">
-                Copyright © 2026 - K-ONE Assessoria. Todos os direitos reservados.
-            </div>
-            <div class="flex gap-6">
-                <a href="#" class="text-brand-light-gray/70 hover:text-brand-orange transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-                </a>
-                <a href="#" class="text-brand-light-gray/70 hover:text-brand-orange transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-                </a>
-            </div>
-        </div>
-    </footer>
-
-    <button id="chat-toggle-btn" class="fixed bottom-6 right-6 md:bottom-10 md:right-10 z-[90] group flex items-center justify-center transition-transform duration-300 hover:scale-110 hover:-translate-y-2 cursor-pointer focus:outline-none">
-        <div class="absolute inset-0 bg-[#25D366] rounded-full blur-xl opacity-20 group-hover:opacity-60 transition-opacity duration-300"></div>
-        <img src="midia w/3d-icon-social-media-app.png" alt="WhatsApp Atendimento" class="relative w-12 h-12 md:w-16 md:h-16 object-contain filter drop-shadow-[0_10px_20px_rgba(37,211,102,0.3)]">
-    </button>
-
-    <div id="chat-window" class="fixed inset-0 w-full md:inset-auto md:bottom-28 md:right-10 md:w-[380px] md:h-[520px] md:rounded-2xl bg-brand-dark/98 md:bg-brand-dark/95 backdrop-blur-3xl border border-brand-gold/30 shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-[9999] flex flex-col">
-        <div class="w-full shrink-0 p-4 border-b border-brand-gold/20 flex items-center justify-between bg-brand-black/50 rounded-none md:rounded-t-2xl pt-[calc(1rem+env(safe-area-inset-top))]">
-            <div class="flex items-center gap-3">
-                <div class="relative w-10 h-10">
-                    <div class="w-full h-full rounded-full border-2 border-brand-orange overflow-hidden bg-brand-black flex items-center justify-center">
-                        <img src="assetschat/camila.jpg.jpg" alt="Camila" class="w-full h-full object-cover">
-                    </div>
-                    <div class="absolute bottom-0 right-0 w-3 h-3 bg-[#25D366] rounded-full border-2 border-brand-dark z-10"></div>
-                </div>
-                <div>
-                    <h4 class="text-sm font-serif font-bold text-white leading-none mb-1">Camila</h4>
-                    <span class="text-[9px] font-sans text-brand-light-gray uppercase tracking-widest">Online agora</span>
-                </div>
-            </div>
-            <button id="close-chat-btn" class="text-brand-light-gray hover:text-brand-orange transition-colors focus:outline-none p-2 -mr-2 cursor-pointer">
-                <i data-lucide="chevron-down" class="w-6 h-6 md:hidden"></i>
-                <i data-lucide="x" class="w-5 h-5 hidden md:block"></i>
-            </button>
-        </div>
-
-        <div id="chat-messages" class="flex-1 p-4 overflow-y-auto chat-scroll flex flex-col gap-4 text-sm font-sans pb-6">
-            </div>
-
-        <div class="w-full shrink-0 p-3 md:p-4 border-t border-brand-gold/20 bg-brand-black/50 md:rounded-b-2xl pb-[calc(1rem+env(safe-area-inset-bottom))]">
-            <form id="chat-form" class="flex items-center gap-2 w-full">
-                <input type="text" id="chat-input" placeholder="Digite sua mensagem..." class="flex-1 w-full bg-brand-dark border border-brand-gold/20 text-white text-base md:text-sm rounded-full px-4 py-3 focus:outline-none focus:border-brand-orange transition-colors placeholder-brand-light-gray/50 font-sans" autocomplete="off">
-                <button type="submit" class="shrink-0 w-10 h-10 rounded-full bg-brand-orange text-white flex items-center justify-center hover:bg-brand-orange-dark transition-colors focus:outline-none shadow-[0_0_10px_rgba(255,90,31,0.3)] cursor-pointer">
-                    <i data-lucide="send" class="w-4 h-4 ml-0.5"></i>
-                </button>
-            </form>
+    <div class="absolute bottom-10 w-full flex flex-col items-center z-50 pointer-events-none">
+        <div class="flex space-x-4">
+            <div id="ind-0" class="transition-all duration-700 rounded-full w-12 h-[3px] bg-[#FF5A1F]"></div>
+            <div id="ind-1" class="transition-all duration-700 rounded-full w-4 h-[3px] bg-white/20"></div>
+            <div id="ind-2" class="transition-all duration-700 rounded-full w-4 h-[3px] bg-white/20"></div>
+            <div id="ind-3" class="transition-all duration-700 rounded-full w-4 h-[3px] bg-white/20"></div>
         </div>
     </div>
 
     <script>
-        function initLucide(){
-            if(window.lucide){ lucide.createIcons(); } 
-            else { setTimeout(initLucide, 50); }
-        }
-        initLucide();
+        // Inicializa os ícones Lucide
+        lucide.createIcons();
 
-        // --- Motor Custom Cursor Premium (Apenas Desktop) ---
-        const follower = document.getElementById('cursor-follower');
-        const dot = document.getElementById('cursor-dot');
-        let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
-        let followerX = mouseX, followerY = mouseY;
-        let isHovering = false;
+        // O Cérebro do "Single Screen Transition" em Vanilla JS
+        let currentStep = 0;
+        const totalSteps = 4;
+        let isThrottled = false;
 
-        // Ativa o custom cursor apenas se o dispositivo usar mouse preciso (não mobile/touch)
-        if (window.matchMedia("(pointer: fine)").matches) {
-            window.addEventListener('mousemove', (e) => {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-                if (follower.style.opacity === '0') follower.style.opacity = '1';
-            });
+        function updateView(newStep) {
+            if (newStep < 0 || newStep >= totalSteps) return;
+            
+            // 1. Crossfade Cinematográfico dos vídeos
+            document.getElementById('video-0').style.opacity = newStep === 0 ? '0.3' : '0';
+            document.getElementById('video-1').style.opacity = newStep > 0 ? '0.2' : '0';
 
-            // Inteligência de Hover: Expande para virar Glassmorphism ao passar em elementos interativos
-            const interactables = document.querySelectorAll('a, button, input');
-            interactables.forEach(el => {
-                el.addEventListener('mouseenter', () => {
-                    dot.classList.remove('w-1.5', 'h-1.5', 'bg-brand-orange');
-                    dot.classList.add('w-10', 'h-10', 'bg-brand-gold/20', 'border', 'border-brand-gold/40', 'backdrop-blur-[2px]');
-                });
-                el.addEventListener('mouseleave', () => {
-                    dot.classList.add('w-1.5', 'h-1.5', 'bg-brand-orange');
-                    dot.classList.remove('w-10', 'h-10', 'bg-brand-gold/20', 'border', 'border-brand-gold/40', 'backdrop-blur-[2px]');
-                });
-            });
-
-            function renderCursor() {
-                // Matemática de Inércia Linear (Lerp) para fluidez do rastro
-                followerX += (mouseX - followerX) * 0.15;
-                followerY += (mouseY - followerY) * 0.15;
-                // Compensa a largura do wrapper (w-8 h-8 = 32px -> offset -16px)
-                follower.style.transform = `translate3d(${followerX - 16}px, ${followerY - 16}px, 0)`; 
-                requestAnimationFrame(renderCursor);
-            }
-            requestAnimationFrame(renderCursor);
-        }
-
-        // --- Navegação Inteligente (Hide on Scroll) ---
-        let lastScrollTop = 0;
-        const mainNav = document.getElementById('main-nav');
-        window.addEventListener('scroll', () => {
-            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            if (scrollTop > lastScrollTop && scrollTop > 80) {
-                mainNav.style.transform = 'translateY(-100%)';
-            } else {
-                mainNav.style.transform = 'translateY(0)';
-            }
-            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-        }, { passive: true });
-
-        const btnMenu = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const mobileLinks = document.querySelectorAll('.mobile-link');
-        const iconMenu = btnMenu.querySelector('i');
-
-        function toggleMenu() {
-            const isOpen = mobileMenu.classList.contains('translate-x-0');
-            if (isOpen) {
-                mobileMenu.classList.remove('translate-x-0', 'opacity-100', 'pointer-events-auto');
-                mobileMenu.classList.add('translate-x-full', 'opacity-0', 'pointer-events-none');
-                document.body.classList.remove('menu-open');
-                iconMenu.setAttribute('data-lucide', 'menu');
-            } else {
-                mobileMenu.classList.remove('translate-x-full', 'opacity-0', 'pointer-events-none');
-                mobileMenu.classList.add('translate-x-0', 'opacity-100', 'pointer-events-auto');
-                document.body.classList.add('menu-open');
-                iconMenu.setAttribute('data-lucide', 'x');
-            }
-            lucide.createIcons();
-        }
-
-        btnMenu.addEventListener('click', toggleMenu);
-        mobileLinks.forEach(link => { link.addEventListener('click', toggleMenu); });
-
-        const observerOptions = { threshold: 0.1 };
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if(entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-        let targetScrollY = window.scrollY;
-        let smoothedScrollY = window.scrollY;
-        window.addEventListener('scroll', () => { targetScrollY = window.scrollY; }, { passive: true });
-
-        const frameCount = 128; 
-        const images = [];
-        let loadedCount = 0;
-        const baseUrl = "ezgif-frame-"; 
-        const loaderEl = document.getElementById('loader');
-        const progressBar = document.getElementById('progress-bar');
-
-        for (let i = 1; i <= frameCount; i++) {
-            const img = new Image();
-            const frameNumber = i.toString().padStart(3, '0');
-            img.src = `${baseUrl}${frameNumber}.jpg`;
-            img.onload = () => {
-                loadedCount++;
-                progressBar.style.width = `${Math.floor((loadedCount / frameCount) * 100)}%`;
-                if (loadedCount === 1) setupCanvas();
-                if (loadedCount === frameCount) {
-                    setTimeout(() => {
-                        loaderEl.style.opacity = '0';
-                        loaderEl.style.visibility = 'hidden';
-                        document.body.style.overflowY = 'auto';
-                        document.body.classList.remove('overflow-hidden');
-                        document.body.classList.add('loaded');
-                    }, 600);
-                }
-            };
-            img.onerror = () => { loadedCount++; };
-            images.push(img);
-        }
-
-        const canvas = document.getElementById("hero-canvas");
-        const context = canvas.getContext("2d", { alpha: false });
-        const heroEl = document.getElementById("scroll-hero");
-        const step1 = document.getElementById("step-1");
-        const step2 = document.getElementById("step-2");
-        const step3 = document.getElementById("step-3");
-        
-        let lastWinWidth = window.innerWidth;
-        let lastWinHeight = window.innerHeight;
-
-        function setupCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-
-        function drawCover(img) {
-            if (!img || !img.complete) return;
-            const canvasRatio = canvas.width / canvas.height;
-            const imgRatio = img.width / img.height;
-            let rw, rh, ox = 0, oy = 0;
-            if (canvasRatio > imgRatio) {
-                rw = canvas.width; rh = img.height * (canvas.width / img.width); oy = (canvas.height - rh) / 2;
-            } else {
-                rh = canvas.height; rw = img.width * (canvas.height / img.height); ox = (canvas.width - rw) / 2;
-            }
-            context.fillStyle = "#0F1419"; 
-            context.fillRect(0, 0, canvas.width, canvas.height);
-            context.drawImage(img, ox, oy, rw, rh);
-        }
-
-        function handleSmartResize() {
-            const widthChanged = window.innerWidth !== lastWinWidth;
-            const heightChanged = Math.abs(window.innerHeight - lastWinHeight) > 100;
-
-            if (widthChanged || heightChanged) {
-                setupCanvas();
-                lastWinWidth = window.innerWidth;
-                lastWinHeight = window.innerHeight;
-                if (lastDrawnFrame >= 0 && images[lastDrawnFrame]) {
-                    drawCover(images[lastDrawnFrame]);
+            // 2. Lógica de Morphing e Opacidade do HTML (Framer Motion feel)
+            for(let i = 0; i < totalSteps; i++) {
+                const el = document.getElementById(`step-${i}`);
+                if (i === newStep) {
+                    el.className = 'step-container active';
+                } else if (i < newStep) {
+                    el.className = 'step-container exit-up';
+                } else {
+                    el.className = 'step-container exit-down';
                 }
             }
+
+            // 3. Atualiza os indicadores do rodapé
+            for(let i = 0; i < totalSteps; i++) {
+                const ind = document.getElementById(`ind-${i}`);
+                ind.className = `transition-all duration-700 rounded-full h-[3px] ${i === newStep ? 'w-12 bg-[#FF5A1F]' : 'w-4 bg-white/20'}`;
+            }
+
+            currentStep = newStep;
         }
 
-        window.addEventListener('resize', handleSmartResize);
-        let lastDrawnFrame = -1;
-
-        // --- MOTOR DE SCROLL RECALIBRADO (Cinematic Focus Pull) ---
-        function updateStepOpacity(element, fraction, inStart, inEnd, outStart, outEnd) {
-            let opacity = 0, blur = 20, scale = 1.1, ty = 0;
+        // Interceptador de Scroll
+        window.addEventListener('wheel', (e) => {
+            if (isThrottled) return;
+            isThrottled = true;
             
-            if (fraction <= inStart) { 
-                opacity = 0; blur = 20; scale = 1.05; ty = 10;
+            // Tempo de respiro para garantir que a animação (1.2s) termine antes do próximo scroll
+            setTimeout(() => { isThrottled = false; }, 1200);
+
+            if (e.deltaY > 0) updateView(currentStep + 1); // Rola pra baixo
+            else if (e.deltaY < 0) updateView(currentStep - 1); // Rola pra cima
+        });
+
+        // Suporte a Touch/Swipe em Mobile
+        let touchStartY = 0;
+        window.addEventListener('touchstart', e => touchStartY = e.changedTouches[0].screenY);
+        window.addEventListener('touchend', e => {
+            if (isThrottled) return;
+            let touchEndY = e.changedTouches[0].screenY;
+            if (touchStartY - touchEndY > 50) {
+                isThrottled = true; setTimeout(() => { isThrottled = false; }, 1200);
+                updateView(currentStep + 1); // Swipe Up
+            } else if (touchEndY - touchStartY > 50) {
+                isThrottled = true; setTimeout(() => { isThrottled = false; }, 1200);
+                updateView(currentStep - 1); // Swipe Down
             }
-            else if (fraction > inStart && fraction < inEnd) {
-                let p = (fraction - inStart) / (inEnd - inStart);
-                let easeP = 1 - Math.pow(1 - p, 3); // Cubic ease out
-                opacity = p; 
-                blur = 20 * (1 - easeP);
-                scale = 1.05 - (0.05 * easeP);
-                ty = 10 * (1 - easeP);
-            } 
-            else if (fraction >= inEnd && fraction <= outStart) {
-                opacity = 1; blur = 0; scale = 1; ty = 0;
-            } 
-            else if (fraction > outStart && fraction < outEnd) {
-                let p = (fraction - outStart) / (outEnd - outStart);
-                let easeP = p * p; // Quad ease in
-                opacity = 1 - p; 
-                blur = 20 * easeP;
-                scale = 1 - (0.05 * easeP);
-                ty = -10 * easeP;
-            } 
-            else { 
-                opacity = 0; blur = 20; scale = 0.95; ty = -10;
-            }
-
-            if (window.innerWidth <= 768) blur = blur > 0 ? blur * 0.5 : 0;
-            element.style.opacity = opacity.toFixed(3);
-            element.style.filter = blur > 0 ? `blur(${blur.toFixed(2)}px)` : 'none';
-            element.style.transform = `translate3d(0, ${ty.toFixed(2)}px, 0) scale(${scale.toFixed(3)})`;
-            element.style.pointerEvents = opacity > 0.5 ? 'auto' : 'none'; 
-        }
-
-        function renderFluidLoop() {
-            if (loadedCount === 0) { requestAnimationFrame(renderFluidLoop); return; }
-            
-            const currentScroll = Math.max(0, targetScrollY);
-            smoothedScrollY += (currentScroll - smoothedScrollY) * 0.05;
-            
-            const maxScroll = Math.max(1, heroEl.offsetHeight - window.innerHeight);
-            const fraction = Math.max(0, Math.min(1, smoothedScrollY / maxScroll));
-            const frameIndex = Math.min(frameCount - 1, Math.floor(fraction * (frameCount - 1)));
-            
-            if (frameIndex !== lastDrawnFrame && images[frameIndex]) {
-                drawCover(images[frameIndex]);
-                lastDrawnFrame = frameIndex;
-            }
-
-            const bgScale = 1 + (fraction * 0.1);
-            canvas.style.transform = `translateZ(0) scale(${bgScale.toFixed(3)})`;
-
-            if (document.body.classList.contains('loaded')) {
-                // Ajuste feito aqui: inEnd de step1 alterado de 0.10 para 0.00 para que em scroll 0 o blur seja 0 e opacidade 1
-                updateStepOpacity(step1, fraction, -0.10, 0.00, 0.25, 0.35);
-                updateStepOpacity(step2, fraction, 0.30, 0.45, 0.60, 0.70);
-                updateStepOpacity(step3, fraction, 0.65, 0.80, 0.95, 1.05);
-            }
-            requestAnimationFrame(renderFluidLoop);
-        }
-        requestAnimationFrame(renderFluidLoop);
-
-        const counters = document.querySelectorAll('.number-counter');
-        const counterObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if(entry.isIntersecting) {
-                    const target = entry.target;
-                    const endValue = parseInt(target.getAttribute('data-target'));
-                    const duration = 2000;
-                    let startTime = null;
-
-                    function countUp(timestamp) {
-                        if (!startTime) startTime = timestamp;
-                        const progress = timestamp - startTime;
-                        const percentage = Math.min(progress / duration, 1);
-                        const easeOut = percentage === 1 ? 1 : 1 - Math.pow(2, -10 * percentage);
-                        
-                        target.innerText = Math.floor(easeOut * endValue);
-                        
-                        if (progress < duration) {
-                            requestAnimationFrame(countUp);
-                        } else {
-                            target.innerText = endValue;
-                        }
-                    }
-                    requestAnimationFrame(countUp);
-                    observer.unobserve(target);
-                }
-            });
-        }, { threshold: 0.5 });
-        counters.forEach(counter => counterObserver.observe(counter));
-
-        // --- Lógica da Assistente Virtual K-ONE ---
-        const chatToggleBtn = document.getElementById('chat-toggle-btn');
-        const closeChatBtn = document.getElementById('close-chat-btn');
-        const chatWindow = document.getElementById('chat-window');
-        const chatForm = document.getElementById('chat-form');
-        const chatInput = document.getElementById('chat-input');
-        const chatMessages = document.getElementById('chat-messages');
-        let chatStarted = false;
-
-        function getDynamicGreeting() {
-            const hour = new Date().getHours();
-            if (hour < 12) return 'Bom dia';
-            if (hour < 18) return 'Boa tarde';
-            return 'Boa noite';
-        }
-
-        function toggleChat() {
-            chatWindow.classList.toggle('chat-open');
-            
-            if (chatWindow.classList.contains('chat-open')) {
-                if (window.innerWidth <= 768) document.body.style.overflow = 'hidden';
-                
-                if (!chatStarted) {
-                    const typingId = showTypingIndicator();
-                    setTimeout(() => {
-                        removeTypingIndicator(typingId);
-                        addMessage(`${getDynamicGreeting()}! Sou a Camila, assistente digital da K-ONE. Como posso ajudar você a construir sua <span class="text-white font-semibold">autoridade na mídia</span> hoje?`, false);
-                        chatStarted = true;
-                    }, 800);
-                }
-                setTimeout(() => chatInput.focus(), 300);
-            } else {
-                document.body.style.overflow = '';
-                chatInput.blur();
-            }
-        }
-
-        chatToggleBtn.addEventListener('click', toggleChat);
-        closeChatBtn.addEventListener('click', toggleChat);
-
-        function addMessage(text, isUser = false) {
-            const msgDiv = document.createElement('div');
-            msgDiv.className = `flex gap-2 w-full max-w-[85%] ${isUser ? 'ml-auto justify-end' : ''}`;
-            
-            const msgBubble = document.createElement('div');
-            msgBubble.className = `p-3.5 rounded-2xl leading-relaxed shadow-md ${
-                isUser 
-                ? 'bg-brand-orange text-white rounded-tr-sm' 
-                : 'bg-brand-black/80 border border-brand-gold/10 text-brand-light-gray rounded-tl-sm'
-            }`;
-            msgBubble.innerHTML = text;
-
-            msgDiv.appendChild(msgBubble);
-            chatMessages.appendChild(msgDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-
-        function showTypingIndicator() {
-            const id = 'typing-' + Date.now();
-            const msgDiv = document.createElement('div');
-            msgDiv.id = id;
-            msgDiv.className = `flex gap-2 w-full max-w-[85%]`;
-            
-            const msgBubble = document.createElement('div');
-            msgBubble.className = `bg-brand-black/80 border border-brand-gold/10 px-4 py-3 rounded-2xl rounded-tl-sm shadow-md typing-indicator flex items-center h-[42px]`;
-            msgBubble.innerHTML = `<span></span><span></span><span></span>`;
-
-            msgDiv.appendChild(msgBubble);
-            chatMessages.appendChild(msgDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-            return id;
-        }
-
-        function removeTypingIndicator(id) {
-            const el = document.getElementById(id);
-            if (el) el.remove();
-        }
-
-        function getBotResponse(input) {
-            const lowerInput = input.toLowerCase();
-            const greetingMatch = lowerInput.match(/^(oi|olá|ola|bom dia|boa tarde|boa noite|tudo bem)/);
-            
-            if (greetingMatch) {
-                return `${getDynamicGreeting()}! Como posso te ajudar a ser destaque na mídia hoje?`;
-            }
-            if (lowerInput.includes('metodologia') || lowerInput.includes('funciona') || lowerInput.includes('como fazem')) {
-                return 'A Metodologia K-ONE é baseada em 4 pilares: <br><br>1. <span class="text-white">Pautas Únicas</span><br>2. <span class="text-white">Visão Nacional</span><br>3. <span class="text-white">Gestão de Imagem</span><br>4. <span class="text-white">Clipagem Ativa</span>.<br><br>Garantimos que a sua expertise técnica vire uma notícia relevante.';
-            } 
-            if (lowerInput.includes('serviço') || lowerInput.includes('o que fazem') || lowerInput.includes('oferecem')) {
-                return 'Somos um acelerador de autoridade. Oferecemos <b>Mailing Estratégico</b>, <b>Cobertura Completa</b> e <b>Gestão de Imagem e Liderança (Media Training)</b> para C-Levels e atletas.';
-            }
-            if (lowerInput.includes('resultado') || lowerInput.includes('número') || lowerInput.includes('garantia') || lowerInput.includes('eficiência')) {
-                return 'Nossos clientes garantem <span class="text-brand-orange font-bold">3x mais eficiência</span> na aprovação de pautas nos principais veículos de comunicação e mantêm 100% de foco ativo na reputação.';
-            }
-            if (lowerInput.includes('cliente') || lowerInput.includes('empresas') || lowerInput.includes('forbes') || lowerInput.includes('exame')) {
-                return 'Conectamos marcas, executivos e atletas aos seus públicos. Nossos clientes conquistam manchetes em veículos como <span class="text-white">Forbes, Exame, Estadão e Valor Econômico</span>.';
-            }
-            if (lowerInput.includes('k-one') || lowerInput.includes('kone') || lowerInput.includes('quem são') || lowerInput.includes('sobre')) {
-                return 'A K-ONE atua como uma solução Top of Mind para quem busca credibilidade e confiança. Acreditamos que a atenção não se compra, <span class="text-brand-orange">se conquista na mídia</span>.';
-            }
-            if (lowerInput.includes('valor') || lowerInput.includes('preço') || lowerInput.includes('contato') || lowerInput.includes('falar')) {
-                return 'Como cada estratégia é única, o ideal é conversar com nossos especialistas. <a href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20falar%20com%20um%20especialista." target="_blank" class="text-brand-orange font-bold underline">Clique aqui para ir ao nosso WhatsApp oficial</a> e dar o próximo passo.';
-            }
-            
-            return 'Entendo. O foco da K-ONE é conectar marcas aos seus públicos através da grande mídia. Quer que eu direcione você para o time comercial no WhatsApp? <br><br><a href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Gostaria%20de%20entender%20como%20a%20K-ONE%20pode%20acelerar%20minha%20autoridade." target="_blank" class="text-brand-orange underline font-medium">Falar com o Time K-ONE</a>';
-        }
-
-        chatForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const text = chatInput.value.trim();
-            if (!text) return;
-
-            addMessage(text, true);
-            chatInput.value = '';
-
-            const typingId = showTypingIndicator();
-
-            setTimeout(() => {
-                removeTypingIndicator(typingId);
-                const response = getBotResponse(text);
-                addMessage(response, false);
-            }, 1500);
         });
     </script>
 </body>
